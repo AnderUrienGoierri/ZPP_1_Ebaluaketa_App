@@ -2,9 +2,10 @@
 
 > 🚀 **AZTERKETA ENTRENATZAILEA (Web & Android App)**: Karpeta honetan ZPP 1. ebaluaketako azterketa prestatzeko garatutako aplikazio interaktiboa daukazu, **Android APK** eta **Web aplikazio** formatuan!
 >
-> * 📲 **Android APK deskargatzeko:** [`ZPP_Entrenatzailea.apk`](./ZPP_Entrenatzailea.apk)
-> * 📦 **ZIP pakete osoa (Web + APK + Argibideak):** [`ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip`](./ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip)
-> * 🌐 **Web bertsioa zuzenean probatzeko:** Ireki [`zpp_entrenatzailea/app/index.html`](./zpp_entrenatzailea/app/index.html) zure nabigatzailean.
+> * 🌐 **Web bertsioa zuzenean nabigatzailean erabiltzeko (Deskargatu gabe):**  
+>   👉 [**https://anderuriengoierri.github.io/ZPP_1_Ebaluaketa_App/**](https://anderuriengoierri.github.io/ZPP_1_Ebaluaketa_App/)
+> * 📲 **Android APK deskargatzeko:** [`ZPP_Entrenatzailea.apk`](https://github.com/AnderUrienGoierri/ZPP_1_Ebaluaketa_App/raw/main/ZPP_Entrenatzailea.apk)
+> * 📦 **ZIP pakete osoa (Web + APK + Argibideak):** [`ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip`](https://github.com/AnderUrienGoierri/ZPP_1_Ebaluaketa_App/raw/main/ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip)
 >
 > **Aplikazioaren ezaugarriak:**
 > 1. 📝 **Teoria Testa**: 80 galdera erreal, aukera nahasiak (B arriskurik gabe), tenporizadorea eta akatsak birpasatzeko modua.
