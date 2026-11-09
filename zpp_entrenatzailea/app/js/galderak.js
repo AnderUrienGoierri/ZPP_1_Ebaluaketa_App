@@ -1,13 +1,13 @@
 /**
- * ZPP (Zerbitzu eta Prozesuen Programazioa) - 1. Ebaluaketako Galdera-Banku Osoa (80 GALDERA)
+ * ZPP (Zerbitzu eta Prozesuen Programazioa) - 1. Ebaluaketako Galdera-Banku Osoa (85 GALDERA)
  * 
  * Hobekuntza Aurreratuak:
- * 1. 80 galdera teoriko osoak klaseko gai guztiak xehetasunez lantzeko.
+ * 1. 85 galdera teoriko osoak klaseko gai guztiak xehetasunez lantzeko (java.util.concurrent barne).
  * 2. ERANTZUNEN LUZERA OREKATUAK: Erantzun okerrak (distractors) berdin-berdin
  *    xehatuak, sakonak eta sinesgarriak dira. Luzerak ez du sekula erantzun zuzena salatzen!
  *    - Erantzun luzeena zuzena: ~26%
- *    - Erantzun motzena zuzena: ~29%
- *    - Tarteko luzera zuzena: ~45%
+ *    - Erantzun motzena zuzena: ~28%
+ *    - Tarteko luzera zuzena: ~46%
  * 3. Hitz gakoak, klaseak eta metodoak <code class="inline-code"> bidez koloreztatuta.
  * 4. A, B, C, D erantzunen posizioak oreka zehatzean banatuta (eta exekuzioan nahastuak).
  */
@@ -1052,6 +1052,71 @@ const GALDERA_BANKUA = [
     ],
     "zuzena": 1,
     "azalpena": "'directory(File)' bidez prozesuaren uneko lan-karpeta zehazten da. Horrela, prozesuak fitxategi erlatiboak karpeta horretan bilatuko ditu."
+  },
+  {
+    "id": 81,
+    "gaia": "java.util.concurrent: Atomoak",
+    "enuntziatua": "Zer abantaila eskaintzen du <code class='inline-code'>AtomicInteger</code> klaseak (<code class='inline-code'>java.util.concurrent.atomic</code>) aldagai oso arrunt baten (<code class='inline-code'>int</code>) aldean?",
+    "aukerak": [
+      "Disko gogorreko fitxategietan balioa automatikoki gordetzen du segurtasuna bermatzeko helburuarekin eta transakzioak kudeatzeko.",
+      "Hardware mailako CAS (<code class='inline-code'>Compare-And-Swap</code>) bidez blokeorik gabeko (<code class='inline-code'>lock-free</code>) eragiketa atomiko seguruak bermatzen ditu.",
+      "Sistema eragileak aldagaiari bere nukleo fisiko propioa esleitzen dio kalkuluak azkarrago ebazteko metodo guztietan.",
+      "Zenbaki hamartarrak (<code class='inline-code'>double</code>) bakarrik onartzen dituelako eta ez osoak."
+    ],
+    "zuzena": 1,
+    "azalpena": "AtomicInteger-ek CPUaren CAS (Compare-And-Swap) aginduak erabiltzen ditu. Horrela, eragiketa atomikoak (adib. incrementAndGet()) synchronized bloke astunen beharrik gabe eta errendimendu maximoarekin ebazten dira."
+  },
+  {
+    "id": 82,
+    "gaia": "java.util.concurrent: Sinkronizatzaileak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>CyclicBarrier</code> klaseak hari anitzen koordinazioan?",
+    "aukerak": [
+      "Haria behin betiko eteten du eta salbuespen larria jaurtitzen du beste hariei abisua emateko.",
+      "Partaide kopuru finko bat (<code class='inline-code'>await()</code> bidez) puntu jakin batera iritsi arte itxaroten du, eta behin denak iritsita hesia ireki eta berriz erabil daiteke.",
+      "Erlojuaren maiztasuna motelduz hari guztiek atazak segundo berean amaitzea behartzen du hardware mailan.",
+      "Hari guztiei batera disko-sarbidea ukatzen die eta sistema eragilearen planifikatzaileari seinale berezi bat bidaltzen dio prozesua berehala hiltzeko."
+    ],
+    "zuzena": 1,
+    "azalpena": "CyclicBarrier-ek hesi bat ezartzen du: hari bakoitzak await() deitzen du, eta ezarritako partaide kopuru osoa iritsi arte denak blokeatuta geratzen dira. Puntu horretara iristean, hesia ireki eta ziklikoki berrerabil daiteke."
+  },
+  {
+    "id": 83,
+    "gaia": "java.util.concurrent: Sinkronizatzaileak",
+    "enuntziatua": "Zer desberdintasun nagusi dago <code class='inline-code'>CountDownLatch</code> eta <code class='inline-code'>CyclicBarrier</code> artean?",
+    "aukerak": [
+      "<code class='inline-code'>CountDownLatch</code> behin bakarrik erabil daiteke (0ra iritsita ezin da berrabiarazi); <code class='inline-code'>CyclicBarrier</code> berriz ziklikoki berrerabilgarria da.",
+      "<code class='inline-code'>CountDownLatch</code>-ek sareko socket konexioak bakarrik onartzen ditu eta <code class='inline-code'>CyclicBarrier</code>-ek berriz sistema eragilearen fitxategiak kudeatzen ditu.",
+      "<code class='inline-code'>CyclicBarrier</code> bakarrik erabil daiteke sareko programazioan eta <code class='inline-code'>CountDownLatch</code> disko-atazetan bakarrik.",
+      "Ez dago inolako desberdintasunik, izen desberdineko klase berdin-berdinak baitira Java estandarraren barruan."
+    ],
+    "zuzena": 0,
+    "azalpena": "CountDownLatch atzerako kontaketa bat da: behin kontagailua zerora jaitsita (countDown()), latch-a zabalik geratzen da eta ezin da berrerabili. CyclicBarrier berriz 'ziklikoa' da, behin eta berriz berrerabili daiteke."
+  },
+  {
+    "id": 84,
+    "gaia": "java.util.concurrent: Executors",
+    "enuntziatua": "Zergatik da gomendagarria <code class='inline-code'>ExecutorService</code> hari-pool bat erabiltzea eskuz <code class='inline-code'>new Thread()</code> sortzea baino?",
+    "aukerak": [
+      "Hariak etengabe sortu eta suntsitzearen kostu handia saihesten du (hariak berrerabiliz) eta atazen ilara modu kontrolatuan kudeatzen du.",
+      "<code class='inline-code'>new Thread()</code> etengabe deitzeak sistema eragilearen hari-muga azkar gainditu dezake (<code class='inline-code'>OutOfMemoryError</code>) eta sistemaren errendimendua lurrera bota dezake.",
+      "<code class='inline-code'>ExecutorService</code>-k hari guztien CPU erabilera zeroan mantentzen duelako ataza astunetan.",
+      "Sistema eragileak hari-pool bat automatikoki itzaltzen duelako inolako agindurik eman gabe."
+    ],
+    "zuzena": 0,
+    "azalpena": "Hari berri bat sortzea garestia da sistema eragilearentzat (memoria eta erregistroak esleitu). ExecutorService-k hari-kopuru finko bat berrerabiltzen du eta atazen ilara modu egonkorrean kontrolatzen du."
+  },
+  {
+    "id": 85,
+    "gaia": "java.util.concurrent: Future",
+    "enuntziatua": "Zer egiten du <code class='inline-code'>Future.get()</code> metodoak ataza asinkrono baten emaitza eskuratzean?",
+    "aukerak": [
+      "Emaitza prest egon arte deitzen duen haria blokeatzen du, eta behin kalkulua amaituta emaitza itzultzen du.",
+      "Unean bertan balio lehenetsi bat itzultzen du ataza amaitu ez bada, eta ataza nagusiak aurrera jarraitzen du itxaronaldirik gabe.",
+      "Ataza atzeko planoan bertan behera uzten du eta salbuespen bat jaurtitzen du kontsolan.",
+      "Beste hari guztiak behartuta itzaltzen ditu emaitza lehenbailehen prozesadore nagusira bidaltzeko."
+    ],
+    "zuzena": 0,
+    "azalpena": "Future.get() metodo sinkronoa eta blokeatzailea da: ataza kalkulatzen ari den bitartean deitzen duen haria itxaroten gelditzen da, eta kalkulua bukatutakoan itzultzen du Callable-ren emaitza."
   }
 ];
 
