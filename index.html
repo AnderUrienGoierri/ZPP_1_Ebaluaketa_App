@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=5.0, user-scalable=yes">
   <title>ZPP 1. Ebaluaketa - Azterketa Entrenatzailea</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
@@ -22,22 +22,22 @@
         </div>
       </div>
 
-      <nav>
+      <nav id="main-nav">
         <button class="nav-btn active" data-target="teoria">
-          <span>📝</span>
-          <span>Teoria Testa (20)</span>
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">Teoria Testa</span>
         </button>
         <button class="nav-btn" data-target="praktika">
-          <span>💻</span>
-          <span>Zati Praktikoa</span>
+          <span class="nav-icon">💻</span>
+          <span class="nav-label">Zati Praktikoa</span>
         </button>
         <button class="nav-btn" data-target="estatistikak">
-          <span>📊</span>
-          <span>Nire Estatistikak</span>
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Estatistikak</span>
         </button>
         <button class="nav-btn" data-target="laburpena">
-          <span>📚</span>
-          <span>Gida Bizkorra</span>
+          <span class="nav-icon">📚</span>
+          <span class="nav-label">Gida Bizkorra</span>
         </button>
       </nav>
     </div>
@@ -348,6 +348,13 @@
       <div>ZPP 1. Ebaluaketako Azterketa Entrenatzailea · Web & Android App</div>
     </div>
   </footer>
+
+  <!-- ZOOM KONTROLAK (PANTALIA GUZTIETARAKO ZOOM-A) -->
+  <div class="zoom-floating-widget" id="zoom-widget">
+    <button class="zoom-btn" id="zoom-out-btn" title="Txikitu Zoom-a (Zoom -)" aria-label="Txikitu">🔍−</button>
+    <button class="zoom-btn zoom-indicator" id="zoom-reset-btn" title="Leheneratu (100%)" aria-label="100%">100%</button>
+    <button class="zoom-btn" id="zoom-in-btn" title="Handitu Zoom-a (Zoom +)" aria-label="Handitu">🔍+</button>
+  </div>
 
   <!-- SCRIPT-AK -->
   <script src="js/galderak.js"></script>

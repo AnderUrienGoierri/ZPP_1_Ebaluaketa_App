@@ -30,6 +30,7 @@ const EGOERA = {
 document.addEventListener('DOMContentLoaded', () => {
   setupNavigation();
   setupModal();
+  setupZoomControl();
   hasiTeoriaTesta();
   setupPraktika();
   kargatuLaburpena();
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // NABIGAZIOA ETA MODALA (EZ USTEKABEAN TESTA ITXI)
 // =========================================================================
 function setupNavigation() {
-  const navBtns = document.querySelectorAll('.nav-btn');
+  const navBtns = document.querySelectorAll('header .nav-btn');
   navBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.dataset.target;
@@ -70,7 +71,7 @@ function eskaeraAldatuTab(targetTab) {
 function aldatuTab(targetTab) {
   EGOERA.unekoTab = targetTab;
   
-  document.querySelectorAll('.nav-btn').forEach(btn => {
+  document.querySelectorAll('header .nav-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.target === targetTab);
   });
 
@@ -943,7 +944,7 @@ function kargatuLaburpena() {
   if (!laburpenContainer) return;
 
   laburpenContainer.innerHTML = `
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:20px;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap:20px;">
       
       <!-- TXARTELA 1: 7 EGOERAK + SVG DIAGRAMA -->
       <div class="question-card">
@@ -1162,4 +1163,46 @@ function kargatuLaburpena() {
 
     </div>
   `;
+}
+
+// =========================================================================
+// ZOOM KONTROLA (PANTALIA GUZTIETARAKO ZOOM ERABILGARRIA)
+// =========================================================================
+let unekoZooma = 1.0;
+
+function setupZoomControl() {
+  const zoomInBtn = document.getElementById('zoom-in-btn');
+  const zoomOutBtn = document.getElementById('zoom-out-btn');
+  const zoomResetBtn = document.getElementById('zoom-reset-btn');
+
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener('click', () => aldatuZooma(0.1));
+  }
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener('click', () => aldatuZooma(-0.1));
+  }
+  if (zoomResetBtn) {
+    zoomResetBtn.addEventListener('click', () => aldatuZooma(0, true));
+  }
+}
+
+function aldatuZooma(delta, leheneratu = false) {
+  if (leheneratu) {
+    unekoZooma = 1.0;
+  } else {
+    unekoZooma = Math.min(2.0, Math.max(0.7, Math.round((unekoZooma + delta) * 10) / 10));
+  }
+
+  // Nabigatzaile modernoetan eta Android WebView-n zoom aplikatu
+  if ('zoom' in document.body.style) {
+    document.body.style.zoom = unekoZooma;
+  } else {
+    // Firefox fallback
+    document.documentElement.style.fontSize = (unekoZooma * 16) + 'px';
+  }
+
+  const resetBtn = document.getElementById('zoom-reset-btn');
+  if (resetBtn) {
+    resetBtn.textContent = Math.round(unekoZooma * 100) + '%';
+  }
 }
