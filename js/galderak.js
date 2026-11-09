@@ -1,1079 +1,1054 @@
 /**
  * ZPP (Zerbitzu eta Prozesuen Programazioa) - 1. Ebaluaketako Galdera-Banku Osoa (80 GALDERA)
  * 
- * Hobekuntzak:
+ * Hobekuntza Aurreratuak:
  * 1. 80 galdera teoriko osoak klaseko gai guztiak xehetasunez lantzeko.
- * 2. Erantzunen luzera orekatua (luzerak ez du erantzun zuzena salatzen).
+ * 2. ERANTZUNEN LUZERA OREKATUAK: Erantzun okerrak (distractors) berdin-berdin
+ *    xehatuak, sakonak eta sinesgarriak dira. Luzerak ez du sekula erantzun zuzena salatzen!
  * 3. Hitz gakoak, klaseak eta metodoak <code class="inline-code"> bidez koloreztatuta.
+ * 4. A, B, C, D erantzunen posizioak oreka zehatzean banatuta.
  */
 
 const GALDERA_BANKUA = [
-  // =========================================================================
-  // 0. GAIA: SARRERA, PROZESADOREAK, LENGOAIAK ETA KONTZEPTUAK (1-12)
-  // =========================================================================
   {
-    id: 1,
-    gaia: "Sarrera eta Prozesadoreak",
-    enuntziatua: "Nukleo bakarreko (<code class='inline-code'>Single-Core</code>) PUZ batean hainbat ataza aldi berean exekutatzen direla dirudienean, zer gertatzen da benetan hardware mailan?",
-    aukerak: [
-      "Hardwareak ataza guztiak bateratu eta eragiketa bakar batean ebazten ditu.",
+    "id": 1,
+    "gaia": "Sarrera eta Prozesadoreak",
+    "enuntziatua": "Nukleo bakarreko (<code class='inline-code'>Single-Core</code>) PUZ batean hainbat ataza aldi berean exekutatzen direla dirudienean, zer gertatzen da benetan hardware mailan?",
+    "aukerak": [
+      "Hardwarearen barneko L1 eta L2 katxeek paralelismo fisikoa garatzen dute aldi berean hainbat kalkulu eginez.",
       "PUZak denbora-tarte txikiak txandakatzen ditu (<code class='inline-code'>time-slicing</code>), aldiberekotasun simulatua sortuz.",
-      "CPUak benetako paralelismo fisikoa garatzen du bere barneko L1 katxe memorian.",
-      "Sistema eragileak ataza bakoitza osorik amaitu arte itxaroten du hurrengoa hasi gabe."
+      "Sistema eragileak ataza guztiak sekuentzialki ilara bakar batean metatzen ditu eta multzoka azkarrago ebazten ditu.",
+      "Prozesadorearen erloju-maiztasuna bikoiztu egiten da ataza bakoitzari bere nukleo birtual propioa eskaintzeko."
     ],
-    zuzena: 1,
-    azalpena: "Nukleo bakarreko PUZ batean une bakoitzean agindu bakarra gauzatzen da. Sistema eragilearen planifikatzaileak denbora-tarte txikiak (zenbait milisegundo) esleitzen dizkie atazei txandaka, giza begiarentzat aldibereko ilusioa sortuz."
+    "zuzena": 1,
+    "azalpena": "Nukleo bakarreko PUZ batean une bakoitzean agindu bakarra gauzatzen da. Sistema eragilearen planifikatzaileak denbora-tarte txikiak (zenbait milisegundo) esleitzen dizkie atazei txandaka, giza begiarentzat aldibereko ilusioa sortuz."
   },
   {
-    id: 2,
-    gaia: "Sarrera eta Prozesadoreak",
-    enuntziatua: "Konparatu Intel 80486 (1989) eta gaur egungo Intel Core i7 prozesadore moderno bat. Zein baieztapen da ZUZENA?",
-    aukerak: [
-      "Intel 486ak 64 biteko arkitektura zuen eta 8 nukleo integratu zituen lehen aldiz merkatuan.",
+    "id": 2,
+    "gaia": "Sarrera eta Prozesadoreak",
+    "enuntziatua": "Konparatu Intel 80486 (1989) eta gaur egungo Intel Core i7 prozesadore moderno bat. Zein baieztapen da ZUZENA?",
+    "aukerak": [
       "Intel Core i7-ak GHz abiadura, nukleo anitzak eta <code class='inline-code'>Hyper-Threading</code> bidez hari logiko ugari eskaintzen ditu.",
-      "Intel 486ak erloju-maiztasun handiagoa lortzen zuen (5 GHz), baina transistore gutxiago zituen.",
-      "Bi prozesadoreek L3 motako katxe memoria partekatu bera erabiltzen dute barne-egituran."
+      "Intel 486ak 64 biteko arkitektura zuen eta zortzi nukleo integratu zituen lehen aldiz merkatuko zerbitzari handietan.",
+      "Intel 486ak erloju-maiztasun handiagoa lortzen zuen (5 GHz inguru), baina siliziozko transistore gutxiago zituen barruan.",
+      "Bi prozesadoreek 32 biteko arkitektura bera mantentzen dute eta L3 motako katxe memoria partekatua dute oinarrian."
     ],
-    zuzena: 1,
-    azalpena: "Intel 486ak 25-50 MHz, 32 bit eta nukleo bakarra zituen (~1.2 milioi transistore). Core i7 modernoek GHz-tako maiztasuna, 8-24 nukleo, Hyper-Threading eta 24-36 MB L3 katxe dituzte."
+    "zuzena": 0,
+    "azalpena": "Intel 486ak 25-50 MHz, 32 bit eta nukleo bakarra zituen (~1.2 milioi transistore). Core i7 modernoek GHz-tako maiztasuna, 8-24 nukleo, Hyper-Threading eta 24-36 MB L3 katxe dituzte."
   },
   {
-    id: 3,
-    gaia: "Programazio Lengoaiak",
-    enuntziatua: "Nola sailkatzen da Java programazio-lengoaia konpilazio eta exekuzio ereduari dagokionez?",
-    aukerak: [
-      "Lengoaia konpilatu hutsa da (C bezala), zuzenean plataformaren makina-kodera itzultzen delako.",
-      "Lengoaia hibridoa da: iturburua Bytecode-ra (<code class='inline-code'>.class</code>) konpilatzen da eta JVMk exekutatzen du.",
-      "Lengoaia interpretatu hutsa da (Python bezala), fitxategia unean bertan lerroz lerro irakurtzen delako.",
-      "Lengoaia deklaratiboa da (SQL bezala), ez baitu inolako tarteko fitxategirik sortzen diskoan."
+    "id": 3,
+    "gaia": "Programazio Lengoaiak",
+    "enuntziatua": "Nola sailkatzen da Java programazio-lengoaia konpilazio eta exekuzio ereduari dagokionez?",
+    "aukerak": [
+      "Lengoaia konpilatu hutsa da (C bezala), kode iturburua zuzenean x86 makina-kodera itzultzen delako aldez aurretik.",
+      "Lengoaia interpretatu hutsa da (Python bezala), kodea unean bertan lerroz lerro irakurri eta gauzatzen baita.",
+      "Lengoaia deklaratiboa da (SQL bezala), ez baitu inolako tarteko fitxategirik ezta exekuzio-ingurunerik behar.",
+      "Lengoaia hibridoa da: Bytecodera konpilatu eta JVMk interpretatzen du."
     ],
-    zuzena: 1,
-    azalpena: "Javak 'Write Once, Run Anywhere' printzipioa du: javac-ek Java kodea plataforma-independentea den Bytecode bihurtzen du, eta sistema bakoitzeko JVMk (JIT konpilatzaile bidez) hardwareari egokitzen dio."
+    "zuzena": 3,
+    "azalpena": "Javak 'Write Once, Run Anywhere' printzipioa du: javac-ek Java kodea plataforma-independentea den Bytecode bihurtzen du (.class), eta sistema bakoitzeko JVMk (JIT konpilatzaile bidez) hardwareari egokitzen dio."
   },
   {
-    id: 4,
-    gaia: "Kontzeptu Oinarrizkoak",
-    enuntziatua: "Zein da desberdintasun zehatza 'Programa' baten eta 'Prozesu' baten artean?",
-    aukerak: [
-      "Programa RAM memorian kargatutako kodea da, eta prozesua diskoan gordetako fitxategia.",
+    "id": 4,
+    "gaia": "Kontzeptu Oinarrizkoak",
+    "enuntziatua": "Zein da desberdintasun zehatza 'Programa' baten eta 'Prozesu' baten artean?",
+    "aukerak": [
+      "Programa erabiltzaileak fitxategian idazten duen testua da, eta prozesua sareko komunikazio-bide bati deitzen zaio.",
       "Programa kode pasiboa da diskoan; prozesua, aldiz, exekuzioan dagoen programa aktiboa da RAMen.",
-      "Ez dago inolako desberdintasunik, sistema eragilean bi terminoak guztiz sinonimoak baitira.",
-      "Programa erabiltzaileak idazten duena da, eta prozesua hardwareak bakarrik kudeatzen duena."
+      "Ez dago inolako desberdintasunik kontzeptu hauetan, sistema eragilearen dokumentazioan sinonimoak baitira.",
+      "Programa RAM memorian kargatutako datu-egitura da, eta prozesua disko gogorrean gordetako exekutagarria da."
     ],
-    zuzena: 1,
-    azalpena: "Programa entitate pasiboa da (kode iturburua edo exekutagarria diskoan). Prozesua entitate aktiboa da: RAMen dago, PIDa du, baliabideak esleituta ditu eta PUZ denbora jasotzen du."
+    "zuzena": 1,
+    "azalpena": "Programa entitate pasiboa da (kode iturburua edo exekutagarria diskoan). Prozesua entitate aktiboa da: RAMen dago, PIDa du, baliabideak esleituta ditu eta PUZ denbora jasotzen du."
   },
   {
-    id: 5,
-    gaia: "Kontzeptu Oinarrizkoak",
-    enuntziatua: "Zer da 'Zerbitzu' bat (Windows-en Service, Linux-en Daemon)?",
-    aukerak: [
-      "Erabiltzailearen pantailan leiho nagusi bat bistaratzen duen aplikazio arrunt bat.",
+    "id": 5,
+    "gaia": "Kontzeptu Oinarrizkoak",
+    "enuntziatua": "Zer da 'Zerbitzu' bat (Windows-en Service, Linux-en Daemon)?",
+    "aukerak": [
       "Atzeko planoan (<code class='inline-code'>background</code>), GUI gabe martxan dagoen prozesu iraunkor bat.",
-      "Fitxategiak diskotik ezabatzeko sistema eragileak erabiltzen duen script berezi bat.",
-      "Prozesadorearen nukleo fisiko bat desaktibatzen duen behe-mailako kontrol-agindua."
+      "Erabiltzailearen mahaigainean leiho grafiko interaktibo bat irekitzen duen aplikazio arrunta.",
+      "Fitxategiak diskotik ezabatzeko sistema eragilearen kernelak exekutatzen duen agindu azkar bat.",
+      "Prozesadorearen nukleo fisiko bat aldi baterako desaktibatzen duen tenperatura-kontrolagailua."
     ],
-    zuzena: 1,
-    azalpena: "Zerbitzuak (daemons) erabiltzailearen zuzeneko interakziorik gabe atzeko planoan lanean ari diren prozesu iraunkorrak dira (adib. spoolsv.exe inprimatzeko, web zerbitzariak, sshd)."
+    "zuzena": 0,
+    "azalpena": "Zerbitzuak (daemons) erabiltzailearen zuzeneko interakziorik gabe atzeko planoan lanean ari diren prozesu iraunkorrak dira (adib. spoolsv.exe inprimatzeko, web zerbitzariak, sshd)."
   },
   {
-    id: 6,
-    gaia: "Sistema Banatuak",
-    enuntziatua: "Zein da sistema banatuen (<code class='inline-code'>Distributed Systems</code>) ezaugarri nagusia?",
-    aukerak: [
-      "Nodo guztiek fisikoki memoria nagusi (RAM) bera partekatzen dute bus baten bidez.",
-      "Lana sare bidez lotutako ordenagailu independenteetan banatzen da, mezu-truke bidez komunikatuz.",
-      "Ezin dute ataza bakar baten gainean batera lan egin sareko latentzia handia dela eta.",
-      "Sistema eragilearen kernel bakar batek zuzentzen ditu mikroprozesadore fisiko guztiak."
+    "id": 6,
+    "gaia": "Sistema Banatuak",
+    "enuntziatua": "Zein da sistema banatuen (<code class='inline-code'>Distributed Systems</code>) ezaugarri nagusia?",
+    "aukerak": [
+      "Nodo guztiek fisikoki memoria nagusi (RAM) bera partekatzen dute abiadura handiko bus baten bidez.",
+      "Lana sare bidez lotutako ordenagailuetan banatzen da, mezuak trukatuz elkarlanean aritzeko.",
+      "Sistema eragilearen kernel bakar batek zuzentzen ditu sareko ordenagailu guztien hardware baliabideak.",
+      "Nodo bakoitzak ezin du besteekin komunikatu, segurtasun arrazoiengatik erabat isolatuta baitaude."
     ],
-    zuzena: 1,
-    azalpena: "Sistema banatuetan ordenagailu independenteek ez dute memoria fisikorik partekatzen; sare-protokoloen (TCP/IP, RPC, REST) bidez trukatzen dituzte mezuak elkarlanean aritzeko."
+    "zuzena": 1,
+    "azalpena": "Sistema banatuetan ordenagailu independenteek ez dute memoria fisikorik partekatzen; sare-protokoloen (TCP/IP, RPC, REST) bidez trukatzen dituzte mezuak elkarlanean aritzeko."
   },
   {
-    id: 7,
-    gaia: "Programazio Lengoaiak",
-    enuntziatua: "Lengoaia konpilatuen (adib. C, C++) alde onena eta txarrena zeintzuk dira?",
-    aukerak: [
-      "Oso eramangarriak dira sistema guztietan, baina exekuzio-abiadura oso motela dute beti.",
-      "Exekuzio-abiadura maximoa dute, baina ez dira eramangarriak (sistema bakoitzerako birkonpilatu behar da).",
-      "Ez dute inolako konpilatzailerik behar exekutatzeko, baina memoria asko xahutzen dute.",
-      "Web nabigatzaileetan bakarrik exekuta daitezke, baina segurtasun handia eskaintzen dute."
+    "id": 7,
+    "gaia": "Programazio Lengoaiak",
+    "enuntziatua": "Lengoaia konpilatuen (adib. C, C++) alde onena eta txarrena zeintzuk dira?",
+    "aukerak": [
+      "Web nabigatzaileetan bakarrik exekuta daitezke, baina segurtasun handia eskaintzen dute moteltasunaren truke.",
+      "Ez dute inolako konpilatzailerik behar exekutatzeko, baina RAM memoria asko xahutzen dute ziklo bakoitzean.",
+      "Exekuzio-abiadura maximoa dute, baina ez dira eramangarriak (sistema bakoitzerako berriz konpilatu behar da).",
+      "Oso eramangarriak dira sistema guztietan, baina exekuzio-abiadura oso motela dute interpretazioaren ondorioz."
     ],
-    zuzena: 1,
-    azalpena: "Konpilatutako kodea zuzenean makina-kodera (.exe, ELF) bihurtzen denez, abiadura eta errendimendua gorenekoak dira, baina sistema eragile eta arkitektura zehatzari estuki lotuta daude."
+    "zuzena": 2,
+    "azalpena": "Konpilatutako kodea zuzenean makina-kodera (.exe, ELF) bihurtzen denez, abiadura eta errendimendua gorenekoak dira, baina sistema eragile eta arkitektura zehatzari estuki lotuta daude."
   },
   {
-    id: 8,
-    gaia: "Programazio Lengoaiak",
-    enuntziatua: "Zer da <code class='inline-code'>JIT</code> (Just-In-Time) konpilatzailea Java-ren JVM barruan?",
-    aukerak: [
-      "Klaseak disko gogorretik automatikoki ezabatzen dituen zabor-biltzailearen atal bat.",
-      "Maiz exekutatzen den Bytecode-a exekuzio-unean bertan makina-kode natibo bihurtzen duen osagaia.",
-      "Java kodearen sintaxi akatsak testu-editorean azpimarratzen dituen tresna gehigarri bat.",
-      "Sareko konektagarritasuna egiaztatzen duen komunikazio-protokolo estandar bat."
+    "id": 8,
+    "gaia": "Programazio Lengoaiak",
+    "enuntziatua": "Zer da <code class='inline-code'>JIT</code> (Just-In-Time) konpilatzailea Java-ren JVM barruan?",
+    "aukerak": [
+      "Klaseak disko gogorretik automatikoki garbitzen dituen zabor-biltzailearen osagai osagarri bat.",
+      "Maiz erabilitako Bytecode-a exekuzio-unean bertan makina-kode natibo bihurtzen duen mekanismoa.",
+      "Java kodearen sintaxi akatsak testu-editorean azpimarratzen dituen garapen-inguruneko gehigarria.",
+      "Sareko konektagarritasuna uneoro aztertzen duen komunikazio-protokolo kriptografiko bat."
     ],
-    zuzena: 1,
-    azalpena: "JIT konpilatzaileak JVMren errendimendua biderkatzen du: gehien erabiltzen diren Bytecode zatiak ('hot spots') unean bertan makina-kode erreal bihurtzen ditu, etengabeko interpretazioa saihestuz."
+    "zuzena": 1,
+    "azalpena": "JIT konpilatzaileak JVMren errendimendua biderkatzen du: gehien erabiltzen diren Bytecode zatiak ('hot spots') unean bertan makina-kode erreal bihurtzen ditu, etengabeko interpretazioa saihestuz."
   },
   {
-    id: 9,
-    gaia: "Kontzeptu Oinarrizkoak",
-    enuntziatua: "Zer gertatzen da fitxategi exekutagarri batekin erabiltzaileak klik bikoitza egiten dionean?",
-    aukerak: [
+    "id": 9,
+    "gaia": "Kontzeptu Oinarrizkoak",
+    "enuntziatua": "Zer gertatzen da fitxategi exekutagarri batekin erabiltzaileak klik bikoitza egiten dionean?",
+    "aukerak": [
       "Fitxategia RAMera kargatzen da, SEak PCB eta PID esleitzen dizkio eta prozesu bihurtzen da.",
-      "Fitxategia birkonpilatu egiten da eta diskoan kopia berri bat sortzen da automatikoki.",
-      "Sistema eragileak fitxategiaren edukia sareko zerbitzari zentral batera bidaltzen du.",
-      "Prozesadorearen nukleo guztiak gelditu egiten dira fitxategia aztertu arte."
+      "Fitxategia berriz konpilatzen da diskoan segurtasun-kopia berri bat sortuz sistema osoan zehar.",
+      "Sistema eragileak fitxategiaren kodea sareko urruneko zerbitzari batera bidaltzen du aztertzeko.",
+      "Prozesadorearen nukleo fisiko guztiak itzali egiten dira fitxategiaren sinadura digitala ikusi arte."
     ],
-    zuzena: 0,
-    azalpena: "Diskoan dagoen fitxategi pasiboa sistema eragilearen kargatzaileak (loader) RAMera ekartzen du, bere helbide-eremua sortzen du, PCB prestatu eta 'Prest' (Ready) egoeran jartzen du."
+    "zuzena": 0,
+    "azalpena": "Diskoan dagoen fitxategi pasiboa sistema eragilearen kargatzaileak (loader) RAMera ekartzen du, bere helbide-eremua sortzen du, PCB prestatu eta 'Prest' (Ready) egoeran jartzen du."
   },
   {
-    id: 10,
-    gaia: "Sarrera eta Prozesadoreak",
-    enuntziatua: "Zer adierazten du prozesadore baten erloju-maiztasunak (adib. 4.2 GHz)?",
-    aukerak: [
-      "Ordenagailuak Internetetik datuak jaisteko duen gehienezko banda-zabalera teorikoa.",
+    "id": 10,
+    "gaia": "Sarrera eta Prozesadoreak",
+    "enuntziatua": "Zer adierazten du prozesadore baten erloju-maiztasunak (adib. 4.2 GHz)?",
+    "aukerak": [
+      "Ordenagailuak Internetetik fitxategiak deskargatzeko duen gehienezko transmisio-abiadura fisikoa.",
+      "Memoria nagusiak (RAM) biltegiratu dezakeen informazio-bolumen osoa gigabytetan neurtuta.",
       "Prozesadoreak segundoko exekutatu ditzakeen oinarrizko erloju-zikloen kopurua.",
-      "Memoria nagusiak (RAM) biltegiratu dezakeen informazio-bolumen osoa gigabytetan.",
-      "Txipak bere tenperatura seguru mantentzeko behar duen haizagailuaren bira-kopurua."
+      "Txipak bere tenperatura egonkor mantentzeko behar duen haizagailuaren bira-kopurua minutuko."
     ],
-    zuzena: 1,
-    azalpena: "Hertz-ak (Hz) segundoko zikloak dira. 4.2 GHz = segundoko 4.200 milioi ziklo. Ziklo bakoitzean PUZak instrukzio zati bat gauzatu dezake."
+    "zuzena": 2,
+    "azalpena": "Hertz-ak (Hz) segundoko zikloak dira. 4.2 GHz = segundoko 4.200 milioi ziklo. Ziklo bakoitzean PUZak instrukzio zati bat gauzatu dezake."
   },
   {
-    id: 11,
-    gaia: "Sarrera eta Prozesadoreak",
-    enuntziatua: "Zer da <code class='inline-code'>Hyper-Threading</code> teknologia Intel prozesadore modernoetan?",
-    aukerak: [
-      "Nukleo bakoitzari tenperatura jaisteko aukera ematen dion hozte-sistema elektroniko bat.",
+    "id": 11,
+    "gaia": "Sarrera eta Prozesadoreak",
+    "enuntziatua": "Zer da <code class='inline-code'>Hyper-Threading</code> teknologia Intel prozesadore modernoetan?",
+    "aukerak": [
+      "Nukleo bakoitzari tenperatura jaisteko aukera ematen dion barne-zirkuituko hozte-sistema adimenduna.",
+      "Disko gogorreko fitxategiak automatikoki RAM memorian bikoizten dituen cache-hardware azkarra.",
       "Nukleo fisiko bakoitza sistema eragilearen aurrean bi nukleo logiko gisa aurkezteko gaitasuna.",
-      "Disko gogorreko fitxategiak automatikoki RAM memorian bikoizten dituen hardwarea.",
-      "Sareko hariak zuntz optikoaren bidez azkarrago transmititzeko txip berezia."
+      "Sareko kableen bidez datuak azkarrago transmititzeko plaka basean integratutako txip berezia."
     ],
-    zuzena: 1,
-    azalpena: "Hyper-Threading-ek (SMT) nukleo fisiko baten barneko erregistroak bikoizten ditu. Horrela, nukleo fisiko batek 2 hari logiko kudea ditzake aldi berean, arkitekturaren erabilera optimizatuz."
+    "zuzena": 2,
+    "azalpena": "Hyper-Threading-ek (SMT) nukleo fisiko baten barneko erregistroak bikoizten ditu. Horrela, nukleo fisiko batek 2 hari logiko kudea ditzake aldi berean, arkitekturaren erabilera optimizatuz."
   },
   {
-    id: 12,
-    gaia: "Kontzeptu Oinarrizkoak",
-    enuntziatua: "Zein ataletan banatzen da prozesu baten memoria-eremua RAM memorian?",
-    aukerak: [
+    "id": 12,
+    "gaia": "Kontzeptu Oinarrizkoak",
+    "enuntziatua": "Zein ataletan banatzen da prozesu baten memoria-eremua RAM memorian?",
+    "aukerak": [
       "Testua (Kodea), Datuak (Globalak), Heap (Dinamikoa) eta Stack (Deien Pila eta Tokikoak).",
-      "Sektorea, Pista, Zilindroa eta Partizio nagusia.",
-      "Kernel gunea, Erregistro orokorrak, BIOS bufferra eta Swap fitxategia.",
-      "HTML fitxategia, CSS estiloak, JavaScript logika eta Irudien karpeta."
+      "Sektorea, Pista zirkularra, Zilindro magnetikoa eta Partizio nagusiaren abio-sektorea.",
+      "Kernel gunea, Erregistro orokorrak, BIOS bufferra eta Swap fitxategiaren indize-orriak.",
+      "HTML fitxategia, CSS estiloak, JavaScript logika eta Irudien kaxako memoria-segmentuak."
     ],
-    zuzena: 0,
-    azalpena: "Prozesu baten helbide-eremuak 4 atal ditu: Testua (agindu bitarrak), Datuak (aldagai estatiko/globalak), Heap ('new' bidez sortutako objektuak) eta Stack (metodoen deiak eta tokiko aldagaiak)."
+    "zuzena": 0,
+    "azalpena": "Prozesu baten helbide-eremuak 4 atal ditu: Testua (agindu bitarrak), Datuak (aldagai estatiko/globalak), Heap ('new' bidez sortutako objektuak) eta Stack (metodoen deiak eta tokiko aldagaiak)."
   },
-
-  // =========================================================================
-  // 1. GAIA: PROZESUAK, PCB, 7 EGOERAK ETA SE KOMANDOAK (13-26)
-  // =========================================================================
   {
-    id: 13,
-    gaia: "Prozesuak eta PCB",
-    enuntziatua: "Zer datu gordetzen ditu <code class='inline-code'>PCB</code> (Process Control Block) egiturak?",
-    aukerak: [
-      "Erabiltzailearen pasahitza eta ordenagailuaren lizentzia-zenbaki digitala.",
+    "id": 13,
+    "gaia": "Prozesuak eta PCB",
+    "enuntziatua": "Zer datu gordetzen ditu <code class='inline-code'>PCB</code> (Process Control Block) egiturak?",
+    "aukerak": [
+      "Erabiltzailearen pasahitza eta ordenagailuaren lizentzia-zenbaki digitalaren ziurtagiri enkriptatua.",
+      "Aplikazioak sarean kontsultatu dituen webguneen eta cookie-en zerrenda osoa kronologikoki.",
       "PIDa, prozesuaren egoera, Program Counter (PC), erregistroak, lehentasuna eta memoria-mugak.",
-      "Aplikazioak sarean kontsultatu dituen webguneen eta cookie-en zerrenda osoa.",
-      "Konpilatzaileak sortutako errore sintaktikoen eta oharren erregistro historikoa."
+      "Konpilatzaileak sortutako errore sintaktikoen eta ohar guztien erregistro historiko osoa diskoan."
     ],
-    zuzena: 1,
-    azalpena: "PCB prozesuaren kontrol-fitxa da kernelarentzat: bertan daude PIDa, uneko egoera, PC (hurrengo aginduaren helbidea), CPU erregistroak, memoria-mapa eta irekitako fitxategien taula."
+    "zuzena": 2,
+    "azalpena": "PCB prozesuaren kontrol-fitxa da kernelarentzat: bertan daude PIDa, uneko egoera, PC (hurrengo aginduaren helbidea), CPU erregistroak, memoria-mapa eta irekitako fitxategien taula."
   },
   {
-    id: 14,
-    gaia: "Prozesuak eta PCB",
-    enuntziatua: "Zer da <code class='inline-code'>Testuinguru-aldaketa</code> (Context Switch) eta zer eragin du sisteman?",
-    aukerak: [
-      "Sistema eragilearen hizkuntza aldatzean leihoak birkargatzeko prozesua.",
+    "id": 14,
+    "gaia": "Prozesuak eta PCB",
+    "enuntziatua": "Zer da <code class='inline-code'>Testuinguru-aldaketa</code> (Context Switch) eta zer eragin du sisteman?",
+    "aukerak": [
+      "Sistema eragilearen hizkuntza aldatzean leihoak birkargatzeko abiarazten den prozedura grafikoa.",
       "PUZak prozesu bat utzi eta bestea hartzeko egoerak gorde/kargatzea; gainkarga dakar.",
-      "Aplikazio batek fitxategi bat diskotik irakurtzean egiten duen memoria-kopia.",
-      "Erabiltzaile batek saioa amaitu eta beste batek saioa hasteko prozedura."
+      "Aplikazio batek fitxategi bat diskotik irakurtzean egiten duen memoria-kopia azkarraren prozesua.",
+      "Erabiltzaile batek saioa amaitu eta beste batek saio berria hasteko behar den baimen-egiaztapena."
     ],
-    zuzena: 1,
-    azalpena: "Testuinguru-aldaketan PUZak uneko prozesuaren erregistroak bere PCBean gordetzen ditu eta hurrengoarenak kargatzen ditu. Une horretan PUZak ez du lan erabilgarririk egiten; beraz, gainkarga da (overhead)."
+    "zuzena": 1,
+    "azalpena": "Testuinguru-aldaketan PUZak uneko prozesuaren erregistroak bere PCBean gordetzen ditu eta hurrengoarenak kargatzen ditu. Une horretan PUZak ez du lan erabilgarririk egiten; beraz, gainkarga da (overhead)."
   },
   {
-    id: 15,
-    gaia: "Planifikazio Mailak",
-    enuntziatua: "Zertaz arduratzen da <code class='inline-code'>Epe luzeko planifikatzailea</code> (Long-term scheduler)?",
-    aukerak: [
-      "CPU librea geratzean prest daudenen artean hurrengoa aukeratzeaz unean bertan.",
+    "id": 15,
+    "gaia": "Planifikazio Mailak",
+    "enuntziatua": "Zertaz arduratzen da <code class='inline-code'>Epe luzeko planifikatzailea</code> (Long-term scheduler)?",
+    "aukerak": [
+      "CPU librea geratzean prest daudenen artean hurrengoa hautatzeaz milisegundo bakoitzean.",
       "Sistema eragilean prozesu berriak noiz onartu erabakitzeaz eta multiprogramazio-maila finkatzeaz.",
-      "Memoria nagusia betetzen denean prozesuak swap eremura bidaltzeaz.",
-      "Sareko paketeen bideratze-bide motzena kalkulatzeaz bideratzailean."
+      "Memoria nagusia betetzen denean prozesuak swap eremura bidaltzeaz espazioa libratzeko.",
+      "Sareko paketeen bideratze-bide motzena kalkulatzeaz bideratzaile nagusiaren protokoloan."
     ],
-    zuzena: 1,
-    azalpena: "Epe luzekoak sistemako prozesu kopuru osoa (multiprogramazio maila) kontrolatzen du, diskoan dauden eskaerak memorian noiz onartu erabakiz."
+    "zuzena": 1,
+    "azalpena": "Epe luzekoak sistemako prozesu kopuru osoa (multiprogramazio maila) kontrolatzen du, diskoan dauden eskaerak memorian noiz onartu erabakiz."
   },
   {
-    id: 16,
-    gaia: "Planifikazio Mailak",
-    enuntziatua: "Zertaz arduratzen da <code class='inline-code'>Epe ertaineko planifikatzailea</code> (Medium-term scheduler)?",
-    aukerak: [
-      "PUZaren hurrengo instrukzioa zein nukleotan gauzatuko den hautatzeaz.",
+    "id": 16,
+    "gaia": "Planifikazio Mailak",
+    "enuntziatua": "Zertaz arduratzen da <code class='inline-code'>Epe ertaineko planifikatzailea</code> (Medium-term scheduler)?",
+    "aukerak": [
+      "PUZaren hurrengo instrukzioa zein nukleotan gauzatuko den berehala erabakitzeaz.",
+      "Erabiltzailearen teklatuko tekla-sakatze bakoitza aztertu eta interpretatzeaz.",
       "Memoria nagusia libratzeko prozesuak disko osagarrira (Swap) eramateaz (<code class='inline-code'>Swapping</code>).",
-      "Erabiltzailearen teklatuko tekla-sakatze bakoitza aztertzeaz.",
-      "Aplikazioak ixtean disko gogorra desfragmentatzeaz."
+      "Aplikazioak ixtean disko gogorra desfragmentatzeaz fitxategien antolaketa hobetzeko."
     ],
-    zuzena: 1,
-    azalpena: "Epe ertainekoak Swapping-a kudeatzen du: RAM gainkargatuta badago, prozesu batzuk disko osagarrira (Swap) mugitzen ditu ('Esekia' egoeretara) lekua egiteko."
+    "zuzena": 2,
+    "azalpena": "Epe ertainekoak Swapping-a kudeatzen du: RAM gainkargatuta badago, prozesu batzuk disko osagarrira (Swap) mugitzen ditu ('Esekia' egoeretara) lekua egiteko."
   },
   {
-    id: 17,
-    gaia: "Planifikazio Mailak",
-    enuntziatua: "Zertaz arduratzen da <code class='inline-code'>Epe laburreko planifikatzailea</code> (CPU Scheduler)?",
-    aukerak: [
-      "Prozesu berriak sortzeko fitxategi exekutagarriak diskotik irakurtzeaz.",
+    "id": 17,
+    "gaia": "Planifikazio Mailak",
+    "enuntziatua": "Zertaz arduratzen da <code class='inline-code'>Epe laburreko planifikatzailea</code> (CPU Scheduler)?",
+    "aukerak": [
       "Prest dauden prozesuen artean PUZaren hurrengo txanda zeini eman erabakitzeaz.",
-      "Aplikazioen lizentziak egiaztatzeaz Internet bidez.",
-      "Segurtasun kopiak automatikoki hodeira igotzeaz."
+      "Prozesu berriak sortzeko fitxategi exekutagarriak diskotik irakurtzeaz RAMera.",
+      "Aplikazioen lizentziak egiaztatzeaz Interneteko zerbitzari nagusiaren bidez.",
+      "Segurtasun kopiak automatikoki hodeira igotzeaz egunero ordu zehatz batean."
     ],
-    zuzena: 1,
-    azalpena: "CPU Scheduler-a milisegundoro aritzen da lanean: 'Prest' daudenen ilaratik zein prozesuri emango dion PUZa hautatzen du, planifikazio-algoritmoaren arabera."
+    "zuzena": 0,
+    "azalpena": "CPU Scheduler-a milisegundoro aritzen da lanean: 'Prest' daudenen ilaratik zein prozesuri emango dion PUZa hautatzen du, planifikazio-algoritmoaren arabera."
   },
   {
-    id: 18,
-    gaia: "Prozesuen Egoerak",
-    enuntziatua: "Prozesu bat 'EXEKUZIOAN' egoeratik 'BLOKEATUA' egoerara igarotzen da zergatik?",
-    aukerak: [
-      "Esleitutako denbora-kuantua (Quantum) agortu zaiolako.",
+    "id": 18,
+    "gaia": "Prozesuen Egoerak",
+    "enuntziatua": "Prozesu bat 'EXEKUZIOAN' egoeratik 'BLOKEATUA' egoerara igarotzen da zergatik?",
+    "aukerak": [
+      "Esleitutako denbora-kuantua (Quantum) agortu zaiolako eta beste prozesu bati txanda utzi behar diolako.",
       "Kanpoko gertaera baten zain geratu delako (adib. S/I eragiketa edo baliabide baten zain).",
-      "Bere lana behar bezala amaitu duelako eta itxi nahi duelako.",
-      "Memoria nagusia agortu eta disko gogorrera eraman dutelako."
+      "Bere lana behar bezala amaitu duelako eta sistema eragileari amaiera-kodea jakinarazi nahi diolako.",
+      "Memoria nagusia agortu eta sistema eragileak disko osagarriko swap partiziora eraman duelako."
     ],
-    zuzena: 1,
-    azalpena: "Prozesu batek ezin badu aurrera egin kanpoko zerbaiten zain dagoelako (fitxategi bat irakurri, sarea, erabiltzailearen sarrera), 'Blokeatua' egoerara pasatzen da eta PUZa askatzen du."
+    "zuzena": 1,
+    "azalpena": "Prozesu batek ezin badu aurrera egin kanpoko zerbaiten zain dagoelako (fitxategi bat irakurri, sarea, erabiltzailearen sarrera), 'Blokeatua' egoerara pasatzen da eta PUZa askatzen du."
   },
   {
-    id: 19,
-    gaia: "Prozesuen Egoerak",
-    enuntziatua: "Prozesu bat 'EXEKUZIOAN' egoeratik 'PREST' egoerara igarotzen da zergatik?",
-    aukerak: [
-      "Diskoan fitxategi bat idazteko baimena ukatu zaiolako.",
-      "Sistema eragileak esleitutako denbora-kuantua agortu zaiolako edo lehentasun handiagoko bat iritsi delako.",
-      "Aplikazioak salbuespen larri bat jaurti duelako kodean.",
-      "Erabiltzaileak saguaren eskuineko botoia sakatu duelako."
+    "id": 19,
+    "gaia": "Prozesuen Egoerak",
+    "enuntziatua": "Zer da 'ESEKIA-PREST' (Suspended Ready) egoera?",
+    "aukerak": [
+      "Prozesua RAMen dago, baina erabiltzaileak teklatu bidez aldi baterako eten du.",
+      "Prozesua diskoan (Swap) dago, baina ez du S/I gertaerarik itxaroten; RAMera itzultzeko prest dago.",
+      "Prozesuak errorea eman du eta sistema eragilea memoria-iraulketa (dump) egiten ari da.",
+      "Prozesua sareko datuak jasotzen ari da zuzenean txartel grafikoko memoriara."
     ],
-    zuzena: 1,
-    azalpena: "Exekuzioan dagoen prozesu baten quantum-a agortzen denean, planifikatzaileak kanporatu egiten du PUZetik eta 'Prest' egoerara itzultzen du, hurrengo txandaren zain gera dadin."
+    "zuzena": 1,
+    "azalpena": "Eseki egoerak diskoan (Swap) dauden prozesuak dira. 'Esekia-Prest' dagoena exekutatzeko prest dago, bere kodea berriz RAMera kargatu bezain laster."
   },
   {
-    id: 20,
-    gaia: "Prozesuen Egoerak",
-    enuntziatua: "Zer gertatzen da prozesu batekin 'BLOKEATUA' egoeran dagoenean PUZa libre geratzen bada?",
-    aukerak: [
-      "Berehala hartzen du PUZa eta aginduak exekutatzen hasten da berriro.",
-      "Ezin du PUZa hartu; zain dagoen gertaera amaitu arte 'Blokeatua' jarraituko du.",
-      "Sistema eragileak automatikoki amaitu eta ezabatu egiten du.",
-      "Lehentasun goreneko prozesu bihurtzen da automatikoki."
+    "id": 20,
+    "gaia": "Prozesuen Egoerak",
+    "enuntziatua": "Nola igarotzen da prozesu bat 'BLOKEATUA' egoeratik 'PREST' egoerara?",
+    "aukerak": [
+      "CPU Scheduler-ak lehentasun handiagoa esleitu diolako uneko ilara zirkularrean.",
+      "Itxaroten ari zen S/I eragiketa edo kanpoko gertaera amaitu denean.",
+      "Erabiltzaileak saguaren botoia sakatu duelako aplikazioaren leihoaren gainean.",
+      "Prozesadorearen erlojuak ziklo berri bat hasi duelako sistema eragilearen nukleoan."
     ],
-    zuzena: 1,
-    azalpena: "Blokeatutako prozesu batek ez du PUZik behar une horretan (kanpoko gertaeraren zain dago). Behin gertaera jasotakoan 'Prest' egoerara igaroko da, eta orduan bai, PUZa eskuratu ahal izango du."
+    "zuzena": 1,
+    "azalpena": "Gertaera bukatzean (adibidez diskoko datuak irakurri direnean), hardwareak etendura (interrupt) sortzen du eta SEak prozesua 'Prest' ilarara pasatzen du, PUZa berriz jasotzeko zain."
   },
   {
-    id: 21,
-    gaia: "Prozesuen Egoerak",
-    enuntziatua: "Zer desberdintasun dago 'ESEKIA-PREST' eta 'ESEKIA-BLOKEATUA' egoeren artean?",
-    aukerak: [
-      "Esekia-Prest RAMen dago eta Esekia-Blokeatua diskoan dago.",
-      "Biak daude Swap-ean; Esekia-Prest-ek ez du S/Irik itxaroten, Esekia-Blokeatuak oraindik bai.",
-      "Esekia-Blokeatua prozesua betiko itzali da eta Esekia-Prest martxan dago.",
-      "Bata sareko aplikazioena da eta bestea sistema eragilearen barnekoa."
+    "id": 21,
+    "gaia": "SE Komandoak",
+    "enuntziatua": "Windows-en zein komandok erakusten du martxan dauden prozesuen zerrenda zehatza PIDarekin?",
+    "aukerak": [
+      "get-process-list /all /verbose",
+      "tasklist",
+      "show processes --active --pid",
+      "winproc -list -details"
     ],
-    zuzena: 1,
-    azalpena: "Biak daude diskoan (Swap). Baina Esekia-Prest dagoenak gertaera guztiak jaso ditu eta RAMera ekartzeko prest dago; Esekia-Blokeatuak oraindik kanpoko gertaera amaitzea behar du."
+    "zuzena": 1,
+    "azalpena": "Windows-en 'tasklist' komandoak uneko prozesuak, haien PID zenbakia, saio mota eta memoria-erabilera zerrendatzen ditu kontsolan."
   },
   {
-    id: 22,
-    gaia: "SE Komandoak",
-    enuntziatua: "Windows terminalean martxan dauden prozesuak ikusi eta PID jakin bat bortxaz ixteko zein komando erabiltzen dira?",
-    aukerak: [
-      "`dir` eta `del /f`",
-      "`tasklist` eta `taskkill /PID <zenb> /F`",
-      "`netstat` eta `ipconfig /flushdns`",
-      "`get-process` eta `stop-computer`"
+    "id": 22,
+    "gaia": "SE Komandoak",
+    "enuntziatua": "Nola amaitzen da Windows-en PID=4520 duen prozesu bat kontsolatik behartuta (force)?",
+    "aukerak": [
+      "taskkill /PID 4520 /F",
+      "kill -force 4520 /windows",
+      "stop-process --id 4520 --kill",
+      "terminate /proc 4520 /now"
     ],
-    zuzena: 1,
-    azalpena: "Windows-en 'tasklist' komandoak prozesu guztiak eta haien PIDak erakusten ditu, eta 'taskkill /PID ... /F' bidez prozesua bortxaz (/F = forcibly) amaitzen da."
+    "zuzena": 0,
+    "azalpena": "Windows-en: taskkill /PID 4520 /F (/F = Force). Linux-en baliokidea: kill -9 4520 litzateke."
   },
   {
-    id: 23,
-    gaia: "SE Komandoak",
-    enuntziatua: "Linux terminalean prozesu guztiak xehetasunez ikusi eta seinale bortitzena (<code class='inline-code'>SIGKILL</code>) bidaltzeko zein komando erabiltzen dira?",
-    aukerak: [
-      "`ls -la` eta `rm -rf`",
-      "`ps aux` eta `kill -9 <PID>`",
-      "`cat /proc` eta `reboot`",
-      "`top -b` eta `shutdown now`"
+    "id": 23,
+    "gaia": "SE Komandoak",
+    "enuntziatua": "Linux-en zein da uneko prozesuen zerrenda osoa ikusteko komando estandarra?",
+    "aukerak": [
+      "show-all-jobs -u",
+      "procmon --linux",
+      "ps aux",
+      "list-tasks -a"
     ],
-    zuzena: 1,
-    azalpena: "Linux-en 'ps aux' komandoak sistema osoko prozesuak zerrendatzen ditu, eta 'kill -9 <PID>' aginduak 9. seinalea (SIGKILL) bidaltzen dio, kernelak berehala hil dezan."
+    "zuzena": 2,
+    "azalpena": "Linux-en 'ps aux' (edo 'ps -ef') komandoak sistemako erabiltzaile guztien prozesu aktiboak zerrendatzen ditu PID, CPU eta RAM ehunekoekin."
   },
   {
-    id: 24,
-    gaia: "SE Komandoak",
-    enuntziatua: "Linux-en prozesu baten lehentasuna aldatzeko zein tresna erabiltzen dira?",
-    aukerak: [
-      "`chmod` eta `chown`",
-      "`nice` (abiaraztean) eta `renice` (martxan dagoenean)",
-      "`ping` eta `traceroute`",
-      "`grep` eta `awk`"
+    "id": 24,
+    "gaia": "Prozesuen Komunikazioa (IPC)",
+    "enuntziatua": "Zergatik behar dute prozesuek <code class='inline-code'>IPC</code> (Inter-Process Communication) elkarrekin komunikatzeko?",
+    "aukerak": [
+      "Prozesu bakoitzak bere memoria-eremu isolatu propioa duelako eta ezin duelako bestearena zuzenean irakurri.",
+      "Sistema eragileak hariak bakarrik onartzen dituelako sare bidezko datuak bidaltzeko unean bertan.",
+      "Prozesadorearen erlojuak prozesu bakoitza maiztasun desberdin batean exekutatzen duelako hardwarean.",
+      "Fitxategi-sistemak fitxategi guztiak blokeatzen dituelako aplikazio bat abiarazten den bakoitzean."
     ],
-    zuzena: 1,
-    azalpena: "'nice' balioak (-20tik +19ra) prozesuaren lehentasuna definitzen du. Zenbaki txikiagoak lehentasun handiagoa dakar. 'renice' bidez martxan dagoen prozesu baten lehentasuna aldatzen da."
+    "zuzena": 0,
+    "azalpena": "Prozesuak isolatuta daude segurtasunagatik (memoria-babesa). Horregatik, ezin dute elkarren RAMa irakurri; SEak eskainitako bideak behar dituzte (hodiak/pipes, socketak, memoria partekatua)."
   },
   {
-    id: 25,
-    gaia: "Prozesuen Komunikazioa (IPC)",
-    enuntziatua: "Prozesuen arteko komunikazioan (<code class='inline-code'>IPC</code>), zein da mekanismorik azkarrena?",
-    aukerak: [
-      "Fitxategi arruntak disko gogorrean idaztea eta irakurtzea.",
-      "Memoria Partekatua (<code class='inline-code'>Shared Memory</code>), nukleoek RAM helbide berak atzitzen dituztelako.",
-      "Internet bidezko mezu elektronikoak bidaltzea.",
-      "Sistema eragilearen erregistro-fitxategia (Windows Registry) erabiltzea."
+    "id": 25,
+    "gaia": "Prozesuen Komunikazioa (IPC)",
+    "enuntziatua": "Zer desberdintasun dago komunikazio <code class='inline-code'>Sinkrono</code> eta <code class='inline-code'>Asinkronoaren</code> artean?",
+    "aukerak": [
+      "Sinkronoan igorlea blokeatu egiten da hartzaileak mezua jaso arte; asinkronoan berehala aurrera doa.",
+      "Sinkronoan testu hutsa bakarrik bidal daiteke, eta asinkronoan edozein datu bitar transmiti daiteke saretik.",
+      "Sinkronoan kable bidezko konexioa behar da, eta asinkronoan Wi-Fi bidezko haririk gabeko lotura nahikoa da.",
+      "Sinkronoan mezuak disko gogorrean gordetzen dira beti, eta asinkronoan CPUren erregistroetan bakarrik."
     ],
-    zuzena: 1,
-    azalpena: "Memoria partekatua azkarrena da, datuak ez direlako kernel bidez kopiatu behar; prozesuek RAM bera irakurtzen dute zuzenean. Horregatik, sinkronizazio zorrotza eskatzen du."
+    "zuzena": 0,
+    "azalpena": "Sinkronoan igorleak eta hartzaileak koordinatu egin behar dute (igorleak itxaron egiten du). Asinkronoan igorleak mezua ilaran (bufferrean) utzi eta lanean jarraitzen du itxaron gabe."
   },
   {
-    id: 26,
-    gaia: "Prozesuen Komunikazioa (IPC)",
-    enuntziatua: "Zer da tutua (<code class='inline-code'>Pipe</code>) sistema eragileetan?",
-    aukerak: [
-      "Ordenagailuaren kable fisikoa plaka nagusia eta diskoa lotzen dituena.",
-      "Prozesu baten irteera estandarra (<code class='inline-code'>stdout</code>) beste baten sarrera estandarrari (<code class='inline-code'>stdin</code>) lotzeko bidea.",
-      "Memoria nagusiko akatsak detektatzen dituen tresna berezi bat.",
-      "Prozesadorearen hozte-likidoa garraiatzen duen hodia."
+    "id": 26,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Zer desberdintasun dago planifikazio-algoritmo <code class='inline-code'>Apropos</code> (Preemptive) eta <code class='inline-code'>Ez-apropos</code> (Non-preemptive) artean?",
+    "aukerak": [
+      "Aproposak memoria nagusia baino ez du erabiltzen, eta ez-aproposak disko osagarriko swap partizioa soilik.",
+      "Aproposak prozesuari CPUa kendu diezaioke; ez-aproposak prozesuak berak CPUa borondatez askatu arte itxaroten du.",
+      "Aproposak lehentasun txikiko atazak bakarrik onartzen ditu, eta ez-aproposak kernelaren zerbitzuak soilik.",
+      "Aproposak erloju-zikloak bikoizten ditu, eta ez-aproposak hardware-nukleo bakarra mantentzen du piztuta beti."
     ],
-    zuzena: 1,
-    azalpena: "Tutu batek (adib. 'ps aux | grep java') lehen komandoaren testu-irteera bigarrenaren sarrera bihurtzen du, bi prozesuen arteko datu-korronte zuzena sortuz."
-  },
-
-  // =========================================================================
-  // 2. GAIA: SE PLANIFIKAZIO ALGORITMOAK (SCHEDULING) (27-38)
-  // =========================================================================
-  {
-    id: 27,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Nola jokatzen du <code class='inline-code'>FCFS</code> (First-Come, First-Served) algoritmoak?",
-    aukerak: [
-      "Prozesu laburrenari ematen dio beti lehentasuna beste guztien aurretik.",
-      "Lehen iristen dena lehen exekutatzen da, eta osorik amaitu arte ez da ateratzen.",
-      "Prozesu guztiei denbora-tarte bera banatzen die txandaka ilaran.",
-      "Prozesuaren lehentasun-zenbakiaren arabera antolatzen du ilara."
-    ],
-    zuzena: 1,
-    azalpena: "FCFS algoritmo ez-aproposa da: iritsiera-ordenan zerbitzatzen ditu prozesuak, supermerkatuko kutxa batean bezala. Sinplea da, baina itxaron-denbora handiak sor ditzake."
+    "zuzena": 1,
+    "azalpena": "Aproposetan (preemptive) SEak prozesuari CPUa kendu diezaioke (adibidez quantum-a agortzean edo lehentasun handiagoa iristean). Ez-aproposetan prozesua amaitu edo blokeatu arte ez da kentzen."
   },
   {
-    id: 28,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer da FCFS algoritmoan gertatzen den 'Konboi Efektua' (<code class='inline-code'>Convoy Effect</code>)?",
-    aukerak: [
-      "Sareko konektagarritasuna eten egiten denean gertatzen den akatsa.",
-      "Prozesu luze batek PUZa denbora luzez hartzeagatik, atzetik datozen labur guztiak atzeratzea.",
-      "Disko gogorra betetzean prozesuak fitxategi bakar batean batzea.",
-      "Sistema eragileak aldi berean 10 prozesu berri abiaraztea."
+    "id": 27,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>FCFS</code> (First-Come, First-Served) algoritmoak?",
+    "aukerak": [
+      "Hurrengo CPU-bolada laburrena duen prozesuari ematen dio beti lehentasuna itxaron-denbora murrizteko asmoz.",
+      "Denbora-tarte finko bat (quantum) banatzen du txandaka prozesu guztien artean ilara zirkular batean.",
+      "Iritsiera-ordenan esleitzen du CPUa eta ez-aproposa da; prozesu luze batek atzekoak geldiarazi ditzake.",
+      "Prozesuak haien memoria-beharren arabera ordenatzen ditu txikienetik handienera CPUra sartzeko."
     ],
-    zuzena: 1,
-    azalpena: "Kamioi motel baten atzean auto azkarrak harrapatuta geratzen diren bezala, prozesu astun batek atzeko ataza arin guztiak geldiarazten ditu, sistemaren erantzun-gaitasuna hondatuz."
+    "zuzena": 2,
+    "azalpena": "FCFS ilara sinplea da: lehenengo iritsi dena lehenengo exekutatzen da amaitu arte. Eragozpen nagusia 'Konboi efektua' da (prozesu luze batek labur guztiak blokeatzen ditu)."
   },
   {
-    id: 29,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer da <code class='inline-code'>Round Robin</code> (RR) algoritmoaren <code class='inline-code'>Quantum</code>-a?",
-    aukerak: [
-      "Prozesu batek erabil dezakeen gehienezko RAM memoria kopurua megabytetan.",
-      "Prozesu bakoitzari txanda bakoitzean esleitzen zaion denbora-tarte finko eta mugatua.",
-      "Prozesadorearen tenperatura segurua neurtzen duen parametro fisikoa.",
-      "Sisteman onartzen den gehienezko prozesu independenteen kopurua."
+    "id": 28,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Zer da <code class='inline-code'>Konboi Efektua</code> (Convoy Effect) FCFS algoritmoan?",
+    "aukerak": [
+      "Hainbat harik aldi berean sareko baliabide bera eskatzean gertatzen den datu-paketeen talka eta galera fisikoa.",
+      "Sistema eragileak disko gogorraren burua leku batetik bestera etengabe mugitu behar izatea fitxategiak irakurtzeko.",
+      "Memoria nagusian lekurik ez dagoenean prozesu guztiak aldi berean swap eremura mugitzeko atzerapen handia.",
+      "Prozesu labur askok prozesu luze baten atzean itxaron behar izatea, batez besteko itxaron-denbora asko handituz."
     ],
-    zuzena: 1,
-    azalpena: "Quantum-a (normalean 10-100 ms) Round Robin-en funtsa da. Denbora hori agortzean etenaldi bat sortzen da eta hurrengo prozesuari ematen zaio txanda."
+    "zuzena": 3,
+    "azalpena": "Supermerkatuko ilaran erosketa-orga leporaino beteta duen baten atzean ogi bakarra erosi nahi duten pertsona asko itxaroten geratzea bezalakoa da."
   },
   {
-    id: 30,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer gertatzen da Round Robin-en Quantum-a handiegia edo txikiegia bada?",
-    aukerak: [
-      "Ez du inolako eraginik, errendimendua beti berdin mantentzen baita.",
-      "Handiegia bada FCFS bihurtzen da; txikiegia bada context switch gainkargak sistema moteltzen du.",
-      "Handiegia bada memoria agortzen da; txikiegia bada fitxategiak galtzen dira.",
-      "Prozesuak ausaz ezabatzen hasten dira sistemaren oreka mantentzeko."
+    "id": 29,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>Round Robin (RR)</code> algoritmoak?",
+    "aukerak": [
+      "Prozesu bakoitzari denbora-kuantu (<code class='inline-code'>Quantum</code>) finko bat ematen zaio txandaka ilara zirkular batean.",
+      "Lehentasun altueneko prozesuari CPU osoa ematen dio amaitu arte, beste guztiak blokeatuta utziz.",
+      "Amaitzeko denbora laburrena geratzen zaion prozesua hautatzen du beti hurrengo txandarako.",
+      "Fitxategien tamainaren arabera ordenatzen ditu prozesuak disko gogorrean exekutatu aurretik."
     ],
-    zuzena: 1,
-    azalpena: "Quantum erraldoia bada, prozesuak beren lana bukatuta irteten dira (FCFS bilakatuz). Quantum txikiegia bada (adib. 1 ms), PUZak denbora gehiago pasatzen du egoerak aldatzen lanean baino."
+    "zuzena": 0,
+    "azalpena": "Round Robin sistema partekatu eta interaktiboetarako egokiena da. Prozesu bakoitzak 'q' denbora du; agortzean, 'Prest' ilararen amaierara doa eta hurrengoari ematen zaio CPUa."
   },
   {
-    id: 31,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Nola aukeratzen du prozesua <code class='inline-code'>SPF / SPN</code> (Shortest Process First) algoritmoak?",
-    aukerak: [
-      "PID zenbaki txikiena duen prozesua aukeratzen du beti.",
-      "Prest daudenen artetik hurrengo PUZ erabilera laburrena beharko duena hautatzen du lehenik.",
-      "Sarreran denbora gehien daramana hautatzen du ilaran.",
-      "Ausazko prozesu bat aukeratzen du inpartzialtasuna bermatzeko."
+    "id": 30,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Round Robin algoritmoan, zer gertatzen da kuantua (<code class='inline-code'>q</code>) OSO HANDIA bada ((q \to infty))?",
+    "aukerak": [
+      "Algoritmoa Shortest Process First (SPF) bihurtzen da automatikoki memoriaren arabera.",
+      "Testuinguru-aldaketa gehiegi gertatuko dira eta CPUak errendimendu osoa galduko du.",
+      "Sistema eragileak ezin izango du prozesu berririk onartu RAM memoriako ilaretan.",
+      "Algoritmoa FCFS bihurtzen da praktikan, prozesuak amaitu arte ez baitira kenduko."
     ],
-    zuzena: 1,
-    azalpena: "SPFk batez besteko itxaron-denbora txikiena lortzen du teorian, baina desabantaila nagusi bat du: zaila da aldez aurretik zehatz jakitea prozesu batek zenbat iraungo duen."
+    "zuzena": 3,
+    "azalpena": "Kuantua infinitua balitz, inori ez litzaioke inoiz CPUa kenduko bere borondatez utzi edo amaitu arte; beraz, FCFS bilakatuko litzateke."
   },
   {
-    id: 32,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zein da desberdintasuna <code class='inline-code'>SPF</code> eta <code class='inline-code'>SRT</code> (Shortest Remaining Time) artean?",
-    aukerak: [
-      "SPF algoritmo aproposa da eta SRT algoritmo ez-aproposa da.",
-      "SPF ez-aproposa da; SRT, aldiz, aproposa da (gainerako denbora gutxiago duen berria iristean kanporatu egiten du).",
-      "SPF Windows-en bakarrik dabil eta SRT Linux sisteman bakarrik.",
-      "Bi algoritmoek berdintsu funtzionatzen dute, ez dago desberdintasunik."
+    "id": 31,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Round Robin algoritmoan, zer gertatzen da kuantua (<code class='inline-code'>q</code>) OSO TXIKIA bada (adib. 1 ms baino gutxiago)?",
+    "aukerak": [
+      "Prozesu luzeak inoiz ez dira amaituko eta sistemako hari guztiek gosea jasango dute.",
+      "Testuinguru-aldaketen gainkargak (overhead) CPU denbora gehiena alferrik xahutuko du.",
+      "Sistemak FCFS algoritmoaren portaera bera garatuko du prozesu laburrekin bakarrik.",
+      "Memoria nagusiak ezin izango du hainbeste aldagai aldi berean kargatu hardwarean."
     ],
-    zuzena: 1,
-    azalpena: "SRTn uneko prozesua exekutatzen ari denean beste bat iristen bada eta amaitzeko unekoak baino denbora gutxiago behar badu, unekoa kendu eta berria sartzen du berehala."
+    "zuzena": 1,
+    "azalpena": "Kuantua oso txikia bada, CPUak denbora gehiago pasatuko du prozesuen erregistroak gorde eta kargatzen (testuinguru-aldaketa) benetako lana egiten baino."
   },
   {
-    id: 33,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer da <code class='inline-code'>Inanizioa</code> (Starvation / Gosea) planifikazio-algoritmoetan?",
-    aukerak: [
-      "Ordenagailua elikatze-iturririk gabe geratzean itzaltzea.",
-      "Prozesu batek PUZa inoiz ez lortzea, beste batzuei etengabe lehentasuna ematen zaielako.",
-      "Diskoan lekua amaitzeagatik aplikazioak blokeatuta geratzea.",
-      "Memoria nagusia garbitzeko sistema eragileak egiten duen ekintza."
+    "id": 32,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>SPF / SPN</code> (Shortest Process First) algoritmoak?",
+    "aukerak": [
+      "Iritsiera-ordenan exekutatzen du prozesu bakoitza amaitu arte inolako etendurarik gabe.",
+      "Denbora-tarte finko laburrak banatzen ditu prozesu guztien artean txanda zirkularretan.",
+      "Hurrengo CPU-bolada (burst) laburrena duen prozesua hautatzen du; ez-aproposa da.",
+      "Lehentasun administratibo handiena duen prozesua hautatzen du erabiltzailearen arabera."
     ],
-    zuzena: 1,
-    azalpena: "SRT bezalako algoritmoetan ataza laburrak etengabe iristen badira, ataza luze batek sekula ez du txandarik lortuko ('goseak hiltzen da'), nahiz eta prest egon."
+    "zuzena": 2,
+    "azalpena": "SPFk kalkulu-denbora txikiena behar duena sartzen du. Batez besteko itxaron-denbora txikiena lortzen du, baina zaila da aurrez jakitea prozesu batek zenbat denbora beharko duen."
   },
   {
-    id: 34,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Nola konpontzen da inanizioa <code class='inline-code'>Zahartze</code> (Aging) teknikaren bidez?",
-    aukerak: [
-      "Prozesu zaharkituak automatikoki ezabatuz sistema azkartzeko.",
-      "Ilaran itxaroten daraman denboraren arabera prozesuaren lehentasuna pixkanaka igoz.",
-      "Prozesadorearen erloju-maiztasuna jaitsiz berotze globala ekiditeko.",
-      "Fitxategiak formatu berriago batera itzuliz bateragarritasuna lortzeko."
+    "id": 33,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>SRT</code> (Shortest Remaining Time) algoritmoak?",
+    "aukerak": [
+      "SPFren bertsio aproposa da: amaitzeko denbora gutxien geratzen zaionari ematen dio CPUa.",
+      "Iritsiera-ordenan exekutatzen du prozesu bakoitza amaitu arte inolako etendurarik gabe.",
+      "Lehentasun finkoen bidez antolatzen ditu prozesuak erabiltzailearen baimenen arabera.",
+      "Prozesu luzeei ematen die lehentasuna memoria nagusia lehenbailehen libratzeko asmoz."
     ],
-    zuzena: 1,
-    azalpena: "Aging teknikak itxaroten daramaten prozesuen lehentasuna handitzen du denborarekin. Horrela, nahiz eta hasieran lehentasun baxukoa izan, azkenean lehentasun gorena lortuko du."
+    "zuzena": 0,
+    "azalpena": "SRTn, prozesu berri bat iristean amaitzeko uneko prozesuak baino denbora gutxiago behar badu, unekoari CPUa kendu eta berriari ematen zaio (preemption)."
   },
   {
-    id: 35,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Nola funtzionatzen dute <code class='inline-code'>Berrelikaduradun Hainbat Ilarek</code> (Multilevel Feedback Queues)?",
-    aukerak: [
-      "Ilara bakar bat dago eta prozesu guztiak ausaz mugitzen dira.",
-      "Hainbat ilara daude; ataza berriak goiko RR mailetan sartzen dira eta quantum-a agortzean beherantz jaisten dira.",
-      "CPU asko kontsumitzen duten prozesuak berehala ezabatzen dira.",
-      "Prozesu luzeak beti goiko ilaretara bidaltzen dira lehenik bukatzeko."
+    "id": 34,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Zer da <code class='inline-code'>Inanizioa</code> (Starvation) SPF eta SRT algoritmoetan?",
+    "aukerak": [
+      "Memoria nagusia agortzean sistema eragilearen kernelak funtzionatzeari uztea bat-batean.",
+      "Prozesu luzeek inoiz CPUrik ez lortzea, ataza laburragoak etengabe iristen direlako.",
+      "Bi prozesuk elkarren baliabideak betiko blokeatuta edukitzea zirkulu itxi baten barruan.",
+      "Txiparen tenperatura gehiegi igotzean erloju-maiztasuna jaistea hozteko helburuarekin."
     ],
-    zuzena: 1,
-    azalpena: "Algoritmo erreal modernoena da: interaktibo laburrak goiko mailetan (RR quantum txikia) amaitzen dira azkar; kalkulu luzeak beheragoko mailetara (RR handiagoa edo FCFS) jaisten dira."
+    "zuzena": 1,
+    "azalpena": "Inanizioa (gosez hiltzea): lehentasun txikiko edo exekuzio luzeko prozesuek inoiz ez dute CPUrik eskuratzen ataza laburragoak sartzen jarraitzen badute."
   },
   {
-    id: 36,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer esan nahi du algoritmo bat <code class='inline-code'>Aproposa</code> (Preemptive) izateak?",
-    aukerak: [
-      "Sistema eragileak prozesuari PUZa kendu diezaiokeela bere lana amaitu baino lehen.",
-      "Aplikazioak nahi adina denbora erabil dezakeela PUZa bere borondatez utzi arte.",
-      "Kodea automatikoki konpilatzen dela exekuzioan zehar erroreak zuzenduz.",
-      "Erabiltzaileak interfaze grafikoan botoi guztiak desgaituta dituela."
+    "id": 35,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Nola konpontzen da Inanizioa algoritmo horietan?",
+    "aukerak": [
+      "Prozesu luze guztiak automatikoki bertan behera utziz eta errore-kode bat bueltatuz.",
+      "Kuantuaren tamaina zero segundora jaitsiz prest dauden prozesu guztien ilaretan.",
+      "<code class='inline-code'>Zahartze</code> (Aging) teknikaren bidez: itxaroten daraman denboraren arabera lehentasuna igoz.",
+      "Memoria nagusiaren edukiera bikoiztuz prozesu guztiak aldi berean kargatu ahal izateko."
     ],
-    zuzena: 0,
-    azalpena: "Algoritmo aproposetan (preemptive, adib. Round Robin, SRT), sistemak uneko prozesua eteteko eta PUZetik ateratzeko eskumena du. Ez-aproposetan (FCFS), prozesuak berak askatu behar du."
+    "zuzena": 2,
+    "azalpena": "Zahartzeak (Aging) bermatzen du prozesu batek zenbat eta denbora gehiago eman 'Prest' ilaran itxaroten, orduan eta lehentasun handiagoa izango duela, azkenean CPUa lortuz."
   },
   {
-    id: 37,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer da erantzun-denbora (<code class='inline-code'>Response Time</code>) sistema interaktiboetan?",
-    aukerak: [
-      "Eskaera bat egin zenetik lehen erantzuna bistaratu arte pasatako denbora.",
-      "Prozesua sortu zenetik bere azken lerrora arte igarotako denbora osoa.",
-      "Disko gogorrak fitxategi bat bilatzeko behar duen biraketa-denbora.",
-      "Ordenagailua piztu zenetik login pantaila agertu arteko tartea."
+    "id": 36,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Nola antolatzen dira <code class='inline-code'>Multilevel Feedback Queues</code> (Maila anitzeko berrelikaduradun ilarak)?",
+    "aukerak": [
+      "Ilara bakar bat dago eta bertan prozesuak fitxategiaren tamainaren arabera ordenatzen dira.",
+      "Lehentasun desberdineko ilarak daude; prozesuak kuantua agortzen badu beheko ilarara jaisten da.",
+      "Prozesu bakoitzak bere ilara propioa du eta ez da inoiz beste ilara batera mugitzen sisteman.",
+      "Sistemako zerbitzuek bakarrik erabil ditzakete ilarak, erabiltzailearen aplikazioek ez."
     ],
-    zuzena: 0,
-    azalpena: "Erantzun-denbora eskaera sartzen denetik sistemak lehen erreakzioa erakusten duen artekoa da. Sistema interaktiboetan funtsezkoa da baxua izatea, erabiltzaileak moteltasunik ez nabaritzeko."
+    "zuzena": 1,
+    "azalpena": "Goiko ilarek kuantu txikia dute (interaktiboentzat aproposa). CPU asko behar duten prozesuak beheko ilaretara jaisten dira (kuantu handiagoarekin edo FCFSrekin)."
   },
   {
-    id: 38,
-    gaia: "Planifikazio Algoritmoak",
-    enuntziatua: "Zer da produktibitatea (<code class='inline-code'>Throughput</code>) planifikazioaren ikuspegitik?",
-    aukerak: [
-      "Denbora-unitate bakoitzean arrakastaz amaitzen den prozesu kopurua.",
-      "PUZaren barruan dauden transistoreen guztizko kopurua.",
-      "Sareko konexioak segundoko deskargatzen duen megabyte kopurua.",
-      "Aplikazio batek idatzitako kode-lerroen batez besteko kopurua."
+    "id": 37,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Prozesu batek (T_e) (Itxaron-denbora) kalkulatzeko formula zein da?",
+    "aukerak": [
+      "(T_e = T_s \times 2) (Zerbitzu-denbora bider bi ziklo).",
+      "(T_e = T_a - T_s - T_i) (Amaiera ken Zerbitzu-denbora eta ken Iritsiera).",
+      "(T_e = T_a + T_i) (Amaiera-unea gehi Iritsiera-unea batuz).",
+      "(T_e = T_s / Quantum) (Zerbitzu-denbora zati kuantuaren tamaina)."
     ],
-    zuzena: 0,
-    azalpena: "Throughput-ak sistemak orduko edo segundoko zenbat ataza burutzeko gai den adierazten du. Helburua balio hau maximizatzea izaten da lote-sistemetan (batch)."
-  },
-
-  // =========================================================================
-  // 3. GAIA: JAVA PROCESSBUILDER, RUNTIME ETA 2. ATAZA (39-50)
-  // =========================================================================
-  {
-    id: 39,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Java-n nola instantziatzen da <code class='inline-code'>Runtime</code> klasea?",
-    aukerak: [
-      "`Runtime r = new Runtime();` erabiliz zuzenean.",
-      "`Runtime r = Runtime.getRuntime();` Singleton metodo estatikoaren bidez.",
-      "`Runtime r = ProcessBuilder.getRuntime();` bidez.",
-      "`Runtime r = System.createRuntime();` erabiliz."
-    ],
-    zuzena: 1,
-    azalpena: "Runtime klaseak Singleton diseinu-patroia darabil: eraikitzailea pribatua da eta 'Runtime.getRuntime()' bidez atzitzen da JVMren instantzia bakarra."
+    "zuzena": 1,
+    "azalpena": "Itxaron-denbora da prozesua sisteman egon den denbora osoa ((T_r = T_a - T_i)) ken benetan CPUa erabiltzen eman duen denbora ((T_s)): (T_e = T_r - T_s)."
   },
   {
-    id: 40,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Zer itzultzen du <code class='inline-code'>Runtime.getRuntime().availableProcessors()</code> metodoak?",
-    aukerak: [
-      "Dendan erosteko eskuragarri dauden PUZ modeloen zerrenda.",
-      "JVMk erabil ditzakeen prozesadore/nukleo logikoen guztizko kopurua.",
-      "Une horretan hutsik eta lanean ez dauden nukleoen kopurua.",
-      "Plaka nagusian instalatuta dauden RAM txipen kopurua."
+    "id": 38,
+    "gaia": "Planifikazio Algoritmoak",
+    "enuntziatua": "Zer da Itzulera Denbora Normalizatua ((T_r / T_s))?",
+    "aukerak": [
+      "Prozesuak disko gogorrean okupatzen duen espazioaren eta RAM memoriaren arteko erlazioa.",
+      "Sistema eragileak testuinguru-aldaketan galtzen duen segundu kopuru osoaren indizea.",
+      "Zerbitzu-denborarekiko itxaronaldi erlatiboa neurtzen duen indizea; zenbat eta gertuago 1etik, hobea.",
+      "CPUaren tenperaturaren eta erloju-maiztasunaren arteko zatidura erlatiboa hardwarean."
     ],
-    zuzena: 1,
-    azalpena: "Metodo honek makina horretan sistemak eskura dituen nukleo/hari logikoen zenbatekoa ematen du, hari-kopuru egokia dimentsionatzeko oso erabilgarria dena."
+    "zuzena": 2,
+    "azalpena": "(T_r / T_s) indizeak erakusten du prozesu batek bere kalkulu-denboraren multiplo zenbat itxaron behar izan duen. 1.0 balio ideala da (ez du batere itxaron)."
   },
   {
-    id: 41,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Zergatik da hobetsia <code class='inline-code'>ProcessBuilder</code> erabiltzea <code class='inline-code'>Runtime.exec()</code> baino?",
-    aukerak: [
-      "ProcessBuilder-ek ez duelako inolako baimenik behar sistema eragilean.",
-      "Parametroak zerrendatan banatzeko, ingurunea aldatzeko eta I/O bideratzeko askoz kontrol hobea baitu.",
-      "Runtime klasea erabat debekatuta dagoelako Java bertsio guztietan.",
-      "ProcessBuilder-ek prozesuak C++ lengoaiara itzultzen dituelako automatikoki."
+    "id": 39,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zergatik da gomendagarria <code class='inline-code'>ProcessBuilder</code> erabiltzea zaharkitutako <code class='inline-code'>Runtime.getRuntime().exec()</code> ordez?",
+    "aukerak": [
+      "Runtime.exec() ezin da Windows sisteman erabili, Linux sistema eragileetarako bakarrik garatu baitzen.",
+      "ProcessBuilder-ek argumentuak zerrenda gisa (<code class='inline-code'>List&lt;String&gt;</code>) seguru kudeatzen ditu espazio-arazorik gabe.",
+      "ProcessBuilder-ek ez du sistema eragilearen baimenik behar fitxategiak irekitzeko edo aldatzeko.",
+      "Runtime.exec() klaseak Java 8tik aurrera konpilazio errore larria ematen du beti proiektu guztietan."
     ],
-    zuzena: 1,
-    azalpena: "ProcessBuilder-ek (Java 5+) argumentuak String array edo List gisa jasotzen ditu espazio-akatsak saihestuz, ingurune-aldagaiak moldatzen uzten du eta I/O korronteak garbi kudeatzen ditu."
+    "zuzena": 1,
+    "azalpena": "ProcessBuilder-ek komandoaren parametroak bananduta jasotzen ditu, komatxo, espazio eta segurtasun-arazoak (komando-injekzioa) modu sendoan saihestuz."
   },
   {
-    id: 42,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Nola abiarazten da kanpoko prozesua <code class='inline-code'>ProcessBuilder</code> erabiliz?",
-    aukerak: [
-      "`pb.run()` metodoari deituz.",
-      "`Process p = pb.start();` metodoari deituz.",
-      "`pb.executeProcess();` deituz.",
-      "`Process p = new Process(pb);` eginez."
+    "id": 40,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Nola abiarazten da kanpoko prozesu bat ProcessBuilder erabiliz Javan?",
+    "aukerak": [
+      "<code class='inline-code'>Process p = pb.run();</code>",
+      "<code class='inline-code'>Process p = pb.execute();</code>",
+      "<code class='inline-code'>Process p = pb.start();</code>",
+      "<code class='inline-code'>Process p = new Process(pb);</code>"
     ],
-    zuzena: 1,
-    azalpena: "'pb.start()' deitzean sistema eragileak kanpoko prozesua abiarazten du eta Java-n hura kontrolatzeko 'Process' motako objektu bat itzultzen du."
+    "zuzena": 2,
+    "azalpena": "ProcessBuilder konfiguratu ondoren, bere 'start()' metodoa deitzen da sistema eragilean prozesu berria sortzeko. Honek 'Process' instantzia bat itzultzen du."
   },
   {
-    id: 43,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Java 9tik aurrera, nola lor dezakegu prozesu baten PID zenbakia modu estandarrean?",
-    aukerak: [
-      "`process.getPidNumber()`",
-      "`process.pid()`",
-      "`process.toHandle().getId()`",
-      "`Runtime.findPid(process)`"
+    "id": 41,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Java 9tik aurrera, nola lortzen da Process objektu baten PID zenbakia zuzenean?",
+    "aukerak": [
+      "<code class='inline-code'>long pid = prozesua.pid();</code>",
+      "<code class='inline-code'>int pid = prozesua.getId();</code>",
+      "<code class='inline-code'>long pid = System.getProcessId(prozesua);</code>",
+      "<code class='inline-code'>String pid = prozesua.getHandle().toString();</code>"
     ],
-    zuzena: 1,
-    azalpena: "Java 9 bertsioan 'Process.pid()' metodoa gehitu zen, zuzenean 'long' balio gisa prozesuaren identifikatzailea ematen duena."
+    "zuzena": 0,
+    "azalpena": "Java 9an 'pid()' metodoa gehitu zitzaion Process klaseari, sistema eragilearen gaineko kode natiborik (JNI) erabili gabe PIDa eskuratzeko."
   },
   {
-    id: 44,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Zer egiten du <code class='inline-code'>process.waitFor()</code> metodoak?",
-    aukerak: [
-      "Prozesua berehala suntsitu eta RAMetik kanporatzen du.",
-      "Uneko Java haria itxaroten uzten du kanpoko prozesua amaitu arte, eta irteera-kodea itzultzen du.",
-      "Prozesuaren abiadura moteldu egiten du memoria gutxiago gasta dezan.",
-      "Prozesuaren leihoa minimizatu egiten du ataza-barran."
+    "id": 42,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zer egiten du <code class='inline-code'>prozesua.waitFor()</code> metodoak?",
+    "aukerak": [
+      "Prozesua atzeko planora eramaten du eta Java programak berehala jarraitzen du lanean inolako atzerapenik gabe.",
+      "Prozesuaren memoria garbitzen du eta CPUaren erabilera zeroan uzten du hurrengo prozesurako lekua eginez.",
+      "Prozesuaren kodea birkonpilatzen du akatsik ez dagoela ziurtatzeko sistema eragilearen segurtasun bidez.",
+      "Java programa blokeatzen du kanpoko prozesua amaitu arte, eta bere irteera-kodea itzultzen du."
     ],
-    zuzena: 1,
-    azalpena: "'waitFor()' metodoak uneko haria blokeatzen du kanpoko azpiprozesuak bere lana bukatu arte. Amaitzean irteera-kodea (exitValue, 0 arrakasta bada) itzultzen du."
+    "zuzena": 3,
+    "azalpena": "'waitFor()' metodoak itxaroten du kanpoko prozesua 'Amaitua' (Terminated) egoerara iritsi arte. Amaitzean irteera-kodea (exit code) itzultzen du (0 = arrakasta)."
   },
   {
-    id: 45,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Zer itzultzen du <code class='inline-code'>process.isAlive()</code> metodoak?",
-    aukerak: [
-      "Boolear bat (<code class='inline-code'>true/false</code>), prozesua oraindik martxan dagoen ala jada amaitu den jakiteko.",
-      "Prozesuak kontsumitu duen bateriaren ehunekoa.",
-      "Prozesuak erabili duen PUZ denbora milisegundotan.",
-      "Prozesuaren leihoaren koordenatuak pantailan."
+    "id": 43,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zer gertatzen da prozesua oraindik martxan badago eta <code class='inline-code'>prozesua.exitValue()</code> deitzen bada?",
+    "aukerak": [
+      "0 balioa itzultzen du prozesua martxan dagoela adierazteko modu estandarrean sistema eragilean.",
+      "<code class='inline-code'>IllegalThreadStateException</code> salbuespena jaurtitzen da prozesua amaitu gabe dagoelako.",
+      "-1 balioa itzultzen du eta automatikoki prozesua hiltzen du sistema eragilearen kernela erabiliz.",
+      "Java haria blokeatu egiten da prozesua berez amaitu arte inolako errore-mezurik jaurti gabe."
     ],
-    zuzena: 0,
-    azalpena: "'isAlive()' metodoak azpiprozesua oraindik bizirik dagoen (true) ala amaitu den (false) egiaztatzen du haria blokeatu gabe."
+    "zuzena": 1,
+    "azalpena": "'exitValue()' soilik dei daiteke prozesua amaituta dagoenean. Oraindik martxan badago, IllegalThreadStateException salbuespena jaurtiko du."
   },
   {
-    id: 46,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Nola lor daiteke prozesu baten hasiera-ordua Java 9+ bertsioetan?",
-    aukerak: [
-      "`process.getStartTime()` deituz.",
-      "`process.info().startInstant()` metodoaren bidez (<code class='inline-code'>Optional&lt;Instant&gt;</code>).",
-      "`System.currentTimeMillis()` deituz prozesua amaitzean.",
-      "`Runtime.getRuntime().startTime(process)` bidez."
+    "id": 44,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Nola egiaztatzen da Process objektu bat oraindik martxan dagoen?",
+    "aukerak": [
+      "<code class='inline-code'>boolean bizirik = prozesua.isRunning();</code>",
+      "<code class='inline-code'>boolean bizirik = prozesua.isAlive();</code>",
+      "<code class='inline-code'>boolean bizirik = prozesua.getStatus() == Status.RUNNING;</code>",
+      "<code class='inline-code'>boolean bizirik = prozesua.hasExited() == false;</code>"
     ],
-    zuzena: 1,
-    azalpena: "'process.info()' bidez 'ProcessHandle.Info' eskuratzen da, eta 'startInstant()' metodoak SEren kernelak erregistratutako hasiera-une zehatza eskaintzen du."
+    "zuzena": 1,
+    "azalpena": "'isAlive()' metodoak true itzultzen du prozesua oraindik exekuzioan edo blokeatuta badago, eta false amaitu denean."
   },
   {
-    id: 47,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Zer desberdintasun dago <code class='inline-code'>destroy()</code> eta <code class='inline-code'>destroyForcibly()</code> artean?",
-    aukerak: [
-      "Biek berdin jokatzen dute, izen desberdinak besterik ez dira.",
-      "`destroy()`-k amaitze normala eskatzen du (<code class='inline-code'>SIGTERM</code>); `destroyForcibly()`-k bortxaz hiltzen du (<code class='inline-code'>SIGKILL</code>).",
-      "`destroy()` fitxategiak ezabatzeko da eta `destroyForcibly()` leihoa ixteko.",
-      "`destroy()` metodoak Java aplikazio osoa ixten du beti."
+    "id": 45,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zer desberdintasun dago <code class='inline-code'>destroy()</code> eta <code class='inline-code'>destroyForcibly()</code> metodoen artean?",
+    "aukerak": [
+      "destroy()-k itxiera arrunta eskatzen du (SIGTERM); destroyForcibly()-k berehala hiltzen du (SIGKILL).",
+      "destroy() Linuxerako bakarrik da eta destroyForcibly() Windows sistemarako bakarrik garatu zen.",
+      "destroy()-k fitxategiak ezabatzen ditu eta destroyForcibly()-k RAM memoria bakarrik libratzen du diskoan.",
+      "Ez dago inolako desberdintasunik metodo hauen artean, biak seinale berarekin aritzen baitira JREan."
     ],
-    zuzena: 1,
-    azalpena: "'destroy()' metodoak seinale arrunta bidaltzen du garbi ixteko aukera emanez; 'destroyForcibly()' metodoak, berriz, sistema eragileari prozesua berehala hiltzeko agintzen dio."
+    "zuzena": 0,
+    "azalpena": "destroy() eskaera adeitsua da (prozesuak garbiketa egin dezake). destroyForcibly()-k behartu egiten du SEaren bidez prozesua hiltzera (ezin da saihestu)."
   },
   {
-    id: 48,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Nola irakurtzen da kanpoko prozesu baten kontsolako testu-irteera Javan?",
-    aukerak: [
-      "`process.getOutputStream()` erabiliz.",
-      "`process.getInputStream()` irakurriz (prozesuaren irteera Java-ren sarrera baita).",
-      "`System.in.read()` zuzenean deituz.",
-      "`Scanner sc = new Scanner(process);` eginez."
+    "id": 46,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Nola irakurtzen da kanpoko prozesu baten kontsolako testu-irteera Javan?",
+    "aukerak": [
+      "<code class='inline-code'>prozesua.getOutputStream()</code> bidez datuak zuzenean idatziz bufferrera.",
+      "<code class='inline-code'>prozesua.getInputStream()</code> bidez BufferedReader bat sortuz.",
+      "<code class='inline-code'>System.in.read()</code> erabiliz teklatuko sarrera orokorretik modu zuzenean.",
+      "<code class='inline-code'>prozesua.getConsoleOutput()</code> metodo estatikoa deituz pantailan."
     ],
-    zuzena: 1,
-    azalpena: "Perspektiba Java da: prozesuaren irteera estandarra (stdout) Java programaren sarrera-korrontea da; beraz, 'process.getInputStream()' irakurri behar da."
+    "zuzena": 1,
+    "azalpena": "Kontuz izenekin! Kanpoko prozesuaren irteera (stdout) Java programaren sarrera da; horregatik 'prozesua.getInputStream()' erabiltzen da irakurtzeko."
   },
   {
-    id: 49,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "Zertarako balio du <code class='inline-code'>pb.redirectErrorStream(true)</code> ezartzeak?",
-    aukerak: [
-      "Errore guztiak isilpean gorde eta pantailatik kentzeko.",
-      "Errore-korrontea (<code class='inline-code'>stderr</code>) eta irteera arrunta (<code class='inline-code'>stdout</code>) korronte bakar batean bateratzeko.",
-      "Aplikazioak akats bat duenean automatikoki berrabiarazteko.",
-      "Fitxategiak bakarrik irakurtzeko moduan irekitzeko."
+    "id": 47,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zer egiten du <code class='inline-code'>pb.inheritIO()</code> aukerak ProcessBuilder-en?",
+    "aukerak": [
+      "Prozesuaren fitxategi guztiak diskoan gordetzen ditu segurtasun-kopia gisa berreskuratzeko.",
+      "Kanpoko prozesuaren sarrera/irteera Java uneko kontsolara birbideratzen ditu zuzenean.",
+      "Prozesuari gurasoaren aldagai guztiak ezabatzen dizkio isolamendu osoa lortzeko memorian.",
+      "Prozesua administratzaile baimenekin abiarazten du sistema eragilearen kontrol-gunean."
     ],
-    zuzena: 1,
-    azalpena: "Bi korronteak bateratzean, programatzaileak korronte bakarra irakurri behar du 'getInputStream()' bidez, mezu arruntak zein erroreak elkarrekin jasoz."
+    "zuzena": 1,
+    "azalpena": "'inheritIO()'-k kanpoko prozesuaren stdout eta stderr zuzenean uneko Javako kontsolan inprimatzea eragiten du, eskuz irakurri beharrik gabe."
   },
   {
-    id: 50,
-    gaia: "Java Prozesuen Kudeaketa",
-    enuntziatua: "2. Atazako kodean zergatik erabili zen <code class='inline-code'>komandoa.split(\"\\\\s+\")</code>?",
-    aukerak: [
-      "Testuko letra guztiak maiuskula bihurtzeko.",
-      "Zuriune bat edo gehiagoren arabera banatzeko, programa eta parametroak bereiziz.",
-      "Komandoaren letra kopurua zenbatzeko.",
-      "Fitxategiaren luzapena (.exe) ezabatzeko."
+    "id": 48,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Nola lortu daiteke sistema eragilean martxan dauden prozesu GUZTIEN zerrenda Java 9+ erabiliz?",
+    "aukerak": [
+      "<code class='inline-code'>System.getAllProcesses()</code> metodo estatikoaren bidez sisteman.",
+      "<code class='inline-code'>Runtime.getRuntime().getProcessList()</code> deituz array batean.",
+      "<code class='inline-code'>ProcessBuilder.listAll()</code> deituz uneko kontsolako zerrendan.",
+      "<code class='inline-code'>ProcessHandle.allProcesses()</code> bidez Stream bat lortuz."
     ],
-    zuzena: 1,
-    azalpena: "'\\s+' adierazpen erregularrak espazio bat edo gehiago hartzen ditu; horrela 'notepad.exe fitx.txt' bi zatitan banatzen da garbi ProcessBuilder-entzat."
-  },
-
-  // =========================================================================
-  // 4. GAIA: HARIAK (THREADS) ETA MULTITHREADING JAVAN (51-64)
-  // =========================================================================
-  {
-    id: 51,
-    gaia: "Hariak eta Multithreading",
-    enuntziatua: "Zergatik esaten zaie hariei (<code class='inline-code'>Threads</code>) 'prozesu arinak'?",
-    aukerak: [
-      "Datu gutxiago erabiltzen dituztelako eta ez dutelako matematikarik egiten.",
-      "Prozesuaren memoria bera partekatzen dutelako eta testuinguru-aldaketa askoz merkeagoa delako.",
-      "Bakarrik sareko konexio txikietarako balio dutelako.",
-      "Ez dutelako prozesadorearen nukleorik behar exekutatzeko."
-    ],
-    zuzena: 1,
-    azalpena: "Hari berri bat sortzeak ez du memoria-espazio isolatu berririk eskatzen; prozesuaren Heap bera partekatzen dute, eta horregatik txandakatzea oso azkarra da."
+    "zuzena": 3,
+    "azalpena": "ProcessHandle.allProcesses() metodoak sistema eragileko prozesu guztien Stream<ProcessHandle> itzultzen du, iragazketa eta kontrol osoa ahalbidetuz."
   },
   {
-    id: 52,
-    gaia: "Hariak eta Multithreading",
-    enuntziatua: "Zer gertatzen da hari batean harrapatu gabeko errore larri bat gertatzen bada?",
-    aukerak: [
-      "Sistema eragileak ordenagailua berrabiarazi egingo du unean.",
-      "Kudeatu ezean, hari hori hiltzeaz gain prozesu osoa erorarazi dezake.",
-      "Beste hariek automatikoki konponduko dute errorea.",
-      "Ez du inolako eraginik, hariak guztiz isolatuta daudelako."
+    "id": 49,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zer informazio eskaintzen du <code class='inline-code'>ProcessHandle.Info</code> interfazeak?",
+    "aukerak": [
+      "Ordenagailuaren lizentzia-zenbakia eta BIOSaren bertsio zehatza uneko hardware-plakan.",
+      "Hasiera-ordua (<code class='inline-code'>startInstant</code>), PUZ denbora osoa, komandoa eta erabiltzailea.",
+      "Aplikazioak erabili dituen sareko pasahitzak eta datu-baseko taulak segurtasun-giltzan.",
+      "Konpilatzaileak sortutako bytecode aginduen zerrenda osoa memoriako mapan kokatuta."
     ],
-    zuzena: 1,
-    azalpena: "Prozesu ezberdinen artean isolamendua dago (batek huts egiteak ez die besteei eragiten), baina hariak prozesu beraren baitan daudenez, salbuespen larri batek aplikazio osoa itzal dezake."
+    "zuzena": 1,
+    "azalpena": "info()-k Optional formatuan eskaintzen ditu komandoaren bidea, argumentuak, erabiltzailearen izena, hasiera-unea eta erabilitako CPU denbora."
   },
   {
-    id: 53,
-    gaia: "Hariak eta Multithreading",
-    enuntziatua: "Java-n hariak sortzeko zein bide da GOMENDATUENA?",
-    aukerak: [
-      "`Thread` klasetik heredatzea (<code class='inline-code'>extends Thread</code>).",
-      "`Runnable` interfazea inplementatzea (<code class='inline-code'>implements Runnable</code>).",
-      "`System.createThread()` deitzea zuzenean.",
-      "Bakarrik C lengoaiako JNI liburutegiak erabiltzea."
+    "id": 50,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Nola bideratzen dira errore-mezuak (stderr) irteera estandarrera (stdout) ProcessBuilder-en?",
+    "aukerak": [
+      "<code class='inline-code'>pb.mergeStreams();</code>",
+      "<code class='inline-code'>pb.setStdErrToStdOut(true);</code>",
+      "<code class='inline-code'>pb.redirectErrorStream(true);</code>",
+      "<code class='inline-code'>pb.combineAllOutputs();</code>"
     ],
-    zuzena: 1,
-    azalpena: "Javak ez du herentzia anitzik onartzen. 'Runnable' inplementatuz klaseak beste klase baten oinordeko izaten jarrai dezake (adib. 'extends JFrame implements Runnable')."
+    "zuzena": 2,
+    "azalpena": "'redirectErrorStream(true)' jarrita, errore-irteera eta irteera estandarra elkartu egiten dira, korronte bakar batetik (getInputStream) irakurri ahal izateko."
   },
   {
-    id: 54,
-    gaia: "Hariak eta Multithreading",
-    enuntziatua: "Zer gertatzen da objektu bati <code class='inline-code'>haria.run()</code> deitzen badiogu <code class='inline-code'>haria.start()</code> deitu beharrean?",
-    aukerak: [
-      "Ez da hari berririk sortzen; deia egin duen uneko hariaren barruan exekutatzen da sekuentzialki.",
-      "Sistema eragileak errore sintaktiko bat botatzen du eta JVM gelditu egiten da.",
-      "Haria lehentasun bikoitzarekin hasten da atzeko planoan lanean.",
-      "Haria betirako blokeatuta geratzen da 'start()' deitu arte."
+    "id": 51,
+    "gaia": "Hariak eta Multithreading",
+    "enuntziatua": "Zein da desberdintasun nagusia Prozesu baten eta Hari (<code class='inline-code'>Thread</code>) baten artean?",
+    "aukerak": [
+      "Prozesuak Java bakarrik onartzen du eta hariek C++ lengoaia bakarrik erabiltzen dute sistema eragilean.",
+      "Hariak disko gogorrean gordetzen dira fitxategi gisa eta prozesuak RAM memorian bakarrik daude uneoro.",
+      "Ez dago inolako desberdintasunik, bi terminoek hardware-erregistro berak erabiltzen baitituzte beti.",
+      "Prozesuak memoria isolatua du; hariek prozesu bereko Heap memoria eta aldagaiak partekatzen dituzte."
     ],
-    zuzena: 0,
-    azalpena: "'start()' metodoak sistema eragileari eskatzen dio hari berri bat sortzea eta bertan 'run()' abiaraztea. 'run()' zuzenean deituz gero, metodo arrunt bat bezala exekutatzen da uneko haria blokeatuz."
+    "zuzena": 3,
+    "azalpena": "Prozesuak 'unitate astunak' dira (helbide-eremu propioa dute). Hariak 'unitate arinak' dira: prozesuaren barruan bizi dira eta Heap memoria partekatzen dute."
   },
   {
-    id: 55,
-    gaia: "Harien Egoerak",
-    enuntziatua: "Zein da hari baten hasierako egoera <code class='inline-code'>new Thread(...)</code> egin ondoren, <code class='inline-code'>start()</code> deitu aurretik?",
-    aukerak: [
-      "`RUNNABLE`",
-      "`NEW`",
-      "`BLOCKED`",
-      "`WAITING`"
+    "id": 52,
+    "gaia": "Hariak eta Multithreading",
+    "enuntziatua": "Zergatik da gomendagarria <code class='inline-code'>implements Runnable</code> erabiltzea <code class='inline-code'>extends Thread</code> ordez?",
+    "aukerak": [
+      "Javak herentzia anitza ez duelako onartzen; Runnable erabiliz klaseak beste klase bat heda dezake.",
+      "extends Thread erabiltzeak konpilazio errore larria ematen duelako Java bertsio modernoetan.",
+      "Runnable interfazeak automatikoki prozesadorearen nukleo guztiak blokeatzen dituelako segurtasunez.",
+      "extends Thread klaseak ezin duelako inolako metodori dei egin bere kodearen barruan."
     ],
-    zuzena: 1,
-    azalpena: "Haria instantziatu da baina oraindik ez da abiarazi. Bere egoera 'NEW' da; 'start()' deitzean 'RUNNABLE' egoerara pasatuko da."
+    "zuzena": 0,
+    "azalpena": "Klase batek Thread hedatzen badu, ezin du beste klaserik hedatu (adibidez JPanel edo JFrame). Runnable interfaze funtzionala denez, herentzia librea uzten du."
   },
   {
-    id: 56,
-    gaia: "Harien Egoerak",
-    enuntziatua: "Zein egoeratan dago hari bat <code class='inline-code'>Thread.sleep(1000)</code> deitu ondoren?",
-    aukerak: [
-      "`RUNNABLE`",
-      "`TIMED_WAITING`",
-      "`BLOCKED`",
-      "`TERMINATED`"
+    "id": 53,
+    "gaia": "Hariak eta Multithreading",
+    "enuntziatua": "Zer gertatzen da hari bati <code class='inline-code'>haria.run()</code> deitzen bazaio <code class='inline-code'>haria.start()</code> deitu beharrean?",
+    "aukerak": [
+      "Sistema eragileak automatikoki bi hari paralelo abiarazten ditu segurtasuna bermatzeko helburuarekin.",
+      "Ez da hari berririk sortzen; deitu duen hari beraren barruan sekuentzialki exekutatzen da metodo arrunt gisa.",
+      "IllegalThreadStateException salbuespena jaurtiko da berehala konpilatzailearen bidez metodoan.",
+      "Aplikazio osoa itxi egingo da eta sistema eragilearen kontrol-panela irekiko da errorea aztertzeko."
     ],
-    zuzena: 1,
-    azalpena: "Denbora-muga jakin bat duten itxaronaldiek ('sleep(ms)', 'join(ms)', 'wait(ms)') 'TIMED_WAITING' egoeran uzten dute haria, denbora agortzean berriz 'RUNNABLE' bihurtzeko."
+    "zuzena": 1,
+    "azalpena": "start()-ek sistema eragileari eskatzen dio hari berria sortzeko eta haren barruan run() deitzeko. run() eskuz deituz gero, uneko hariaren metodo arrunt bat besterik ez da."
   },
   {
-    id: 57,
-    gaia: "Harien Egoerak",
-    enuntziatua: "Zein egoeratan dago hari bat bloke <code class='inline-code'>synchronized</code> batean sartzeko giltzaren zain dagoenean?",
-    aukerak: [
-      "`WAITING`",
-      "`BLOCKED`",
-      "`TIMED_WAITING`",
-      "`NEW`"
+    "id": 54,
+    "gaia": "Harien Egoerak",
+    "enuntziatua": "Zeintzuk dira Java hari baten 6 egoerak (<code class='inline-code'>Thread.State</code> enum)?",
+    "aukerak": [
+      "START, RUNNING, SLEEPING, STOPPED, DEAD, SUSPENDED.",
+      "BERRIA, PREST, EXEKUZIOAN, BLOKEATUA, ESEKIA, AMAITUA.",
+      "NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED.",
+      "INIT, ACTIVE, PAUSED, IDLE, FINISHED, ERROR."
     ],
-    zuzena: 1,
-    azalpena: "Beste hari batek monitorearen giltza (lock) hartuta badauka, sartu nahi duen haria 'BLOCKED' egoeran geratzen da giltza libre geratu arte."
+    "zuzena": 2,
+    "azalpena": "Javako Thread.State enumak 6 balio zehatz ditu: NEW (sortua), RUNNABLE (exekutatzen edo prest), BLOCKED (monitorraren zain), WAITING (wait/join), TIMED_WAITING (sleep), TERMINATED (amaitua)."
   },
   {
-    id: 58,
-    gaia: "Harien Egoerak",
-    enuntziatua: "Noiz iristen da hari bat <code class='inline-code'>TERMINATED</code> egoerara?",
-    aukerak: [
-      "`Thread.sleep()` deia amaitzen denean.",
-      "Bere `run()` metodoa osorik amaitu denean edo kudeatu gabeko salbuespen batek eten duenean.",
-      "Erabiltzaileak teklatuaren zuriune-barra sakatzean.",
-      "Sistema eragileak hariari quantum-a kentzen dionean."
+    "id": 55,
+    "gaia": "Harien Koordinazioa",
+    "enuntziatua": "Zer egiten du <code class='inline-code'>t.join()</code> metodoak?",
+    "aukerak": [
+      "Bi hariak elkartu egiten ditu metodo bakar bat paraleloan exekutatu dezaten elkarrekin.",
+      "Deitu duen haria geldiarazten du 't' hariak bere exekuzio osoa amaitu arte.",
+      "Hariaren exekuzioa bertan behera uzten du eta bere memoria garbitzen du unean bertan.",
+      "Hariaren lehentasuna maximora igotzen du besteak baino lehenago amaitu dadin zikloetan."
     ],
-    zuzena: 1,
-    azalpena: "'run()' metodoaren azken lerrora iristen denean, hariaren bizi-zikloa amaitu egiten da eta 'TERMINATED' egoerara pasatzen da; ezin da berriz 'start()' deitu."
+    "zuzena": 1,
+    "azalpena": "Hari nagusiak (main) t.join() deitzen badu, main haria WAITING egoeran geratzen da 't' haria amaitu arte. Horrela bermatzen da emaitzak amaitzean irakurriko direla."
   },
   {
-    id: 59,
-    gaia: "Harien Koordinazioa",
-    enuntziatua: "Zer egiten du <code class='inline-code'>haria.join()</code> metodoak?",
-    aukerak: [
-      "Bi hari elkarrekin batu eta hari bakar bihurtzen ditu.",
-      "Deia egin duen haria zain geratzen da deitutako haria guztiz amaitu arte (<code class='inline-code'>TERMINATED</code>).",
-      "Hariaren abiadura azkartu egiten du lehenago amaitu dadin.",
-      "Hariaren lehentasuna txikiagotu egiten du ilaran."
+    "id": 56,
+    "gaia": "Harien Koordinazioa",
+    "enuntziatua": "Zer gertatzen da <code class='inline-code'>Thread.sleep(1000)</code> deitzean?",
+    "aukerak": [
+      "Ordenagailu osoa itzali egiten da segundu batez tenperatura kontrolatzeko helburuarekin.",
+      "Haria betiko blokeatuta geratzen da beste hari batek esnatu arte inolako denbora-mugarik gabe.",
+      "Sistemako prozesu guztiak batera gelditzen dira segundu batez CPU erregistroak garbitzeko.",
+      "Uneko haria TIMED_WAITING egoerara pasatzen da segundu batez eta PUZa askatzen du."
     ],
-    zuzena: 1,
-    azalpena: "Adibidez, hari nagusiak langile-hari baten emaitza behar badu, 'langilea.join()' deituko du, eta bertan geratuko da geldirik langileak 'run()' amaitu arte."
+    "zuzena": 3,
+    "azalpena": "sleep()-ek uneko haria lo jartzen du zehaztutako milisegundoetan. Tarte horretan PUZa beste hariek erabil dezakete. Bukaeran RUNNABLE egoerara itzultzen da."
   },
   {
-    id: 60,
-    gaia: "Harien Koordinazioa",
-    enuntziatua: "Zer egiten du <code class='inline-code'>Thread.yield()</code> metodoak?",
-    aukerak: [
-      "Haria berehala suntsitu eta baliabide guztiak askatzen ditu.",
-      "Planifikatzaileari iradokitzen dio uneko haria prest dagoela bere PUZ txanda beste bati uzteko.",
-      "Haria zehaztutako milisegundoetan lo uzten du.",
-      "Hariaren lehentasuna maila gorenera igotzen du."
+    "id": 57,
+    "gaia": "Harien Koordinazioa",
+    "enuntziatua": "Zergatik eskatzen du <code class='inline-code'>Thread.sleep()</code> metodoak <code class='inline-code'>InterruptedException</code> harrapatzea?",
+    "aukerak": [
+      "Beste hari batek <code class='inline-code'>interrupt()</code> deitu diezaiokeelako lo dagoen bitartean haria esnatzeko.",
+      "Hardwareak erlojua gal dezakeelako eta denbora zehatza ez delako bermatzen plaka basean.",
+      "Memoria nagusiak loaldian datuak gal ditzakeelako zabor-biltzailearen garbiketa-zikloetan.",
+      "Konpilatzaileak ezin duelako milisegundoen kalkulua aldez aurretik egiaztatu metodoan."
     ],
-    zuzena: 1,
-    azalpena: "'yield()' adeitasun-keinu bat da: planifikatzaileari esaten dio prest dagoela txanda uzteko, baina ez dago bermatuta sistemak kasu egingo dionik."
+    "zuzena": 0,
+    "azalpena": "Hari bat lo edo itxaroten dagoenean beste hari batek 'interrupt()' deitzen badio, loaldia eten egiten da eta InterruptedException jaurtitzen da."
   },
   {
-    id: 61,
-    gaia: "Harien Koordinazioa",
-    enuntziatua: "Zergatik dago gaitzetsia (<code class='inline-code'>deprecated</code>) <code class='inline-code'>Thread.stop()</code> metodoa?",
-    aukerak: [
-      "Java lengoaia motelagoa egiten duelako.",
-      "Haria bat-batean hiltzen duelako, blokeoak askatuz eta datuak egoera inkonsistentean utziz.",
-      "C++ konpilatzaileak onartzen ez duelako.",
-      "Bakarrik Android sistemetan dagoelako debekatuta."
+    "id": 58,
+    "gaia": "Harien Koordinazioa",
+    "enuntziatua": "Zer egiten du <code class='inline-code'>Thread.yield()</code> metodoak?",
+    "aukerak": [
+      "Haria behin betiko amaiarazten du eta bere baliabide guztiak askatzen ditu sistema osoan.",
+      "Hariaren lehentasuna zerora jaisten du eta atzeko planoan jartzen du betiko memorian.",
+      "Uneko hariak bere borondatez PUZa uzten du lehentasun bereko beste hari batek aukera izan dezan.",
+      "Hariaren egoera disko gogorrean gordetzen du geroago berreskuratzeko helburuarekin."
     ],
-    zuzena: 1,
-    azalpena: "'stop()'-ek haria edozein puntutan mozten du. Hari hori datu-egitura bat aldatzen ari bazen, datuak erdi-idatzita geratuko dira. Horregatik debekatuta dago."
+    "zuzena": 2,
+    "azalpena": "yield() metodoak CPU Scheduler-ari iradokitzen dio uneko haria prest dagoela txanda uzteko lehentasun bereko beste hari bati."
   },
   {
-    id: 62,
-    gaia: "Harien Koordinazioa",
-    enuntziatua: "Nola gelditu behar da hari bat modu garbi eta seguruan?",
-    aukerak: [
-      "`System.exit(0)` deituz klase guztietatik.",
-      "Kontrol-bandera boolear bat (<code class='inline-code'>volatile boolean martxan</code>) edo <code class='inline-code'>interrupt()</code> erabiliz.",
-      "Hariaren lehentasuna 0 jarriz.",
-      "Kablea fisikoki deskonektatuz."
+    "id": 59,
+    "gaia": "Swing eta Hariak",
+    "enuntziatua": "Zer da <code class='inline-code'>EDT</code> (Event Dispatch Thread) Swing-en?",
+    "aukerak": [
+      "Datu-baseko kontsultak atzeko planoan egiteaz arduratzen den hari berezia proiektuan.",
+      "Interfaze grafikoko gertaerak (klikak) prozesatzeaz eta leihoa marrazteaz arduratzen den hari nagusia.",
+      "Sareko konexioak etengabe monitorizatzen dituen protokolo-haria komunikazioan.",
+      "Fitxategiak diskoan idazteko eta irakurtzeko erabiltzen den sarrera/irteerako hari azkarra."
     ],
-    zuzena: 1,
-    azalpena: "Hariaren begiztak 'while(martxan)' aztertu behar du. Gelditu nahi denean 'martxan = false' jarri eta 'interrupt()' deitzen da (sleep-ean badago esnatzeko), bere 'run()' garbi amai dadin."
+    "zuzena": 1,
+    "azalpena": "Swing 'hari bakarrekoa' da (Single-Threaded rule). EDT haria da osagai grafikoak marraztu eta botoien klikak kudeatzen dituen bakarra."
   },
   {
-    id: 63,
-    gaia: "Swing eta Hariak",
-    enuntziatua: "Zergatik EZ da egin behar ataza luze bat Swing-eko <code class='inline-code'>EDT</code> (Event Dispatch Thread) barruan?",
-    aukerak: [
-      "EDTak ezin duelako fitxategirik irakurri segurtasun-arauengatik.",
-      "EDTak marrazketa eta klikak kudeatzen dituelako; blokeatuz gero interfaze osoa izoztu egiten da.",
-      "Leihoa automatikoki pantailatik desagertuko litzatekeelako.",
-      "PUZaren nukleo guztiak desaktibatu egingo liratekeelako."
+    "id": 60,
+    "gaia": "Swing eta Hariak",
+    "enuntziatua": "Zergatik EZ da inoiz <code class='inline-code'>Thread.sleep()</code> deitu behar Swing botoi baten ekintzaren barruan?",
+    "aukerak": [
+      "Swing-ek automatikoki botoia ezabatuko lukeelako interfaze grafikotik behin betiko.",
+      "Konpilatzaileak errore larria emango lukeelako grafikoetan ezin baita metodo hori erabili.",
+      "EDT haria lo geratuko litzatekeelako, leiho osoa izoztuz eta erabiltzailearen klikik onartu gabe.",
+      "Prozesadorearen nukleo guztiak itzaliko liratekeelako tenperatura gehiegi igota sisteman."
     ],
-    zuzena: 1,
-    azalpena: "Swing 'single-threaded' da: EDT hari bakarrak marrazten du pantaila eta entzuten ditu botoiak. Ataza luze bat bertan exekutatzen bada, leihoak ez du erantzungo ('Izoztuta')."
+    "zuzena": 2,
+    "azalpena": "ActionListener-ak EDT barruan exekutatzen dira. Bertan sleep egiten bada, EDT blokeatu egiten da: interfazea ezin da berriz marraztu eta aplikazioa 'Izoztuta' geratzen da."
   },
   {
-    id: 64,
-    gaia: "Swing eta Hariak",
-    enuntziatua: "Atzeko haritik interfaze grafikoa eguneratzeko zein metodo erabili BEHAR da?",
-    aukerak: [
-      "Zuzenean deitu: `botoia.setText(\"Kaixo\");`",
-      "`SwingUtilities.invokeLater(Runnable)` erabiliz aldaketa EDT-ren ilaran sartzeko.",
-      "`Thread.currentThread().sleep(100);` eginez.",
-      "`System.gc();` deituz memorian lekua egiteko."
+    "id": 61,
+    "gaia": "Swing eta Hariak",
+    "enuntziatua": "Nola eguneratu behar da Swing osagai grafiko bat (adib. JLabel) atzeko planoan dabilen hari batetik?",
+    "aukerak": [
+      "Zuzenean etiketa.setText() deituz atzeko hariaren run() metodoaren barrutik inolako arazorik gabe.",
+      "etiketa.repaint() metodoari lehentasuna emanez metodo estatikoen bidezko azterketan.",
+      "<code class='inline-code'>SwingUtilities.invokeLater(() -&gt; etiketa.setText(\"...\"))</code> erabiliz.",
+      "JFrame berri bat sortuz eta zaharra berehala System.exit(0) bidez itxiz pantailan."
     ],
-    zuzena: 1,
-    azalpena: "Swing osagaiak ez dira hari-seguruak (non-thread-safe). EDT ez den beste hari batetik UI aldatzeko 'SwingUtilities.invokeLater()' erabili behar da nahitaez."
-  },
-
-  // =========================================================================
-  // 5. GAIA: SINKRONIZAZIOA, ESKUALDE KRITIKOAK, SEMAFOROAK ETA MONITOREAK (65-72)
-  // =========================================================================
-  {
-    id: 65,
-    gaia: "Sinkronizazioa",
-    enuntziatua: "Zer da 'Eskualde Kritikoa' (<code class='inline-code'>Critical Section</code>)?",
-    aukerak: [
-      "Sistema eragilearen instalazio-karpeta babestua.",
-      "Baliabide partekatua erabiltzen duen kode zatia, elkar-bazterketan eta modu atomikoan exekutatu beharrekoa.",
-      "Prozesadorearen tenperatura gehiegi igotzen denean sortzen den errore-eremua.",
-      "Datu-baseko taula bat ezabatzeko agindua."
-    ],
-    zuzena: 1,
-    azalpena: "Eskualde kritikoa hainbat harik batera uki dezaketen baliabidea erabiltzen duen kodea da. Une bakoitzean hari bakarrak exekutatu behar du, datuen sendotasuna bermatzeko."
+    "zuzena": 2,
+    "azalpena": "Swing hari-segurua ez denez, UI aldaketak beti EDT hariari eskatu behar zaizkio 'SwingUtilities.invokeLater' metodoaren bidez, lasterketa-baldintzak saihesteko."
   },
   {
-    id: 66,
-    gaia: "Sinkronizazioa",
-    enuntziatua: "Zein da eskualde kritikoak diseinatzeko urrezko arau nagusietako bat?",
-    aukerak: [
-      "Ahalik eta kode gehien babestea, metodo osoak barruan sartuz.",
-      "Gutxieneko kodea babestea: soilik baliabide partekatua ukitzen duten instrukzioak sartu behar dira.",
-      "Eskualde kritikoaren barruan beste ataza luze batzuk exekutatzea.",
-      "Beti aldagai global guztiak ezabatzea eskualde kritikotik irtetean."
+    "id": 62,
+    "gaia": "Harien Koordinazioa",
+    "enuntziatua": "Zer da <code class='inline-code'>Daemon Thread</code> (Hari deabrua) Java-n?",
+    "aukerak": [
+      "Birusak edo kode maltzurrak exekutatzeko erabiltzen den hari berezi bat sistema eragilean.",
+      "Inoiz amaitu ezin den eta sistema eragilea blokeatzen duen akats-haria memorian.",
+      "Administratzaile baimenekin bakarrik abiarazi daitekeen hari pribilegiatua plataforma guztietan.",
+      "Atzeko planoko haria da; hari ez-daemon guztiak amaitzen direnean, JVMk automatikoki hiltzen du."
     ],
-    zuzena: 1,
-    azalpena: "Eskualde kritikoa ahalik eta laburrena izan behar da. Eragiketa luzeak (adib. I/O, kalkulu astunak) kanpoan utzi behar dira, beste hariak alferrik ez blokeatzeko."
+    "zuzena": 3,
+    "azalpena": "Daemon hariek (adib. Zabor-biltzailea / Garbage Collector) atzeko zerbitzuak ematen dituzte. Erabiltzailearen azken hari arrunta amaitzean, JVM itxi egiten da daemon-ak geldituz."
   },
   {
-    id: 67,
-    gaia: "Sinkronizazioa",
-    enuntziatua: "Zergatik saihestu behar da 'Itxaronaldi Aktiboa' (<code class='inline-code'>Busy Waiting / Polling</code>)?",
-    aukerak: [
-      "Javak ez duelako `while` begiztarik onartzen harien barruan.",
-      "PUZ zikloak xahutzen dituelako begizta huts batean, eta datua sortu behar duenari baliabideak kentzen dizkiolako.",
-      "Disko gogorra betetzen duelako testu-fitxategiekin.",
-      "Sareko konexioaren IP helbidea aldatzen duelako."
+    "id": 63,
+    "gaia": "Sinkronizazioa",
+    "enuntziatua": "Zer da <code class='inline-code'>Eskualde Kritikoa</code> (Critical Section)?",
+    "aukerak": [
+      "Sistema eragilearen pasahitzak eta segurtasun-giltzak gordetzen dituen disko-eremua.",
+      "Konpilatzaileak akatsak bilatzeko erabiltzen duen sintaxi-analisirako modulua proiektuan.",
+      "Aplikazio batek Interneteko datuak deskargatzeko erabiltzen duen sare-ataka nagusia.",
+      "Partekatutako baliabide bat aldatzen duen kode zatia; aldi berean hari bakar batek exekutatu behar du."
     ],
-    zuzena: 1,
-    azalpena: "Itxaronaldi aktiboak ('while(!prest){}') PUZa %100ean erretzen du. Soluzio zuzena blokeo-mekanismoak erabiltzea da: haria lotan geratzen da eta seinale batek esnatuko du."
+    "zuzena": 3,
+    "azalpena": "Eskualde kritikoa aldagai edo datu-egitura partekatuak aldatzen diren eremua da. Elkarrekiko bazterketa (Mutual Exclusion) bermatzen ez bada, datuak hondatu daitezke."
   },
   {
-    id: 68,
-    gaia: "Semaforoak",
-    enuntziatua: "Nola funtzionatzen du Dijkstraren semaforo baten <code class='inline-code'>wait()</code> (P) eragiketak balioa 0 denean?",
-    aukerak: [
-      "Balioari 1 gehitzen dio eta aurrera jarraitzen du.",
-      "Deia egin duen haria blokeatu egiten du eta itxaron-ilaran sartzen du.",
-      "Balioa negatibo bihurtzen du eta errore bat jaurtitzen du.",
-      "Aplikazio osoa berrabiarazten du automatikoki."
+    "id": 64,
+    "gaia": "Sinkronizazioa",
+    "enuntziatua": "Nola funtzionatzen du Java-ko <code class='inline-code'>synchronized</code> blokeak?",
+    "aukerak": [
+      "Hariaren exekuzio-abiadura bikoizten du memoria nagusiko katxea erabiliz hardwarean.",
+      "Objektu baten barneko giltza (<code class='inline-code'>Intrinsic Lock / Monitor</code>) hartzen du; beste hariak itxaron beharko dute.",
+      "Aldagaia fitxategi batean gordetzen du beste prozesuek irakurri ahal izateko diskoan.",
+      "Prozesadorearen nukleo guztiak gelditzen ditu agindua amaitu arte tenperatura zaintzeko."
     ],
-    zuzena: 1,
-    azalpena: "Semaforoaren balioa > 0 bada, wait()-ek balioa jaisten du eta pasatzen uzten du. Balioa 0 bada, ezin da sartu: haria blokeatu egiten da beste batek signal() deitu arte."
+    "zuzena": 1,
+    "azalpena": "Java-ko objektu bakoitzak 'monitor' bat du. Haria synchronized(obj) blokean sartzean lock-a hartzen du, eta irtetean askatzen du. Bitartean beste inor ezin da sartu objektu horrekin."
   },
   {
-    id: 69,
-    gaia: "Semaforoak",
-    enuntziatua: "Zer desberdintasun dago Semaforo Bitarraren (<code class='inline-code'>Mutex</code>) eta Zenbatzeko Semaforoaren artean?",
-    aukerak: [
-      "Bitarrak 0 eta 1 balioak soilik ditu (elkar-bazterketa); Zenbatzekoak N baliabide aske kontrola ditzake.",
-      "Bitarrak zenbaki bikoitiak zenbatzen ditu eta besteak bakoitiak.",
-      "Bitarra fitxategietarako da eta Zenbatzekoa pantailarako.",
-      "Bitarrak bi hari uzten ditu aldi berean sartzen eta besteak bat bakarra."
+    "id": 65,
+    "gaia": "5 Arazoak: Race Condition",
+    "enuntziatua": "Zergatik da <code class='inline-code'>kontagailua++</code> eragiketa lasterketa-baldintza baten iturri (Race Condition)?",
+    "aukerak": [
+      "++ eragilea Java 17tik aurrera zaharkituta geratu delako eta erroreak ematen dituelako.",
+      "Prozesadoreak ezin duelako zenbaki bati bat gehitu aldez aurretik baimenik gabe sisteman.",
+      "Ez delako atomikoa: 3 urrats ditu (Irakurri, Gehitu, Idatzi); bi harik balio zaharra irakur dezakete.",
+      "Eragiketa horrek RAM memoriako helbide guztiak batera aldatzen dituelako agindu bakarrean."
     ],
-    zuzena: 0,
-    azalpena: "Mutex-ak giltza bakarra du (sarbide esklusiboa). Zenbatzeko semaforo batek (Counting Semaphore) baliabide berdin anitzen kopurua kontrolatzen du (adib. 5 konexioko pool bat)."
+    "zuzena": 2,
+    "azalpena": "kontagailua++ ez da eragiketa atomiko bakarra. Urratsak: 1) RAMetik irakurri CPUra, 2) 1 gehitu, 3) RAMen idatzi. Bi harik batera egiten badute, gehikuntza bat galdu egiten da."
   },
   {
-    id: 70,
-    gaia: "Monitoreak eta Synchronized",
-    enuntziatua: "Java-n zer gertatzen da hari bat metodo edo bloke <code class='inline-code'>synchronized</code> batean sartzen denean?",
-    aukerak: [
-      "Hariaren abiadura bikoiztu egiten da besteak baino lehenago bukatzeko.",
-      "Objektuaren monitorearen blokeoa (lock / giltza) eskuratzen du; beste hariek itxaron egin behar dute giltza askatu arte.",
-      "Datu guztiak disko gogorrean gordetzen dira segurtasun kopia gisa.",
-      "Haria automatikoki bi hari berritan banatzen da."
+    "id": 66,
+    "gaia": "5 Arazoak: Memoria Inkontsistentzia",
+    "enuntziatua": "Zer bermatzen du aldagai bat <code class='inline-code'>volatile</code> deklaratzeak Javan?",
+    "aukerak": [
+      "Eragiketa konplexu guztiak automatikoki blokeo bidez sinkronizatuko direla kode osoan zehar.",
+      "Aldagaiaren balioa ezin izango dela inoiz aldatu 'final' hitz gakoaren moduan metodoetan.",
+      "Idazketa eta irakurketa guztiak zuzenean RAM nagusian egingo direla, CPU katxeen desfasajeak saihestuz.",
+      "Aldagaia disko gogorreko fitxategi enkriptatu batean gordeko dela automatikoki uneoro."
     ],
-    zuzena: 1,
-    azalpena: "Java-ko objektu orok blokeo inplizitu bat du. 'synchronized' blokean sartzean hariak giltza hartzen du; giltza askatu arte beste inor ezin da sartu objektu horren kode sinkronizatuan."
+    "zuzena": 2,
+    "azalpena": "volatile-k 'ikusgaitasuna' (visibility) bermatzen du: hari batek balioa aldatzen duenean, beste hari guztiek berehala ikusten dute RAM nagusitik, katxe desfasajerik gabe."
   },
   {
-    id: 71,
-    gaia: "Irakurle-Idazle Arazoa",
-    enuntziatua: "Irakurle-Idazle arazo klasikoan, zein da sarbide-araua?",
-    aukerak: [
-      "Idazle asko sar daitezke batera, baina irakurle bakarra une bakoitzean.",
-      "Hainbat irakurle aldi berean sar daitezke; idazleak, ordea, sarbide esklusiboa behar du bakarrik egoteko.",
-      "Inor ezin da sartu bi baino gehiago badira.",
-      "Irakurleek eta idazleek beti batera sartu behar dute bikoteka."
+    "id": 67,
+    "gaia": "5 Arazoak: Deadlock",
+    "enuntziatua": "Zer da <code class='inline-code'>Deadlock</code> (Hil-blokeoa) eta zeintzuk dira Coffman-en 4 baldintzak?",
+    "aukerak": [
+      "Memoria nagusia guztiz betetzea: Paginazioa, Segmentazioa, Swapping eta Fragmentazioa sisteman.",
+      "Bi hari elkarren baliabideen zain betiko geratzea: Bazterketa, Eutsi eta Itxaron, Kaleratzerik Ez, Zirkularra.",
+      "CPUaren tenperatura gehiegi igotzea: Tentsioa, Frekuentzia, Haizagailua eta Nukleoa hardwarean.",
+      "Sareko konexioa etetea: Latentzia, Pakete galduak, DNS errorea eta Timeout-a protokoloan."
     ],
-    zuzena: 1,
-    azalpena: "Irakurtzeak ez ditu datuak aldatzen; beraz, hainbat irakurle aldi berean sartzea segurua da. Baina idazketa batek datuak aldatzen dituenez, elkar-bazterketa zorrotza behar du."
+    "zuzena": 1,
+    "azalpena": "Deadlock-a gertatzeko 4 baldintza hauek aldi berean bete behar dira. Bat apurtuz gero (adibidez Resource Ordering bidez Itxaronaldi Zirkularra saihestuz), Deadlock-a ekiditen da."
   },
   {
-    id: 72,
-    gaia: "Sinkronizazioa",
-    enuntziatua: "Kotxe Lasterketaren ariketan, zergatik erabili zen <code class='inline-code'>synchronized(giltza)</code> auto batek helmuga zeharkatzean?",
-    aukerak: [
-      "Kotxeen aurrerapen-barraren kolorea aldatzeko.",
-      "Bi auto aldi berean iritsiz gero, auto BATEK BAKARRIK irabazle mezua ezar dezan lasterketa-baldintza ekidinez.",
-      "Kotxeak azkarrago ibil daitezen zirkuituan zehar.",
-      "Swing interfazearen leihoa ez dadin pantailatik mugitu."
+    "id": 68,
+    "gaia": "5 Arazoak: Deadlock",
+    "enuntziatua": "Nola ekiditen da Deadlock-a <code class='inline-code'>Resource Ordering</code> (Baliabideen Ordenamendua) teknikarekin?",
+    "aukerak": [
+      "Giltza guztiak batera ezabatuz eta sinkronizaziorik gabe programatuz kode osoa metodo guztietan.",
+      "Hari bakoitzari bere giltza pribatu propioa emanez besteekin partekatu gabe bere kodean.",
+      "Hari guztiek blokeoak BETI ordena finko eta berdinean hartzen dituzte (adib. Lock A lehenik, gero Lock B).",
+      "Aplikazioa berrabiaraziz Deadlock bat gertatzen den bakoitzean errorea erregistratu ostean."
     ],
-    zuzena: 1,
-    azalpena: "Lau autoak paraleloan dabiltza. Biek distantzia maximoa une berean gaindituko balute, sinkronizaziorik gabe biek irabazle izendatuko lukete beren burua. Lock-ak irabazle bakarra bermatzen du."
-  },
-
-  // =========================================================================
-  // 6. GAIA: 5 ARAZOAK, BILDUMAK ETA TIMER / TIMER_TASK (73-80)
-  // =========================================================================
-  {
-    id: 73,
-    gaia: "5 Arazoak: Deadlock",
-    enuntziatua: "Coffman-en 4 baldintzetatik, zein apurtzen da <code class='inline-code'>Resource Ordering</code> (Baliabideen Ordenamendu Zorrotza) erabiliz?",
-    aukerak: [
-      "Elkarrekiko Bazterketa (Mutual Exclusion).",
-      "Itxaronaldi Zirkularra (<code class='inline-code'>Circular Wait</code>), blokeoak beti ordena finko berean eskatzen direlako.",
-      "Desjabetzerik eza (No Preemption).",
-      "Eutsi eta Itxaron (Hold and Wait)."
-    ],
-    zuzena: 1,
-    azalpena: "Hari guztiek blokeoak beti ordena berean eskuratzen badituzte (adib. beti lehenik Kontu1 eta ondoren Kontu2), ezinezkoa da mendetasun-ziklo itxi bat sortzea (Circular wait ezabatzen da)."
+    "zuzena": 2,
+    "azalpena": "Giltzak beti ordena globalean hartzen badira (adibidez kontuaren ID txikiena lehenik, handiena gero), sekula ezin da zirkulurik sortu; beraz, Deadlock-a ezinezkoa da."
   },
   {
-    id: 74,
-    gaia: "5 Arazoak: Inanizioa",
-    enuntziatua: "Lanketa IVko praktikan, nola konpondu zen Inanizioa (<code class='inline-code'>Starvation</code>) lehentasun baxuko haria baztertua geratu ez zedin?",
-    aukerak: [
-      "`Thread.sleep(5000)` deituz hari bakoitzean.",
-      "`new ReentrantLock(true)` (Fair Lock) erabiliz, harien arteko FIFO ilara bidezkoa ezartzeko.",
-      "`volatile` hitz gakoa gehituz aldagai guztiei.",
-      "Lehentasun baxuko haria ezabatuz."
+    "id": 69,
+    "gaia": "5 Arazoak: Inanizioa",
+    "enuntziatua": "Zer desberdintasun dago Deadlock eta <code class='inline-code'>Inanizioaren</code> (Starvation) artean?",
+    "aukerak": [
+      "Deadlock-ean hari guztiak betiko blokeatuta daude; Inanizioan sistema aurrera doa, baina hari batek ez du txandarik lortzen.",
+      "Deadlock Javan bakarrik gertatzen da eta Inanizioa C++ lengoaiako akats esklusiboa da.",
+      "Deadlock-ek fitxategiak ezabatzen ditu eta Inanizioak sareko ataka guztiak ixten ditu.",
+      "Ez dago inolako desberdintasunik, termino biak kontzeptu beraren sinonimoak baitira."
     ],
-    zuzena: 1,
-    azalpena: "'new ReentrantLock(true)' ezartzean (fairness = true), giltza eskatzen lehena iritsi denari ematen zaio txanda (FIFO), hari guztiek sarbide kopuru orekatua lortuz."
+    "zuzena": 0,
+    "azalpena": "Deadlock-ean inork ezin du aurrera egin (blokeo zirkularra). Inanizioan beste hariek lanean jarraitzen dute, baina hari zoritxarreko batek ez du inoiz CPU edo giltzarik eskuratzen."
   },
   {
-    id: 75,
-    gaia: "5 Arazoak: Race Condition",
-    enuntziatua: "Zergatik ez da atomikoa <code class='inline-code'>kontagailua++</code> eragiketa makina-mailan?",
-    aukerak: [
-      "Konpilatzaileak zenbaki negatibo bihurtzen duelako.",
-      "3 mikro-agindutan banatzen delako: Irakurri RAMetik, Gehitu 1 erregistroan, eta Idatzi RAMen.",
-      "Bakarrik hari bakarreko programetan funtzionatzen duelako.",
-      "Memoria nagusian lekurik ez duelako hartzen."
+    "id": 70,
+    "gaia": "5 Arazoak: Inanizioa",
+    "enuntziatua": "Nola saihesten da Inanizioa Java-ko <code class='inline-code'>ReentrantLock</code> erabiliz?",
+    "aukerak": [
+      "Lock-aren gainean 'synchronized' blokea jarriz segurtasun bikoitza lortzeko metodoan.",
+      "Hariaren lehentasuna aldizka zerora jaitsiz besteak azkarrago ibil daitezen zikloetan.",
+      "<code class='inline-code'>new ReentrantLock(true)</code> sortuz: 'fairness' gaitzen du eta FIFO ilara bermatzen du.",
+      "Lock-aren metodo guztiak 'volatile' deklaratuz aldagai globaletan memoria zaintzeko."
     ],
-    zuzena: 1,
-    azalpena: "Read-Modify-Write sekuentzia da. Bi harik aldi berean irakurtzen badute balio bera, biek 1 gehituko diote eta balio bera idatziko dute; beraz, gehitze bat galdu egiten da. Soluzioa: AtomicInteger edo synchronized."
+    "zuzena": 2,
+    "azalpena": "new ReentrantLock(true) bidezko lock 'bidezkoa' (fair) da: itxaroten gehien daraman hariari emango dio sarbidea lehenik (FIFO), inor gosez hil ez dadin."
   },
   {
-    id: 76,
-    gaia: "5 Arazoak: Memoria Inkontsistentzia",
-    enuntziatua: "Zertarako balio du <code class='inline-code'>volatile</code> hitz gakoak Java aldagaiekin?",
-    aukerak: [
-      "Aldagaia konstante bihurtzen du sekula aldatu ez dadin.",
-      "Irakurketa eta idazketa guztiak RAM nagusitik zuzenean egitea bermatzen du, CPU katxeen desfasajeak saihestuz.",
-      "Aldagaia fitxategi batean gordetzen du diskoan.",
-      "Aldagaiaren tamaina automatikoki bikoizten du."
+    "id": 71,
+    "gaia": "5 Arazoak: Slipped Conditions",
+    "enuntziatua": "Zer da <code class='inline-code'>Slipped Conditions</code> (Egoera Lerratuak) arazoa konkurrentzian?",
+    "aukerak": [
+      "Hariaren erlojuak milisegundoak galtzea prozesadorearen tenperatura altua denean hardwarean.",
+      "Hari batek baldintza bat egiaztatu (Check) eta ekintza egin (Act) bitartean beste hari batek egoera aldatzea.",
+      "Memoria nagusiko datuak disko gogorrera automatikoki mugitzea swap bidezko transferentzian.",
+      "Konpilatzaileak aginduen ordena aldatzea kodea optimizatzeko helburuarekin JVMren barruan."
     ],
-    zuzena: 1,
-    azalpena: "'volatile'-k ikusgarritasuna (visibility) bermatzen du: hari batek balioa aldatzen duenean, beste nukleo guztiek berehala ikusten dute balio berria RAMetik, beren katxe lokaleko balio zaharkitua erabili beharrean."
+    "zuzena": 1,
+    "azalpena": "Check-then-Act arazoa: 'if (!beteta)' egiaztatu eta 'gehitu()' egin artean beste hari bat sartu bada, ilara gainezka egin daiteke. Konponbidea: egiaztapena eta ekintza bloke berean babestea."
   },
   {
-    id: 77,
-    gaia: "5 Arazoak: Slipped Conditions",
-    enuntziatua: "Zer da Lerratutako Baldintza bat (<code class='inline-code'>Slipped Condition / Check-then-Act</code>)?",
-    aukerak: [
-      "Programa baten kodea beste fitxategi batera mugitzea.",
-      "Baldintza bat egiaztatu eta ekintza burutu artean beste hari batek egoera aldatzea.",
-      "if baldintzaren barruan else ez idaztea.",
-      "Haria itxaronaldi aktiboan betiko geratzea."
+    "id": 72,
+    "gaia": "Semaforoak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>Semaphore</code> batek Javan?",
+    "aukerak": [
+      "Trafiko-argi bat erakusten du pantailan interfaze grafikoaren koloreak aldatzeko zikloetan.",
+      "Prozesu bakoitzari bere memoria pribatua ematen dio besteek ikusi ez dezaten helbideetan.",
+      "Fitxategiak irakurtzeko baimenak egiaztatzen ditu Windows-eko erregistroaren bidez uneoro.",
+      "Baimen-kontagailu bat du (<code class='inline-code'>permits</code>): <code class='inline-code'>acquire()</code>-k bat kentzen du eta <code class='inline-code'>release()</code>-k bat gehitzen du."
     ],
-    zuzena: 1,
-    azalpena: "Adibidez, 'if (saldoa >= 100)' egiaztatu eta dirua atera artean beste hari batek saldoa hustu badu, kontua negatiboan geratuko da. Soluzioa: egiaztapena eta ekintza bloke sinkronizatu berean biltzea."
+    "zuzena": 3,
+    "azalpena": "Semaforoak hainbat hariri aldi berean sartzeko baimena eman diezaieke (adibidez 3 konexio aldi berean). permits=1 denean Semaforo Bitarra da (Mutex-en baliokidea)."
   },
   {
-    id: 78,
-    gaia: "Java Bildumak",
-    enuntziatua: "Hari anitzeko ingurune batean, zein klase da gomendagarria <code class='inline-code'>HashMap</code> arruntaren ordez?",
-    aukerak: [
-      "`ArrayList`",
-      "`ConcurrentHashMap`, segmentuka blokeatzen duelako (Lock Striping) irakurketak libre utziz.",
-      "`HashSet`",
-      "`StringBuilder`"
+    "id": 73,
+    "gaia": "Monitoreak eta Synchronized",
+    "enuntziatua": "Zer desberdintasun dago <code class='inline-code'>wait()</code> eta <code class='inline-code'>sleep()</code> metodoen artean?",
+    "aukerak": [
+      "wait() metodoak CPU denbora gehiago kontsumitzen du sleep() baino uneoro erregistroetan.",
+      "wait()-ek objektuaren giltza (lock) ASKATZEN du; sleep()-ek giltza EDUKITA jarraitzen du loaldian.",
+      "wait() metodoa C++ lengoaiakoa da eta sleep() metodoa Java lengoaiakoa metodoetan.",
+      "Ez dago inolako desberdintasunik, bi metodoek portaera bera dute Javan harien artean."
     ],
-    zuzena: 1,
-    azalpena: "HashMap arrunta ez da hari-segurua. 'ConcurrentHashMap'-ek sarbide paralelo oso azkarrak eskaintzen ditu giltzape segmentatuen bidez, irakurketak sekula blokeatu gabe."
+    "zuzena": 1,
+    "azalpena": "Funtsezko galdera! sleep()-ek lock-a mantentzen du (besteak ezin dira sartu). wait()-ek lock-a askatzen du beste hari batek notify() bidez esnatu arte."
   },
   {
-    id: 79,
-    gaia: "Timer eta TimerTask",
-    enuntziatua: "Luzatze-ataza bat 2 segundora lehenik abiatu eta ondoren 10 segundoro errepikatzeko, zein deia da ZUZENA?",
-    aukerak: [
-      "`timer.start(ataza, 2000, 10000);`",
-      "`timer.scheduleAtFixedRate(ataza, 2000L, 10000L);`",
-      "`ataza.run(2000, 10000);`",
-      "`Thread.sleep(2000); timer.repeat(10000);`"
+    "id": 74,
+    "gaia": "Irakurle-Idazle Arazoa",
+    "enuntziatua": "Irakurle-Idazle arazoan, zein da baimendutako sarbide eredua?",
+    "aukerak": [
+      "Idazle guztiek batera idatz dezakete, baina irakurleek banan-banan irakurri behar dute txandan.",
+      "Irakurle batek eta idazle batek beti batera sartu behar dute eskualde kritikora une berean.",
+      "Hainbat irakurlek batera irakur dezakete; idazle bat dagoenean ezin da beste inor sartu (ez irakurle, ez idazle).",
+      "Ez dago inolako mugarik, sistema eragileak automatikoki konpontzen ditu talkak RAMean."
     ],
-    zuzena: 1,
-    azalpena: "'timer.scheduleAtFixedRate(task, delay, period)' metodoak hasierako itxaronaldia ('delay', ms) eta errepikatze-tartea ('period', ms) jasotzen ditu."
+    "zuzena": 2,
+    "azalpena": "Irakurketek ez dute daturik aldatzen (aldi berean egin daitezke). Idazketek datuak aldatzen dituztenez, elkarrekiko bazterketa osoa behar dute (ReentrantReadWriteLock)."
   },
   {
-    id: 80,
-    gaia: "Timer eta TimerTask",
-    enuntziatua: "Luzatze-ariketan nola bistaratu zen abisua Windows-eko jakinarazpen-eremuan (<code class='inline-code'>System Tray</code>)?",
-    aukerak: [
-      "`JOptionPane.showMessageDialog` deituz.",
-      "`SystemTray` instantziari `TrayIcon` bat gehituz eta `trayIcon.displayMessage(...)` deituz.",
-      "`System.out.println` deituz kontsolan.",
-      "`ProcessBuilder` bidez mezulari bat irekiz."
+    "id": 75,
+    "gaia": "Java Bildumak",
+    "enuntziatua": "Zergatik da <code class='inline-code'>ConcurrentHashMap</code> hobea <code class='inline-code'>Collections.synchronizedMap</code> baino?",
+    "aukerak": [
+      "Ez duelako inolako memoriarik erabiltzen RAMean datuak gordetzeko helburuarekin.",
+      "Segmentuen araberako blokeoa (<code class='inline-code'>Lock Striping</code>) duelako; irakurketak ez dira sekula blokeatzen.",
+      "Elementuak disko gogorrean automatikoki ordenatzen dituelako gakoen arabera beti.",
+      "Java 8 baino lehenagoko bertsioetan bakarrik erabil daitekeelako metodo zaharkituetan."
     ],
-    zuzena: 1,
-    azalpena: "AWT-ko 'SystemTray.getSystemTray().add(trayIcon)' bidez ikonoa ataza-barran kokatzen da, eta 'trayIcon.displayMessage()' bidez Windows-eko jakinarazpen natiboa ateratzen da."
+    "zuzena": 1,
+    "azalpena": "synchronizedMap-ek mapa osoa blokeatzen du edozein eragiketatan. ConcurrentHashMap-ek bloke txikiak bakarrik blokeatzen ditu (Lock Striping), errendimendu izugarria lortuz."
+  },
+  {
+    "id": 76,
+    "gaia": "Java Bildumak",
+    "enuntziatua": "Noiz da egokia <code class='inline-code'>CopyOnWriteArrayList</code> erabiltzea?",
+    "aukerak": [
+      "Etengabe milioika elementu gehitu eta kentzen ari garen zerrenda erraldoietan segundoko.",
+      "Hari bakar batean lan egiten dugunean memoria aurrezteko helburuarekin metodoetan.",
+      "Irakurketa asko eta idazketa gutxi daudenean; idazketa bakoitzean barne-array berri bat kopiatzen du.",
+      "Fitxategi bitarrak sare bidez transmititzeko datu-egitura gisa komunikazio guztietan."
+    ],
+    "zuzena": 2,
+    "azalpena": "CopyOnWriteArrayList-ek idazketa bakoitzean array osoa kopiatzen du. Idazketak garestiak dira, baina irakurketak blokeorik gabe eta oso azkar egiten dira (adib. entzule/listener zerrendetan)."
+  },
+  {
+    "id": 77,
+    "gaia": "Java Bildumak",
+    "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>BlockingQueue</code> egiturak ekoizle-kontsumitzaile ereduan?",
+    "aukerak": [
+      "Elementuak automatikoki ezabatzen ditu 5 segundu igaro ondoren inork hartu ez baditu.",
+      "<code class='inline-code'>put()</code> blokeatu egiten da ilara beteta badago; <code class='inline-code'>take()</code> blokeatu egiten da hutsik badago.",
+      "Ekoizleak eta kontsumitzaileak hari berean exekutatzera behartzen ditu sekuentzialki beti.",
+      "Ilara betetzen denean salbuespen larria jaurtitzen du eta programa itzali egiten du."
+    ],
+    "zuzena": 1,
+    "azalpena": "BlockingQueue-k eskuzko wait/notify kode konplexua ordezkatzen du: hariak automatikoki blokeatzen dira ilara beteta edo hutsik dagoenean, datu-truke segurua bermatuz."
+  },
+  {
+    "id": 78,
+    "gaia": "Timer eta TimerTask",
+    "enuntziatua": "Zer desberdintasun dago <code class='inline-code'>schedule()</code> eta <code class='inline-code'>scheduleAtFixedRate()</code> artean Timer klasean?",
+    "aukerak": [
+      "schedule metodoak milisegundoak erabiltzen ditu eta scheduleAtFixedRate metodoak minutuak bakarrik.",
+      "schedule ataza bakarra exekutatzeko da eta scheduleAtFixedRate hiru ataza batera egiteko.",
+      "scheduleAtFixedRate errepikapen zehatzetarako da (atzerapenak konpentsatzen ditu); schedule-k tarte erlatiboa mantentzen du.",
+      "Ez dago inolako desberdintasunik, bi metodoek erloju bera erabiltzen baitute Javan."
+    ],
+    "zuzena": 2,
+    "azalpena": "scheduleAtFixedRate-k hasierako denborarekiko maiztasun finkoa mantentzen du (erlojuko kanpaiak bezala). schedule-k aurreko exekuzioaren amaierarekiko atzerapena mantentzen du."
+  },
+  {
+    "id": 79,
+    "gaia": "Timer eta TimerTask",
+    "enuntziatua": "Zergatik da garrantzitsua <code class='inline-code'>timer.cancel()</code> deitzea aplikazioa ixtean?",
+    "aukerak": [
+      "Timer-ak disko gogorra blokeatuta mantentzen duelako beste programek ezin erabili ahal izateko.",
+      "cancel deitu ezean ordenagailuko data eta ordua deskonfiguratu egingo liratekeelako unean.",
+      "Sistema eragileak memoria-isuri larria hauteman eta automatikoki berrabiaraziko lukeelako.",
+      "Timer-ak background hari bat bizirik mantentzen duelako; cancel deitu ezean JVM ez da inoiz itxiko."
+    ],
+    "zuzena": 3,
+    "azalpena": "Timer-ak ez-daemon motako background hari bat sortzen du bere zereginetarako. 'timer.cancel()' deitu ezean hari hori bizirik geratzen da eta Java aplikazioa ez da sekula amaituko."
+  },
+  {
+    "id": 80,
+    "gaia": "Java Prozesuen Kudeaketa",
+    "enuntziatua": "Zer eragin du <code class='inline-code'>ProcessBuilder.directory(File dir)</code> metodoak?",
+    "aukerak": [
+      "Direktorio horretako fitxategi guztiak automatikoki ezabatzen ditu segurtasuna bermatzeko.",
+      "Kanpoko prozesuaren lan-direktorioa (<code class='inline-code'>Working Directory</code>) ezartzen du, fitxategi erlatiboak bertatik irekitzeko.",
+      "Prozesuaren iturburu-kodea direktorio horretan konpilatzen du exekutatu aurretik diskoan.",
+      "Sistema eragilearen instalazio-karpeta nagusia aldatzen du uneko saioan administratzaile gisa."
+    ],
+    "zuzena": 1,
+    "azalpena": "'directory(File)' bidez prozesuaren uneko lan-karpeta zehazten da. Horrela, prozesuak fitxategi erlatiboak karpeta horretan bilatuko ditu."
   }
 ];
 
