@@ -1,0 +1,28 @@
+# Build outputs & temporary files
+.gradle/
+**/build/
+**/bin/
+**/target/
+**/out/
+
+# IDE configurations
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node temporary files
+node_modules/
+_export_tmp/
+
+# Keep APK, ZIP and Assets!
+!ZPP_Entrenatzailea.apk
+!ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip
+!*.svg
+!*.png

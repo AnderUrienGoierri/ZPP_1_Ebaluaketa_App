@@ -1,0 +1,923 @@
+/* ==========================================================================
+   ZPP AZTERKETA ENTRENATZAILEA - ESTILOAK (IDE Dark Theme Modernoa)
+   ========================================================================== */
+
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --card-bg: rgba(30, 41, 59, 0.85);
+  --card-border: #475569;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-indigo: #6366f1;
+  --accent-green: #22c55e;
+  --accent-red: #ef4444;
+  --accent-orange: #f97316;
+  --accent-yellow: #eab308;
+  --code-bg: #090d16;
+  --code-border: #1e293b;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at 10% 20%, #1e1b4b 0%, #0f172a 90%);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   NAVBAR & HEADER
+   -------------------------------------------------------------------------- */
+header {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 12px 24px;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.brand-icon-img {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+  object-fit: contain;
+}
+
+.brand-text h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-secondary);
+}
+
+.nav-btn.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(6, 182, 212, 0.35));
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   MAIN CONTAINER
+   -------------------------------------------------------------------------- */
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 24px auto;
+  padding: 0 20px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   TIMER & STATUS BAR
+   -------------------------------------------------------------------------- */
+.test-top-bar {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.timer-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #090d16;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: 1px solid #334155;
+}
+
+.timer-box .timer-icon {
+  font-size: 1.2rem;
+  animation: pulse 1.5s infinite;
+}
+
+.timer-value {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 1px;
+}
+
+.timer-value.warning {
+  color: var(--accent-orange);
+}
+
+.timer-value.danger {
+  color: var(--accent-red);
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.5; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.test-progress-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress-track {
+  width: 160px;
+  height: 10px;
+  background: #090d16;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-indigo), var(--accent-cyan));
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   QUESTION CARDS & INLINE CODE
+   -------------------------------------------------------------------------- */
+.question-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+.q-badge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.question-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+/* Inline Code Highlighter */
+.inline-code {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.inline-code.kw {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.inline-code.fn {
+  background: rgba(250, 204, 21, 0.15);
+  color: #fde047;
+  border-color: rgba(250, 204, 21, 0.35);
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-btn {
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  text-align: left;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all 0.2s ease;
+  line-height: 1.5;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: #1f2937;
+  border-color: var(--accent-blue);
+  transform: translateX(4px);
+}
+
+.option-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+}
+
+.option-btn.selected {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: var(--accent-indigo);
+}
+
+.option-btn.selected .option-letter {
+  background: var(--accent-indigo);
+  color: #fff;
+  border-color: transparent;
+}
+
+.option-btn.correct {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: var(--accent-green) !important;
+}
+
+.option-btn.correct .option-letter {
+  background: var(--accent-green) !important;
+  color: #000 !important;
+}
+
+.option-btn.wrong {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: var(--accent-red) !important;
+}
+
+.option-btn.wrong .option-letter {
+  background: var(--accent-red) !important;
+  color: #fff !important;
+}
+
+.explanation-box {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.9);
+  border-left: 4px solid var(--accent-blue);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   CONTROLS & ACTION BUTTONS
+   -------------------------------------------------------------------------- */
+.test-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-blue));
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #16a34a, var(--accent-green));
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626, var(--accent-red));
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   RESULTS SCREEN
+   -------------------------------------------------------------------------- */
+.results-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.results-score-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #1e293b, #090d16);
+  border: 4px solid var(--accent-cyan);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+}
+
+.results-score-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.results-score-total {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.results-verdict {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.results-verdict.pass {
+  color: var(--accent-green);
+}
+
+.results-verdict.fail {
+  color: var(--accent-red);
+}
+
+.results-stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  background: #090d16;
+  border: 1px solid #334155;
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  min-width: 120px;
+}
+
+.stat-num {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.stat-num.correct { color: var(--accent-green); }
+.stat-num.wrong { color: var(--accent-red); }
+.stat-num.total { color: var(--accent-cyan); }
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   ZATI PRAKTIKOA: CODE CONTAINER & SCROLL HORIZONTALA
+   -------------------------------------------------------------------------- */
+.sub-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 12px;
+  overflow-x: auto;
+}
+
+.sub-nav-btn {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: var(--text-muted);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.sub-nav-btn:hover {
+  background: #334155;
+  color: #fff;
+}
+
+.sub-nav-btn.active {
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan));
+  color: #fff;
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.ide-window {
+  background: var(--code-bg);
+  border: 1px solid #334155;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.ide-top-bar {
+  background: #111827;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1f2937;
+}
+
+.ide-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.ide-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.ide-dot.red { background: #ef4444; }
+.ide-dot.yellow { background: #f59e0b; }
+.ide-dot.green { background: #10b981; }
+
+.ide-filename {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* KODEAREN BISTARATZE GARBIA - SCROLL HORIZONTALA ETA PARRAFADARIK GABE */
+.code-container {
+  padding: 18px 22px;
+  overflow-x: auto !important;
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.code-container code {
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  font-family: inherit;
+  display: block;
+}
+
+/* Syntax Token Colors (IDE Dark Style) */
+.token-keyword { color: #f43f5e; font-weight: bold; }      /* public, class, synchronized, volatile, if, return */
+.token-type { color: #38bdf8; font-weight: 600; }          /* ProcessBuilder, Thread, String, int, boolean */
+.token-method { color: #fbbf24; font-weight: 600; }        /* start(), run(), pid(), sleep(), invokeLater() */
+.token-variable { color: #93c5fd; }                         /* giltza, irabazlea, lasterketaAmaituta, kontagailua */
+.token-operator { color: #f1f5f9; font-weight: 600; }       /* =, ==, !=, &&, ||, ++, -> */
+.token-string { color: #4ade80; }                           /* "notepad.exe", "Autoa " */
+.token-comment { color: #94a3b8; font-style: italic; }       /* // azalpenak */
+.token-number { color: #c084fc; font-weight: 600; }         /* 100, 1000L, 0.1 */
+.token-annotation { color: #f59e0b; font-weight: bold; }   /* @Override */
+
+/* DIAGRAMAK (SVG Bektorial Garbiak) */
+.diagram-box {
+  background: #090d16;
+  border: 1px solid #334155;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 16px 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.diagram-box svg {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ESTATISTIKA ETA AURRERAPEN PANELA */
+.stats-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-widget {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-widget::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+}
+
+.stat-widget-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  margin-top: 6px;
+  color: #fff;
+}
+
+.stat-widget-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.weak-alert-box {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.topic-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  border-left: 4px solid var(--card-border);
+}
+
+.topic-bar-bg {
+  width: 140px;
+  height: 8px;
+  background: #334155;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-left: 12px;
+}
+
+.topic-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.concept-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.concept-title {
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.concept-body {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   CODE COMPLETION & WRITING INPUTS
+   -------------------------------------------------------------------------- */
+.fill-input {
+  background: #0f172a;
+  border: 2px solid var(--accent-cyan);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  min-width: 140px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fill-input:focus {
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  border-color: #38bdf8;
+}
+
+.code-textarea {
+  width: 100%;
+  height: 160px;
+  background: #090d16;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  resize: vertical;
+  line-height: 1.5;
+  outline: none;
+}
+
+.code-textarea:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   CONFIRMATION MODAL (EZ USTEKABEAN TESTA ITXI)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(10px);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay.active .modal-box {
+  transform: translateY(0);
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-msg {
+  color: var(--text-main);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+footer {
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid var(--card-border);
+  padding: 16px 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN (MUGIKORRAK ETA TABLETAK)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 14px;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  nav {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+  }
+  
+  .question-card {
+    padding: 18px;
+  }
+  
+  .question-title {
+    font-size: 1.05rem;
+  }
+  
+  .option-btn {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+  
+  .code-container {
+    font-size: 0.82rem;
+    padding: 14px;
+  }
+}

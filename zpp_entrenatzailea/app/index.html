@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZPP 1. Ebaluaketa - Azterketa Entrenatzailea</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+</head>
+<body>
+
+  <!-- =========================================================================
+       GOIBURUA ETA NABIGAZIOA
+       ========================================================================= -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <img src="icons/app-header-icon.svg" class="brand-icon-img" alt="ZPP">
+        <div class="brand-text">
+          <h1>ZPP Entrenatzailea</h1>
+          <span>Zerbitzu eta Prozesuen Programazioa · 1. Ebaluaketa</span>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-btn active" data-target="teoria">
+          <span>📝</span>
+          <span>Teoria Testa (20)</span>
+        </button>
+        <button class="nav-btn" data-target="praktika">
+          <span>💻</span>
+          <span>Zati Praktikoa</span>
+        </button>
+        <button class="nav-btn" data-target="estatistikak">
+          <span>📊</span>
+          <span>Nire Estatistikak</span>
+        </button>
+        <button class="nav-btn" data-target="laburpena">
+          <span>📚</span>
+          <span>Gida Bizkorra</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       EDUKI NAGUSIA
+       ========================================================================= -->
+  <main>
+
+    <!-- TAB 1: TEORIA TESTA -->
+    <section id="tab-teoria" class="tab-content active">
+      <!-- GOIKO KONTROL BARRA: TENPORIZADOREA ETA AURRERAPENA -->
+      <div class="test-top-bar">
+        <div class="timer-box">
+          <span class="timer-icon">⏱️</span>
+          <span id="timer-display" class="timer-value">20:00</span>
+          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Geratzen da</span>
+        </div>
+
+        <div class="test-progress-info">
+          <div style="font-size:0.88rem; color:var(--text-muted);">Aurrerapena:</div>
+          <div class="progress-track">
+            <div id="progress-bar-fill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <button class="btn-secondary" onclick="eskatuTestaBerrezarri()" style="font-size:0.85rem; padding:8px 14px;">
+            🔀 Galdera Berriak Nahastu
+          </button>
+        </div>
+      </div>
+
+      <!-- EMAITZEN TXARTELA (TESTA AMAITZEAN BISTARATZEN DA) -->
+      <div id="test-results-card" class="results-card" style="display:none;">
+        <div class="results-score-circle">
+          <span id="score-num" class="results-score-num">0.0</span>
+          <span class="results-score-total">/ 10</span>
+        </div>
+        <div id="verdict-text" class="results-verdict pass">GAINDITUA!</div>
+        <p style="color:var(--text-muted); max-width:600px; margin:0 auto;">
+          Aztertu azpian galdera bakoitzaren emaitza xehea eta azalpen teorikoa. Akatsik baduzu, sakatu botoi gorria soilik huts egindakoak birpasatzeko!
+        </p>
+
+        <div class="results-stats-row">
+          <div class="stat-item">
+            <div id="stat-correct-count" class="stat-num correct">0</div>
+            <div class="stat-label">Zuzenak</div>
+          </div>
+          <div class="stat-item">
+            <div id="stat-wrong-count" class="stat-num wrong">0</div>
+            <div class="stat-label">Okerrak</div>
+          </div>
+          <div class="stat-item">
+            <div id="stat-total-count" class="stat-num total">20</div>
+            <div class="stat-label">Guztira</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALDEREN ZERRENDA -->
+      <div id="test-questions-container"></div>
+
+      <!-- BEHEKO EKINTZA BARRA -->
+      <div id="test-actions-bar" class="test-actions"></div>
+    </section>
+
+    <!-- TAB 2: ZATI PRAKTIKOA (4 AZTERKETA MODUAK) -->
+    <section id="tab-praktika" class="tab-content">
+      <div class="sub-nav">
+        <button class="sub-nav-btn active" data-mode="azalpenak">📖 Kodearen Azalpena</button>
+        <button class="sub-nav-btn" data-mode="betetzeak">🧩 Hutsuneak Bete</button>
+        <button class="sub-nav-btn" data-mode="zuzenketak">🐛 Akatsak Zuzendu</button>
+        <button class="sub-nav-btn" data-mode="idazteak">✍️ Kode Zatia Idatzi</button>
+      </div>
+
+      <!-- 1. MODUA: KODEAREN AZALPENA (KLASEKO ATALAK) -->
+      <div id="praktika-azalpenak-panel">
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;" id="azalpen-ariketak-list"></div>
+
+        <div class="ide-window">
+          <div class="ide-top-bar">
+            <div class="ide-dots">
+              <span class="ide-dot red"></span>
+              <span class="ide-dot yellow"></span>
+              <span class="ide-dot green"></span>
+            </div>
+            <div class="ide-filename">
+              <span>📄</span>
+              <span id="ide-filename-display">Fitxategia.java</span>
+            </div>
+            <div style="font-size:0.75rem; color:#64748b; font-family:var(--font-mono);">Java 17 / UTF-8</div>
+          </div>
+          <div class="code-container" id="ide-code-content"></div>
+        </div>
+
+        <div class="question-card">
+          <h3 id="azalpen-titulua" style="color:var(--accent-cyan); margin-bottom:6px;">Ariketaren Izenburua</h3>
+          <p id="azalpen-deskribapena" style="color:var(--text-muted); margin-bottom:16px;"></p>
+          
+          <h4 style="color:#fff; margin-bottom:12px;">🔑 Funtsezko Kontzeptuak eta Mekanismoak:</h4>
+          <div id="azalpen-kontzeptuak-list"></div>
+
+          <h4 style="color:#fff; margin:20px 0 12px;">❓ Azterketako Balizko Galderak eta Arrazoiketak:</h4>
+          <div id="azalpen-galderak-list"></div>
+        </div>
+      </div>
+
+      <!-- 2. MODUA: KODEAN HUTSUNEAK BETE -->
+      <div id="praktika-betetzeak-panel" style="display:none;">
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;" id="fill-selector-list"></div>
+
+        <div class="question-card">
+          <span class="q-badge">KODE OSATZEA · HUTSUNEAK BETE</span>
+          <h3 id="fill-titulua" style="color:#fff; margin:10px 0;">Erronkaren Izenburua</h3>
+          <p id="fill-argibidea" style="color:var(--text-muted); margin-bottom:18px;"></p>
+
+          <div class="ide-window">
+            <div class="ide-top-bar">
+              <div class="ide-dots">
+                <span class="ide-dot red"></span>
+                <span class="ide-dot yellow"></span>
+                <span class="ide-dot green"></span>
+              </div>
+              <div class="ide-filename"><span>Osatu hutsuneak (_) kode zuzenarekin:</span></div>
+              <div></div>
+            </div>
+            <div class="code-container" id="fill-code-container"></div>
+          </div>
+
+          <div style="margin-top:20px; display:flex; gap:12px; align-items:center;">
+            <button id="fill-check-btn" class="btn-primary">Egiaztatu Erantzuna</button>
+          </div>
+
+          <div id="fill-feedback" style="margin-top:16px; display:none;"></div>
+        </div>
+      </div>
+
+      <!-- 3. MODUA: AKATSAK ZUZENDU (BUG HUNTER) -->
+      <div id="praktika-zuzenketak-panel" style="display:none;">
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;" id="bug-selector-list"></div>
+
+        <div class="question-card">
+          <span class="q-badge" style="background:rgba(239, 68, 68, 0.2); color:var(--accent-red); border-color:rgba(239, 68, 68, 0.4);">
+            BUG HUNTER · AZTERTU ETA ZUZENDU
+          </span>
+          <h3 id="bug-titulua" style="color:#fff; margin:10px 0;">Erronkaren Izenburua</h3>
+          <p id="bug-enuntziatua" style="color:var(--text-muted); margin-bottom:18px;"></p>
+
+          <div class="ide-window">
+            <div class="ide-top-bar">
+              <div class="ide-dots">
+                <span class="ide-dot red"></span>
+                <span class="ide-dot yellow"></span>
+                <span class="ide-dot green"></span>
+              </div>
+              <div class="ide-filename"><span>⚠️ Akatsa duen kode zatia:</span></div>
+              <div></div>
+            </div>
+            <div class="code-container" id="bug-code-display"></div>
+          </div>
+
+          <h4 style="margin:20px 0 12px; color:var(--accent-yellow);">Zein da akatsa eta nola konpondu?</h4>
+          <div class="options-grid" id="bug-options-container"></div>
+
+          <div id="bug-solution-panel" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- 4. MODUA: KODE ZATIA IDATZI -->
+      <div id="praktika-idazteak-panel" style="display:none;">
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;" id="write-selector-list"></div>
+
+        <div class="question-card">
+          <span class="q-badge" style="background:rgba(168, 85, 247, 0.2); color:#c084fc; border-color:rgba(168, 85, 247, 0.4);">
+            AZTERKETA ARIKETA · KODEA IDATZI
+          </span>
+          <h3 id="write-titulua" style="color:#fff; margin:10px 0;">Erronkaren Izenburua</h3>
+          <p id="write-argibidea" style="color:var(--text-muted); margin-bottom:18px;"></p>
+
+          <div style="margin-bottom:16px;">
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--accent-cyan); font-size:0.9rem;">
+              ✍️ Idatzi zure kode soluzioa hemen:
+            </label>
+            <textarea id="write-user-input" class="code-textarea" rows="8" placeholder="// Idatzi hemen zure Java kodea... (adibidez: synchronized, Thread, ProcessBuilder, etab.)"></textarea>
+          </div>
+
+          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <button id="write-check-btn" class="btn-primary">Egiaztatu Kodea</button>
+            <button id="write-solution-btn" class="btn-secondary">Erakutsi Ereduzko Kodea</button>
+          </div>
+
+          <div id="write-feedback" style="margin-top:16px; display:none;"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 3: ESTATISTIKAK & PUNTU AHULAK -->
+    <section id="tab-estatistikak" class="tab-content">
+      <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h2 style="color:var(--accent-cyan); margin-bottom:4px;">📊 Zure Entrenamenduaren Egoera eta Puntuazioa</h2>
+          <p style="color:var(--text-muted); font-size:0.9rem;">
+            Aztertu zure aurrerapena, asmatze-tasak eta indartu beharreko puntu ahulak azterketa bikain gainditzeko.
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="garbituEstatistikak()" style="font-size:0.8rem; padding:6px 12px;">
+          🗑️ Datuak Berrezarri
+        </button>
+      </div>
+
+      <!-- PUNTU AHULEN ALERTA BEREZIA -->
+      <div id="weak-point-container"></div>
+
+      <!-- ERRONKA / MAILA OROKORRA -->
+      <div class="question-card" style="margin-bottom:20px; background:linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-color:var(--accent-indigo);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="font-size:0.82rem; color:var(--accent-blue); text-transform:uppercase; font-weight:700;">Zure Entrenamendu Maila</div>
+            <h3 id="stat-user-level" style="font-size:1.4rem; color:#fff; margin:4px 0;">Hasiberria (Junior Harilaria)</h3>
+            <div id="stat-level-desc" style="font-size:0.85rem; color:var(--text-muted);">Egin testak eta ariketak puntuazioa eta XP igotzeko!</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.82rem; color:var(--text-muted);">Guztira XP</div>
+            <div id="stat-total-xp" style="font-size:1.8rem; font-weight:800; color:var(--accent-cyan); font-family:var(--font-mono);">0 XP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRESNA NAGUSIAK (KPIs) -->
+      <div class="stats-overview-grid">
+        <div class="stat-widget">
+          <div class="stat-widget-label">Egindako Testak</div>
+          <div id="stat-total-tests" class="stat-widget-num">0</div>
+        </div>
+        <div class="stat-widget">
+          <div class="stat-widget-label">Bataz Besteko Nota</div>
+          <div id="stat-avg-score" class="stat-widget-num" style="color:var(--accent-yellow);">-</div>
+        </div>
+        <div class="stat-widget">
+          <div class="stat-widget-label">Nota Altuena</div>
+          <div id="stat-max-score" class="stat-widget-num" style="color:var(--accent-green);">-</div>
+        </div>
+        <div class="stat-widget">
+          <div class="stat-widget-label">Praktikak Osatuta</div>
+          <div id="stat-practice-completed" class="stat-widget-num" style="color:var(--accent-blue);">0 / 33</div>
+        </div>
+      </div>
+
+      <!-- GAIAREN ARABERAKO ARRAKASTA ETA PUNTU AHULAK -->
+      <div class="question-card" style="margin-bottom:20px;">
+        <h3 style="color:#fff; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          <span>🎯</span>
+          <span>Gaien Araberako Asmatze Tasa (Puntu Ahulak detektatzeko)</span>
+        </h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:16px;">
+          Gai bakoitzean egindako akats eta zuzenen portzentajea. %60tik behera daudenak gorriz nabarmentzen dira.
+        </p>
+        <div id="stat-topics-breakdown"></div>
+      </div>
+
+      <!-- PRAKTIKA MODUEN AURRERAPENA -->
+      <div class="question-card">
+        <h3 style="color:#fff; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          <span>💻</span>
+          <span>Zati Praktikoaren Aurrerapena (4 Moduak)</span>
+        </h3>
+        <div id="stat-practical-breakdown" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px;"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: GIDA BIZKORRA (LABURPENA ETA DIAGRAMAK) -->
+    <section id="tab-laburpena" class="tab-content">
+      <div style="margin-bottom:20px;">
+        <h2 style="color:var(--accent-cyan); margin-bottom:6px;">1. Ebaluaketako Teoria Orokorraren Laburpena</h2>
+        <p style="color:var(--text-muted);">
+          Gako kontzeptuak, SVG diagramak, taulak, SEren algoritmoak, Java ProcessBuilder, Multithreading, eta Sinkronizazioaren 5 arazo nagusiak begiratu batean.
+        </p>
+      </div>
+
+      <div id="laburpen-container"></div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       MODAL: TESTA AMAITZEKO / NABIGAZIO BAIEZTAPENA
+       ========================================================================= -->
+  <div id="confirm-modal-overlay" class="modal-overlay">
+    <div class="modal-box">
+      <h3 id="modal-title-text" class="modal-title">⚠️ Testa martxan dago</h3>
+      <p id="modal-message-text" class="modal-msg">Ziur zaude?</p>
+      <div class="modal-actions">
+        <button id="modal-btn-cancel" class="btn-secondary">Utzi (Jarraitu Testarekin)</button>
+        <button id="modal-btn-confirm" class="btn-primary" style="background:var(--accent-red); border-color:var(--accent-red);">Bai, Irten</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       OINA
+       ========================================================================= -->
+  <footer>
+    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div>Goierri Eskola · 0490 Zerbitzu eta Prozesuen Programazioa (2. Maila)</div>
+      <div>ZPP 1. Ebaluaketako Azterketa Entrenatzailea · Web & Android App</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT-AK -->
+  <script src="js/galderak.js"></script>
+  <script src="js/ariketak.js"></script>
+  <script src="js/syntax.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
