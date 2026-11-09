@@ -631,16 +631,17 @@ main {
   display: block;
 }
 
-/* Syntax Token Colors (IDE Dark Style) */
-.token-keyword { color: #f43f5e; font-weight: bold; }      /* public, class, synchronized, volatile, if, return */
-.token-type { color: #38bdf8; font-weight: 600; }          /* ProcessBuilder, Thread, String, int, boolean */
-.token-method { color: #fbbf24; font-weight: 600; }        /* start(), run(), pid(), sleep(), invokeLater() */
-.token-variable { color: #93c5fd; }                         /* giltza, irabazlea, lasterketaAmaituta, kontagailua */
-.token-operator { color: #f1f5f9; font-weight: 600; }       /* =, ==, !=, &&, ||, ++, -> */
-.token-string { color: #4ade80; }                           /* "notepad.exe", "Autoa " */
-.token-comment { color: #94a3b8; font-style: italic; }       /* // azalpenak */
+/* Syntax Token Colors (IDE Dark Style - VS Code & JetBrains High Contrast) */
+.token-keyword { color: #f43f5e; font-weight: bold; }      /* public, class, synchronized, volatile, if, return, new */
+.token-type { color: #38bdf8; font-weight: 600; }          /* ProcessBuilder, Thread, String, int, boolean, Instant */
+.token-method { color: #facc15; font-weight: 600; }        /* start(), run(), pid(), split(), waitFor(), println() */
+.token-variable { color: #cbd5e1; }                         /* zatiak, komandoa, pb, prozesua, pid, irabazlea */
+.token-operator { color: #f87171; font-weight: 600; }       /* =, ==, !=, &&, ||, ++, ->, +, - */
+.token-string { color: #4ade80; }                           /* "notepad.exe", "\\s+", "Autoa " */
+.token-comment { color: #64748b; font-style: italic; }       /* // azalpenak */
 .token-number { color: #c084fc; font-weight: 600; }         /* 100, 1000L, 0.1 */
-.token-annotation { color: #f59e0b; font-weight: bold; }   /* @Override */
+.token-annotation { color: #fb923c; font-weight: bold; }   /* @Override */
+.token-punct { color: #94a3b8; }                            /* ;, (, ), {, }, [, ], ., , */
 
 /* DIAGRAMAK (SVG Bektorial Garbiak) */
 .diagram-box {

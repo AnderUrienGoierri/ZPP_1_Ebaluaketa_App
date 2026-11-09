@@ -427,7 +427,7 @@ function erakutsiAzalpena(ariketaId) {
   // Kontzeptuak
   const kontzeptuakHtml = ariketa.kontzeptuak.map(k => `
     <div class="concept-card">
-      <div class="concept-title">${k.lerroa}</div>
+      <div class="concept-title"><code>${highlightJava(k.lerroa)}</code></div>
       <div class="concept-body">${k.azalpena}</div>
     </div>
   `).join('');
