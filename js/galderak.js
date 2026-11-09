@@ -5,8 +5,11 @@
  * 1. 80 galdera teoriko osoak klaseko gai guztiak xehetasunez lantzeko.
  * 2. ERANTZUNEN LUZERA OREKATUAK: Erantzun okerrak (distractors) berdin-berdin
  *    xehatuak, sakonak eta sinesgarriak dira. Luzerak ez du sekula erantzun zuzena salatzen!
+ *    - Erantzun luzeena zuzena: ~26%
+ *    - Erantzun motzena zuzena: ~29%
+ *    - Tarteko luzera zuzena: ~45%
  * 3. Hitz gakoak, klaseak eta metodoak <code class="inline-code"> bidez koloreztatuta.
- * 4. A, B, C, D erantzunen posizioak oreka zehatzean banatuta.
+ * 4. A, B, C, D erantzunen posizioak oreka zehatzean banatuta (eta exekuzioan nahastuak).
  */
 
 const GALDERA_BANKUA = [
@@ -15,7 +18,7 @@ const GALDERA_BANKUA = [
     "gaia": "Sarrera eta Prozesadoreak",
     "enuntziatua": "Nukleo bakarreko (<code class='inline-code'>Single-Core</code>) PUZ batean hainbat ataza aldi berean exekutatzen direla dirudienean, zer gertatzen da benetan hardware mailan?",
     "aukerak": [
-      "Hardwarearen barneko L1 eta L2 katxeek paralelismo fisikoa garatzen dute aldi berean hainbat kalkulu eginez.",
+      "Hardwarearen barneko L1 eta L2 katxe mailek paralelismo fisiko erreala garatzen dute nukleo bakarrean hainbat kalkulu aldi berean gauzatuz ziklo bakoitzean.",
       "PUZak denbora-tarte txikiak txandakatzen ditu (<code class='inline-code'>time-slicing</code>), aldiberekotasun simulatua sortuz.",
       "Sistema eragileak ataza guztiak sekuentzialki ilara bakar batean metatzen ditu eta multzoka azkarrago ebazten ditu.",
       "Prozesadorearen erloju-maiztasuna bikoiztu egiten da ataza bakoitzari bere nukleo birtual propioa eskaintzeko."
@@ -29,7 +32,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Konparatu Intel 80486 (1989) eta gaur egungo Intel Core i7 prozesadore moderno bat. Zein baieztapen da ZUZENA?",
     "aukerak": [
       "Intel Core i7-ak GHz abiadura, nukleo anitzak eta <code class='inline-code'>Hyper-Threading</code> bidez hari logiko ugari eskaintzen ditu.",
-      "Intel 486ak 64 biteko arkitektura zuen eta zortzi nukleo integratu zituen lehen aldiz merkatuko zerbitzari handietan.",
+      "Intel 486ak 64 biteko arkitektura modernoa zuen eta zortzi nukleo integratu zituen lehen aldiz merkatuko zerbitzari eta superordenagailu nagusietan.",
       "Intel 486ak erloju-maiztasun handiagoa lortzen zuen (5 GHz inguru), baina siliziozko transistore gutxiago zituen barruan.",
       "Bi prozesadoreek 32 biteko arkitektura bera mantentzen dute eta L3 motako katxe memoria partekatua dute oinarrian."
     ],
@@ -68,7 +71,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Zer da 'Zerbitzu' bat (Windows-en Service, Linux-en Daemon)?",
     "aukerak": [
       "Atzeko planoan (<code class='inline-code'>background</code>), GUI gabe martxan dagoen prozesu iraunkor bat.",
-      "Erabiltzailearen mahaigainean leiho grafiko interaktibo bat irekitzen duen aplikazio arrunta.",
+      "Erabiltzailearen mahaigainean leiho grafiko interaktibo bat irekitzen duen eta klikak etengabe itxaroten dituen aplikazio arrunta.",
       "Fitxategiak diskotik ezabatzeko sistema eragilearen kernelak exekutatzen duen agindu azkar bat.",
       "Prozesadorearen nukleo fisiko bat aldi baterako desaktibatzen duen tenperatura-kontrolagailua."
     ],
@@ -93,7 +96,7 @@ const GALDERA_BANKUA = [
     "gaia": "Programazio Lengoaiak",
     "enuntziatua": "Lengoaia konpilatuen (adib. C, C++) alde onena eta txarrena zeintzuk dira?",
     "aukerak": [
-      "Web nabigatzaileetan bakarrik exekuta daitezke, baina segurtasun handia eskaintzen dute moteltasunaren truke.",
+      "Web nabigatzaile guztietan zuzenean exekuta daitezke, baina segurtasun handia eskaintzen dute interpretazio-moteltasunaren truke uneoro.",
       "Ez dute inolako konpilatzailerik behar exekutatzeko, baina RAM memoria asko xahutzen dute ziklo bakoitzean.",
       "Exekuzio-abiadura maximoa dute, baina ez dira eramangarriak (sistema bakoitzerako berriz konpilatu behar da).",
       "Oso eramangarriak dira sistema guztietan, baina exekuzio-abiadura oso motela dute interpretazioaren ondorioz."
@@ -159,7 +162,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Zein ataletan banatzen da prozesu baten memoria-eremua RAM memorian?",
     "aukerak": [
       "Testua (Kodea), Datuak (Globalak), Heap (Dinamikoa) eta Stack (Deien Pila eta Tokikoak).",
-      "Sektorea, Pista zirkularra, Zilindro magnetikoa eta Partizio nagusiaren abio-sektorea.",
+      "Sektorea, Pista zirkularra, Zilindro magnetikoa eta Partizio nagusiaren abio-sektorea kudeatzeko disko-helbideen taula.",
       "Kernel gunea, Erregistro orokorrak, BIOS bufferra eta Swap fitxategiaren indize-orriak.",
       "HTML fitxategia, CSS estiloak, JavaScript logika eta Irudien kaxako memoria-segmentuak."
     ],
@@ -197,7 +200,7 @@ const GALDERA_BANKUA = [
     "gaia": "Planifikazio Mailak",
     "enuntziatua": "Zertaz arduratzen da <code class='inline-code'>Epe luzeko planifikatzailea</code> (Long-term scheduler)?",
     "aukerak": [
-      "CPU librea geratzean prest daudenen artean hurrengoa hautatzeaz milisegundo bakoitzean.",
+      "CPU librea geratzen den milisegundo bakoitzean prest daudenen artean hurrengo ataza zein izango den berehala hautatzeaz arduratzen da.",
       "Sistema eragilean prozesu berriak noiz onartu erabakitzeaz eta multiprogramazio-maila finkatzeaz.",
       "Memoria nagusia betetzen denean prozesuak swap eremura bidaltzeaz espazioa libratzeko.",
       "Sareko paketeen bideratze-bide motzena kalkulatzeaz bideratzaile nagusiaren protokoloan."
@@ -211,7 +214,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Zertaz arduratzen da <code class='inline-code'>Epe ertaineko planifikatzailea</code> (Medium-term scheduler)?",
     "aukerak": [
       "PUZaren hurrengo instrukzioa zein nukleotan gauzatuko den berehala erabakitzeaz.",
-      "Erabiltzailearen teklatuko tekla-sakatze bakoitza aztertu eta interpretatzeaz.",
+      "Erabiltzailearen teklatuko tekla-sakatze bakoitza eta saguaren mugimenduak eten bidez aztertu eta aplikazioetara bidaltzeaz.",
       "Memoria nagusia libratzeko prozesuak disko osagarrira (Swap) eramateaz (<code class='inline-code'>Swapping</code>).",
       "Aplikazioak ixtean disko gogorra desfragmentatzeaz fitxategien antolaketa hobetzeko."
     ],
@@ -316,7 +319,7 @@ const GALDERA_BANKUA = [
     "aukerak": [
       "Prozesu bakoitzak bere memoria-eremu isolatu propioa duelako eta ezin duelako bestearena zuzenean irakurri.",
       "Sistema eragileak hariak bakarrik onartzen dituelako sare bidezko datuak bidaltzeko unean bertan.",
-      "Prozesadorearen erlojuak prozesu bakoitza maiztasun desberdin batean exekutatzen duelako hardwarean.",
+      "Prozesadorearen erlojuak prozesu bakoitza maiztasun eta tentsio desberdin batean exekutatzen duelako hardwarearen nukleo bakoitzean.",
       "Fitxategi-sistemak fitxategi guztiak blokeatzen dituelako aplikazio bat abiarazten den bakoitzean."
     ],
     "zuzena": 0,
@@ -340,7 +343,7 @@ const GALDERA_BANKUA = [
     "gaia": "Planifikazio Algoritmoak",
     "enuntziatua": "Zer desberdintasun dago planifikazio-algoritmo <code class='inline-code'>Apropos</code> (Preemptive) eta <code class='inline-code'>Ez-apropos</code> (Non-preemptive) artean?",
     "aukerak": [
-      "Aproposak memoria nagusia baino ez du erabiltzen, eta ez-aproposak disko osagarriko swap partizioa soilik.",
+      "Aproposak memoria nagusia baino ez du erabiltzen, eta ez-aproposak disko osagarriko swap partizioa bakarrik erabiltzen du kudeaketarako.",
       "Aproposak prozesuari CPUa kendu diezaioke; ez-aproposak prozesuak berak CPUa borondatez askatu arte itxaroten du.",
       "Aproposak lehentasun txikiko atazak bakarrik onartzen ditu, eta ez-aproposak kernelaren zerbitzuak soilik.",
       "Aproposak erloju-zikloak bikoizten ditu, eta ez-aproposak hardware-nukleo bakarra mantentzen du piztuta beti."
@@ -380,7 +383,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>Round Robin (RR)</code> algoritmoak?",
     "aukerak": [
       "Prozesu bakoitzari denbora-kuantu (<code class='inline-code'>Quantum</code>) finko bat ematen zaio txandaka ilara zirkular batean.",
-      "Lehentasun altueneko prozesuari CPU osoa ematen dio amaitu arte, beste guztiak blokeatuta utziz.",
+      "Lehentasun altueneko prozesuari CPUaren kontrol osoa ematen dio amaitu arte, gainerako prozesu guztiak blokeatuta utziz uneko ilaran.",
       "Amaitzeko denbora laburrena geratzen zaion prozesua hautatzen du beti hurrengo txandarako.",
       "Fitxategien tamainaren arabera ordenatzen ditu prozesuak disko gogorrean exekutatu aurretik."
     ],
@@ -405,7 +408,7 @@ const GALDERA_BANKUA = [
     "gaia": "Planifikazio Algoritmoak",
     "enuntziatua": "Round Robin algoritmoan, zer gertatzen da kuantua (<code class='inline-code'>q</code>) OSO TXIKIA bada (adib. 1 ms baino gutxiago)?",
     "aukerak": [
-      "Prozesu luzeak inoiz ez dira amaituko eta sistemako hari guztiek gosea jasango dute.",
+      "Prozesu luzeak inoiz ez dira amaituko eta sistemako hari guztiek gosea jasango dute denbora-muga gainditu delako.",
       "Testuinguru-aldaketen gainkargak (overhead) CPU denbora gehiena alferrik xahutuko du.",
       "Sistemak FCFS algoritmoaren portaera bera garatuko du prozesu laburrekin bakarrik.",
       "Memoria nagusiak ezin izango du hainbeste aldagai aldi berean kargatu hardwarean."
@@ -432,7 +435,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Nola funtzionatzen du <code class='inline-code'>SRT</code> (Shortest Remaining Time) algoritmoak?",
     "aukerak": [
       "SPFren bertsio aproposa da: amaitzeko denbora gutxien geratzen zaionari ematen dio CPUa.",
-      "Iritsiera-ordenan exekutatzen du prozesu bakoitza amaitu arte inolako etendurarik gabe.",
+      "Iritsiera-ordenan exekutatzen du prozesu bakoitza amaitu arte inolako etendurarik edo testuinguru-aldaketarik baimendu gabe.",
       "Lehentasun finkoen bidez antolatzen ditu prozesuak erabiltzailearen baimenen arabera.",
       "Prozesu luzeei ematen die lehentasuna memoria nagusia lehenbailehen libratzeko asmoz."
     ],
@@ -457,7 +460,7 @@ const GALDERA_BANKUA = [
     "gaia": "Planifikazio Algoritmoak",
     "enuntziatua": "Nola konpontzen da Inanizioa algoritmo horietan?",
     "aukerak": [
-      "Prozesu luze guztiak automatikoki bertan behera utziz eta errore-kode bat bueltatuz.",
+      "Prozesu luze guztiak automatikoki bertan behera utziz eta erabiltzaileari errore-kode bat bueltatuz kontsolan une jakin batean.",
       "Kuantuaren tamaina zero segundora jaitsiz prest dauden prozesu guztien ilaretan.",
       "<code class='inline-code'>Zahartze</code> (Aging) teknikaren bidez: itxaroten daraman denboraren arabera lehentasuna igoz.",
       "Memoria nagusiaren edukiera bikoiztuz prozesu guztiak aldi berean kargatu ahal izateko."
@@ -472,7 +475,7 @@ const GALDERA_BANKUA = [
     "aukerak": [
       "Ilara bakar bat dago eta bertan prozesuak fitxategiaren tamainaren arabera ordenatzen dira.",
       "Lehentasun desberdineko ilarak daude; prozesuak kuantua agortzen badu beheko ilarara jaisten da.",
-      "Prozesu bakoitzak bere ilara propioa du eta ez da inoiz beste ilara batera mugitzen sisteman.",
+      "Prozesu bakoitzak bere ilara propioa du eta ez da inoiz beste ilara batera mugitzen sisteman lehentasuna aldatu arren ere.",
       "Sistemako zerbitzuek bakarrik erabil ditzakete ilarak, erabiltzailearen aplikazioek ez."
     ],
     "zuzena": 1,
@@ -563,7 +566,7 @@ const GALDERA_BANKUA = [
     "aukerak": [
       "0 balioa itzultzen du prozesua martxan dagoela adierazteko modu estandarrean sistema eragilean.",
       "<code class='inline-code'>IllegalThreadStateException</code> salbuespena jaurtitzen da prozesua amaitu gabe dagoelako.",
-      "-1 balioa itzultzen du eta automatikoki prozesua hiltzen du sistema eragilearen kernela erabiliz.",
+      "-1 balio negatiboa itzultzen du eta automatikoki prozesua hiltzen du sistema eragilearen kernela erabiliz errore-egoeretan.",
       "Java haria blokeatu egiten da prozesua berez amaitu arte inolako errore-mezurik jaurti gabe."
     ],
     "zuzena": 1,
@@ -691,7 +694,7 @@ const GALDERA_BANKUA = [
     "gaia": "Hariak eta Multithreading",
     "enuntziatua": "Zer gertatzen da hari bati <code class='inline-code'>haria.run()</code> deitzen bazaio <code class='inline-code'>haria.start()</code> deitu beharrean?",
     "aukerak": [
-      "Sistema eragileak automatikoki bi hari paralelo abiarazten ditu segurtasuna bermatzeko helburuarekin.",
+      "Sistema eragileak automatikoki bi hari paralelo abiarazten ditu segurtasuna bermatzeko helburuarekin eta sinkronizazioa errazteko.",
       "Ez da hari berririk sortzen; deitu duen hari beraren barruan sekuentzialki exekutatzen da metodo arrunt gisa.",
       "IllegalThreadStateException salbuespena jaurtiko da berehala konpilatzailearen bidez metodoan.",
       "Aplikazio osoa itxi egingo da eta sistema eragilearen kontrol-panela irekiko da errorea aztertzeko."
@@ -704,7 +707,7 @@ const GALDERA_BANKUA = [
     "gaia": "Harien Egoerak",
     "enuntziatua": "Zeintzuk dira Java hari baten 6 egoerak (<code class='inline-code'>Thread.State</code> enum)?",
     "aukerak": [
-      "START, RUNNING, SLEEPING, STOPPED, DEAD, SUSPENDED.",
+      "START, RUNNING, SLEEPING, STOPPED, DEAD, SUSPENDED egoera orokorrak.",
       "BERRIA, PREST, EXEKUZIOAN, BLOKEATUA, ESEKIA, AMAITUA.",
       "NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED.",
       "INIT, ACTIVE, PAUSED, IDLE, FINISHED, ERROR."
@@ -744,7 +747,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Zergatik eskatzen du <code class='inline-code'>Thread.sleep()</code> metodoak <code class='inline-code'>InterruptedException</code> harrapatzea?",
     "aukerak": [
       "Beste hari batek <code class='inline-code'>interrupt()</code> deitu diezaiokeelako lo dagoen bitartean haria esnatzeko.",
-      "Hardwareak erlojua gal dezakeelako eta denbora zehatza ez delako bermatzen plaka basean.",
+      "Hardwareak erlojua gal dezakeelako eta denbora zehatza ez delako bermatzen plaka basearen tenperatura aldaketengatik uneoro.",
       "Memoria nagusiak loaldian datuak gal ditzakeelako zabor-biltzailearen garbiketa-zikloetan.",
       "Konpilatzaileak ezin duelako milisegundoen kalkulua aldez aurretik egiaztatu metodoan."
     ],
@@ -756,7 +759,7 @@ const GALDERA_BANKUA = [
     "gaia": "Harien Koordinazioa",
     "enuntziatua": "Zer egiten du <code class='inline-code'>Thread.yield()</code> metodoak?",
     "aukerak": [
-      "Haria behin betiko amaiarazten du eta bere baliabide guztiak askatzen ditu sistema osoan.",
+      "Haria behin betiko amaiarazten du eta bere baliabide guztiak askatzen ditu sistema osoan beste prozesuentzat espazioa libratuz.",
       "Hariaren lehentasuna zerora jaisten du eta atzeko planoan jartzen du betiko memorian.",
       "Uneko hariak bere borondatez PUZa uzten du lehentasun bereko beste hari batek aukera izan dezan.",
       "Hariaren egoera disko gogorrean gordetzen du geroago berreskuratzeko helburuarekin."
@@ -783,7 +786,7 @@ const GALDERA_BANKUA = [
     "enuntziatua": "Zergatik EZ da inoiz <code class='inline-code'>Thread.sleep()</code> deitu behar Swing botoi baten ekintzaren barruan?",
     "aukerak": [
       "Swing-ek automatikoki botoia ezabatuko lukeelako interfaze grafikotik behin betiko.",
-      "Konpilatzaileak errore larria emango lukeelako grafikoetan ezin baita metodo hori erabili.",
+      "Konpilatzaileak errore larria emango lukeelako grafikoetan ezin baita metodo hori erabili interfazearen hariarekin talka ez egiteko.",
       "EDT haria lo geratuko litzatekeelako, leiho osoa izoztuz eta erabiltzailearen klikik onartu gabe.",
       "Prozesadorearen nukleo guztiak itzaliko liratekeelako tenperatura gehiegi igota sisteman."
     ],
@@ -795,7 +798,7 @@ const GALDERA_BANKUA = [
     "gaia": "Swing eta Hariak",
     "enuntziatua": "Nola eguneratu behar da Swing osagai grafiko bat (adib. JLabel) atzeko planoan dabilen hari batetik?",
     "aukerak": [
-      "Zuzenean etiketa.setText() deituz atzeko hariaren run() metodoaren barrutik inolako arazorik gabe.",
+      "Zuzenean etiketa.setText() deituz atzeko hariaren run() metodoaren barrutik inolako arazorik gabe eta era asinkronoan.",
       "etiketa.repaint() metodoari lehentasuna emanez metodo estatikoen bidezko azterketan.",
       "<code class='inline-code'>SwingUtilities.invokeLater(() -&gt; etiketa.setText(\"...\"))</code> erabiliz.",
       "JFrame berri bat sortuz eta zaharra berehala System.exit(0) bidez itxiz pantailan."
@@ -810,7 +813,7 @@ const GALDERA_BANKUA = [
     "aukerak": [
       "Birusak edo kode maltzurrak exekutatzeko erabiltzen den hari berezi bat sistema eragilean.",
       "Inoiz amaitu ezin den eta sistema eragilea blokeatzen duen akats-haria memorian.",
-      "Administratzaile baimenekin bakarrik abiarazi daitekeen hari pribilegiatua plataforma guztietan.",
+      "Administratzaile baimenekin bakarrik abiarazi daitekeen hari pribilegiatua plataforma guztietan sistema-atazetarako.",
       "Atzeko planoko haria da; hari ez-daemon guztiak amaitzen direnean, JVMk automatikoki hiltzen du."
     ],
     "zuzena": 3,
@@ -821,7 +824,7 @@ const GALDERA_BANKUA = [
     "gaia": "Sinkronizazioa",
     "enuntziatua": "Zer da <code class='inline-code'>Eskualde Kritikoa</code> (Critical Section)?",
     "aukerak": [
-      "Sistema eragilearen pasahitzak eta segurtasun-giltzak gordetzen dituen disko-eremua.",
+      "Sistema eragilearen pasahitzak eta segurtasun-giltza pribatuak gordetzen dituen disko-eremu babestu eta enkriptatua.",
       "Konpilatzaileak akatsak bilatzeko erabiltzen duen sintaxi-analisirako modulua proiektuan.",
       "Aplikazio batek Interneteko datuak deskargatzeko erabiltzen duen sare-ataka nagusia.",
       "Partekatutako baliabide bat aldatzen duen kode zatia; aldi berean hari bakar batek exekutatu behar du."
@@ -847,7 +850,7 @@ const GALDERA_BANKUA = [
     "gaia": "5 Arazoak: Race Condition",
     "enuntziatua": "Zergatik da <code class='inline-code'>kontagailua++</code> eragiketa lasterketa-baldintza baten iturri (Race Condition)?",
     "aukerak": [
-      "++ eragilea Java 17tik aurrera zaharkituta geratu delako eta erroreak ematen dituelako.",
+      "++ eragilea Java 17tik aurrera zaharkituta geratu delako eta erroreak ematen dituelako hari anitzeko programetan.",
       "Prozesadoreak ezin duelako zenbaki bati bat gehitu aldez aurretik baimenik gabe sisteman.",
       "Ez delako atomikoa: 3 urrats ditu (Irakurri, Gehitu, Idatzi); bi harik balio zaharra irakur dezakete.",
       "Eragiketa horrek RAM memoriako helbide guztiak batera aldatzen dituelako agindu bakarrean."
@@ -860,7 +863,7 @@ const GALDERA_BANKUA = [
     "gaia": "5 Arazoak: Memoria Inkontsistentzia",
     "enuntziatua": "Zer bermatzen du aldagai bat <code class='inline-code'>volatile</code> deklaratzeak Javan?",
     "aukerak": [
-      "Eragiketa konplexu guztiak automatikoki blokeo bidez sinkronizatuko direla kode osoan zehar.",
+      "Eragiketa konplexu guztiak automatikoki blokeo bidez sinkronizatuko direla kode osoan zehar beste haririk onartu gabe.",
       "Aldagaiaren balioa ezin izango dela inoiz aldatu 'final' hitz gakoaren moduan metodoetan.",
       "Idazketa eta irakurketa guztiak zuzenean RAM nagusian egingo direla, CPU katxeen desfasajeak saihestuz.",
       "Aldagaia disko gogorreko fitxategi enkriptatu batean gordeko dela automatikoki uneoro."
@@ -873,7 +876,7 @@ const GALDERA_BANKUA = [
     "gaia": "5 Arazoak: Deadlock",
     "enuntziatua": "Zer da <code class='inline-code'>Deadlock</code> (Hil-blokeoa) eta zeintzuk dira Coffman-en 4 baldintzak?",
     "aukerak": [
-      "Memoria nagusia guztiz betetzea: Paginazioa, Segmentazioa, Swapping eta Fragmentazioa sisteman.",
+      "Memoria nagusia guztiz betetzea: Paginazioa, Segmentazioa, Swapping eta Fragmentazioa sisteman aldi berean gertatzean.",
       "Bi hari elkarren baliabideen zain betiko geratzea: Bazterketa, Eutsi eta Itxaron, Kaleratzerik Ez, Zirkularra.",
       "CPUaren tenperatura gehiegi igotzea: Tentsioa, Frekuentzia, Haizagailua eta Nukleoa hardwarean.",
       "Sareko konexioa etetea: Latentzia, Pakete galduak, DNS errorea eta Timeout-a protokoloan."
@@ -886,7 +889,7 @@ const GALDERA_BANKUA = [
     "gaia": "5 Arazoak: Deadlock",
     "enuntziatua": "Nola ekiditen da Deadlock-a <code class='inline-code'>Resource Ordering</code> (Baliabideen Ordenamendua) teknikarekin?",
     "aukerak": [
-      "Giltza guztiak batera ezabatuz eta sinkronizaziorik gabe programatuz kode osoa metodo guztietan.",
+      "Giltza guztiak batera ezabatuz eta sinkronizaziorik gabe programatuz kode osoa metodo guztietan lasterketa-baldintzak onartuz.",
       "Hari bakoitzari bere giltza pribatu propioa emanez besteekin partekatu gabe bere kodean.",
       "Hari guztiek blokeoak BETI ordena finko eta berdinean hartzen dituzte (adib. Lock A lehenik, gero Lock B).",
       "Aplikazioa berrabiaraziz Deadlock bat gertatzen den bakoitzean errorea erregistratu ostean."
@@ -912,7 +915,7 @@ const GALDERA_BANKUA = [
     "gaia": "5 Arazoak: Inanizioa",
     "enuntziatua": "Nola saihesten da Inanizioa Java-ko <code class='inline-code'>ReentrantLock</code> erabiliz?",
     "aukerak": [
-      "Lock-aren gainean 'synchronized' blokea jarriz segurtasun bikoitza lortzeko metodoan.",
+      "Lock-aren gainean 'synchronized' blokea jarriz segurtasun bikoitza lortzeko metodoan eskualde kritikoa babesteko.",
       "Hariaren lehentasuna aldizka zerora jaitsiz besteak azkarrago ibil daitezen zikloetan.",
       "<code class='inline-code'>new ReentrantLock(true)</code> sortuz: 'fairness' gaitzen du eta FIFO ilara bermatzen du.",
       "Lock-aren metodo guztiak 'volatile' deklaratuz aldagai globaletan memoria zaintzeko."
