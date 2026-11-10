@@ -1,17 +1,24 @@
 # 0490 - Zerbitzu eta Prozesuen Programazioa (1. Ebaluaketa)
 
-> **AZTERKETA ENTRENATZAILEA (Web & Android App)**: Karpeta honetan ZPP 1. ebaluaketako azterketa prestatzeko garatutako aplikazio interaktiboa daukazu, **Android APK** eta **Web aplikazio** formatuan!
+> **AZTERKETA ENTRENATZAILEA (Web & Android App)**: Karpeta honetan ZPP 1. ebaluaketako azterketa bikain prestatzeko garatutako aplikazio interaktiboa daukazu, **Android APK**, **PWA Web aplikazio** eta **ZIP eramangarri** formatuetan!
 >
-> - 🌐 **Web bertsioa zuzenean nabigatzailean erabiltzeko (Deskargatu gabe):**👉 [**https://anderuriengoierri.github.io/ZPP_1_Ebaluaketa_App/**](https://anderuriengoierri.github.io/ZPP_1_Ebaluaketa_App/)
+> - 🌐 **Web bertsioa zuzenean nabigatzailean erabiltzeko (Instalatu gabe):** 👉 [**https://anderuriengoierri.github.io/ZPP_1_Ebaluaketa_App/**](https://anderuriengoierri.github.io/ZPP_1_Ebaluaketa_App/)
 > - 📲 **Android APK deskargatzeko:** [`ZPP_Entrenatzailea.apk`](https://github.com/AnderUrienGoierri/ZPP_1_Ebaluaketa_App/raw/main/ZPP_Entrenatzailea.apk)
-> - 📦 **ZIP pakete osoa (Web + APK + Argibideak):** [`ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip`](https://github.com/AnderUrienGoierri/ZPP_1_Ebaluaketa_App/raw/main/ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip)
+> - 📦 **ZIP pakete osoa (Weba + APK + Kode Guztiak):** [`ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip`](https://github.com/AnderUrienGoierri/ZPP_1_Ebaluaketa_App/raw/main/ZPP_1_Ebaluaketa_Azterketa_Entrenatzailea.zip)
 >
-> **Aplikazioaren ezaugarriak:**
+> **Aplikazioaren ezaugarri nagusiak:**
 >
-> 1. 📝 **Teoria Testa**: 80 galdera erreal, aukera nahasiak (B arriskurik gabe), tenporizadorea eta akatsak birpasatzeko modua.
-> 2. 💻 **Zati Praktikoa (4 Modu)**: Klaseko kodeak aztertu, hutsuneak bete, akatsak zuzendu (Bug Hunter) eta kode zatiak idatzi.
-> 3. 📊 **Estatistikak & Puntu Ahulak**: Zure nota eta asmatze-tasak aztertu, eta puntu ahulak berariaz entrenatzeko botoia.
-> 4. 📚 **Gida Bizkorra**: Teoriaren laburpena eta 5 SVG diagrama bektorial (7 egoerak, Harien zikloa, EDT vs Worker, Deadlock eta Race Condition).
+> 1. 📖 **Teoria eta Simulagailu Interaktiboak**: 1. Ebaluazioko teoria osoa, azalpen sakonak, taula konparatiboak (FCFS, SJF, SRTF, Round Robin...) eta **5 simulagailu animatu interaktibo**:
+>    - *Prozesuen 7 Egoeren Zikloa (RAM eta Swap diskoa, animazio automatikoa eta eskuzko trantsizioak)*
+>    - *CPU Planifikatzailea eta 3 Hari Paralelo*
+>    - *Lasterketa-baldintza (Race Condition) vs Synchronized babesa*
+>    - *Deadlock eta Coffman-en 4 baldintzak*
+>    - *Swing EDT interfazearen blokeoa vs Atzeko planoko Worker-a*
+> 2. 📝 **Teoria Testa**: Galderak banaka (Aurrekoa / Hurrengoa / Aurkibide zuzena), tenporizadorea, ausazko nahasketa eta erantzun bakoitzaren arrazoibide zehatza.
+> 3. 💻 **Zati Praktikoa (12 Ariketa Kronologiko)**: Ariketa praktiko guztiak desplegable eroso batean kronologikoki ordenatuta (ProcessBuilder, Thread vs Runnable, join(), isAlive(), Kotxe Lasterketa, Kronometroa & EDT, TimerTask, Deadlock/Inanizioa, Semaforoak, CyclicBarrier & CountDownLatch, ExecutorService & Future). 4 azterketa modu: Kodearen azalpena, Hutsuneak bete, Akatsak zuzendu (Bug Hunter) eta Kodea idatzi.
+> 4. 🎨 **Modu Argia eta Iluna**: Kontraste handiko diseinua bi gaietan, begiak ez nekatzeko.
+> 5. 🔍 **Zoom Sistema Moldagarria**: Pantaila guztietan %50etik %150era doitzeko kontrol flotatzailea.
+> 6. ⚡ **Gida Bizkorra eta SVG Ikono Bektorialak**: Kontzeptu gakoak, formula azkarrak eta ikono bektorial modernoak.
 
 ---
 
