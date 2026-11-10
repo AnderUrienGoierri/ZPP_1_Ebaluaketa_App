@@ -1391,6 +1391,15 @@ function setupZoomControl() {
   const zoomOutBtn = document.getElementById('zoom-out-btn');
   const zoomResetBtn = document.getElementById('zoom-reset-btn');
 
+  // Berreskuratu aurreko zooma gordeta badago
+  try {
+    const savedZoom = localStorage.getItem('zpp_zoom');
+    if (savedZoom) {
+      unekoZooma = parseFloat(savedZoom) || 1.0;
+      aldatuZooma(0);
+    }
+  } catch (e) {}
+
   if (zoomInBtn) {
     zoomInBtn.addEventListener('click', () => aldatuZooma(0.1));
   }
@@ -1406,12 +1415,18 @@ function aldatuZooma(delta, leheneratu = false) {
   if (leheneratu) {
     unekoZooma = 1.0;
   } else {
-    unekoZooma = Math.min(2.0, Math.max(0.7, Math.round((unekoZooma + delta) * 10) / 10));
+    unekoZooma = Math.min(1.5, Math.max(0.6, Math.round((unekoZooma + delta) * 10) / 10));
   }
 
-  // Nabigatzaile modernoetan eta Android WebView-n zoom aplikatu
+  try {
+    localStorage.setItem('zpp_zoom', unekoZooma);
+  } catch (e) {}
+
+  // Nabigatzaile modernoetan eta Android WebView-n zoom aplikatu eta zabalera %100 mantendu hutsunerik gabe
   if ('zoom' in document.body.style) {
     document.body.style.zoom = unekoZooma;
+    document.body.style.width = (100 / unekoZooma) + '%';
+    document.body.style.maxWidth = 'none';
   } else {
     // Firefox fallback
     document.documentElement.style.fontSize = (unekoZooma * 16) + 'px';
