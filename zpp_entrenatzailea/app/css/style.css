@@ -279,6 +279,9 @@ main {
   padding: 28px;
   margin-bottom: 24px;
   box-shadow: var(--shadow);
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .q-badge {
@@ -1301,23 +1304,99 @@ body.theme-light .teoria-title {
   gap: 8px;
 }
 
+/* RESPONSIVE TABLE WRAPPER WITH SMOOTH HORIZONTAL SCROLL */
+.table-responsive {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  margin: 10px 0 16px 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  background: rgba(15, 23, 42, 0.45);
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-cyan) rgba(15, 23, 42, 0.8);
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--accent-cyan);
+  border-radius: 4px;
+}
+
+.table-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+body.theme-light .table-scroll-hint {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.1);
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+body.theme-light .table-responsive {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  scrollbar-color: #2563eb #e2e8f0;
+}
+
+body.theme-light .table-responsive::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+body.theme-light .table-responsive::-webkit-scrollbar-thumb {
+  background: #2563eb;
+}
+
 .teoria-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
   text-align: left;
 }
 
 .teoria-table th, .teoria-table td {
   padding: 12px 14px;
   border-bottom: 1px solid var(--card-border);
+  vertical-align: top;
 }
 
 .teoria-table th {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.95);
   color: var(--accent-cyan);
   font-weight: 700;
   white-space: nowrap;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.teoria-table tbody tr:hover {
+  background: rgba(56, 189, 248, 0.05);
+}
+
+body.theme-light .teoria-table tbody tr:hover {
+  background: rgba(37, 99, 235, 0.04);
 }
 
 .badge-green {

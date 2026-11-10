@@ -137,8 +137,9 @@ function kargatuTeoriaOsoa() {
         <p class="teoria-p">
           Planifikatzaileak (Scheduler) erabakitzen du PREST egoeran dauden prozesuen artean zeini emango dion CPUa:
         </p>
+        <div class="table-scroll-hint">↔️ Korritu horizontalki taula osoa ikusteko</div>
         <div class="table-responsive">
-          <table class="teoria-table">
+          <table class="teoria-table" style="min-width:780px;">
             <thead>
               <tr>
                 <th>Algoritmoa</th>
@@ -232,8 +233,9 @@ if (p.isAlive()) {
       <!-- 2.1 Prozesua vs Haria -->
       <div class="question-card">
         <h3 class="teoria-title">2.1 Prozesua vs Haria (Thread): Desberdintasun Nagusiak</h3>
+        <div class="table-scroll-hint">↔️ Korritu horizontalki taula osoa ikusteko</div>
         <div class="table-responsive">
-          <table class="teoria-table">
+          <table class="teoria-table" style="min-width:780px;">
             <thead>
               <tr>
                 <th>Ezaugarria</th>
@@ -510,8 +512,9 @@ t.start();`)}</code>
       <!-- 5.1 Konparaketa Orokorraren Taula -->
       <div class="question-card">
         <h3 class="teoria-title">5.1 Tresna Aurreratuen Fitxa Teknikoa eta Konparaketa</h3>
+        <div class="table-scroll-hint">↔️ Korritu horizontalki taula osoa ikusteko</div>
         <div class="table-responsive">
-          <table class="teoria-table">
+          <table class="teoria-table" style="min-width:780px;">
             <thead>
               <tr>
                 <th>Klasea / Interfazea</th>
