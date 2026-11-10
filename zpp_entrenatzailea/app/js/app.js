@@ -371,8 +371,8 @@ function renderizatuGalderaBakarka(qIdx, emaitzakIkusi = false) {
   if (emaitzakIkusi) {
     azalpenKutxa = `
       <div class="explanation-box ${zuzenaDa ? 'correct' : 'wrong'}" style="margin-top:16px;">
-        <div style="font-weight:700; margin-bottom:4px;">
-          ${zuzenaDa ? '✅ ERANTZUN ZUZENA!' : `❌ ERANTZUN OKERRA! (Erantzun zuzena: ${letrak[g.zuzena]})`}
+        <div style="font-weight:700; margin-bottom:6px;">
+          ${zuzenaDa ? '<span class="badge-status success"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> ERANTZUN ZUZENA!</span>' : `<span class="badge-status error"><svg class="icon-svg-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> ERANTZUN OKERRA! (Erantzun zuzena: ${letrak[g.zuzena]})</span>`}
         </div>
         <div>${g.azalpena}</div>
       </div>
@@ -414,8 +414,8 @@ function renderizatuGalderaBakarka(qIdx, emaitzakIkusi = false) {
           ` : ''}
 
           ${(!emaitzakIkusi) ? `
-            <button class="btn-success" onclick="eskatuAmaituTesta()" style="${isLast ? '' : 'font-size:0.85rem; padding:8px 16px;'}">
-              🏁 Testa Bukatu (${erantzunakKop}/${EGOERA.galderak.length})
+            <button class="btn-success" onclick="eskatuAmaituTesta()" style="${isLast ? '' : 'font-size:0.85rem; padding:8px 16px;'} display:inline-flex; align-items:center; gap:6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Testa Bukatu (${erantzunakKop}/${EGOERA.galderak.length})
             </button>
           ` : ''}
         </div>
@@ -468,12 +468,12 @@ function toggleTestAllReviewView() {
   if (allContainer.style.display === 'none') {
     singleContainer.style.display = 'none';
     allContainer.style.display = 'block';
-    if (btn) btn.textContent = '🔍 Ikuspegi Banakakoa (Galderaz Galdera)';
+    if (btn) btn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Ikuspegi Banakakoa (Galderaz Galdera)';
     renderizatuGalderaGuztiakReview();
   } else {
     allContainer.style.display = 'none';
     singleContainer.style.display = 'block';
-    if (btn) btn.textContent = '📋 Ikusi Zerrenda Osoa (Guztiak Batera)';
+    if (btn) btn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> Ikusi Zerrenda Osoa (Guztiak Batera)';
   }
 }
 
@@ -510,8 +510,8 @@ function renderizatuGalderaGuztiakReview() {
         <div class="question-title">${qIdx + 1}. ${g.enuntziatua}</div>
         <div class="options-grid">${aukerakHtml}</div>
         <div class="explanation-box ${zuzenaDa ? 'correct' : 'wrong'}" style="margin-top:14px;">
-          <div style="font-weight:700; margin-bottom:4px;">
-            ${zuzenaDa ? '✅ ERANTZUN ZUZENA!' : `❌ ERANTZUN OKERRA! (Erantzun zuzena: ${letrak[g.zuzena]})`}
+          <div style="font-weight:700; margin-bottom:6px;">
+            ${zuzenaDa ? '<span class="badge-status success"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> ERANTZUN ZUZENA!</span>' : `<span class="badge-status error"><svg class="icon-svg-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> ERANTZUN OKERRA! (Erantzun zuzena: ${letrak[g.zuzena]})</span>`}
           </div>
           <div>${g.azalpena}</div>
         </div>
@@ -562,10 +562,10 @@ function amaituTesta() {
   const verdictEl = document.getElementById('verdict-text');
   if (gainditua) {
     verdictEl.className = 'results-verdict pass';
-    verdictEl.textContent = `🎉 GAINDITUA! (Nota: ${nota10} / 10)`;
+    verdictEl.innerHTML = `<span class="badge-status success" style="font-size:1.1rem; padding:6px 14px;"><svg class="icon-svg-lg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> GAINDITUA! (Nota: ${nota10} / 10)</span>`;
   } else {
     verdictEl.className = 'results-verdict fail';
-    verdictEl.textContent = `❌ EZ GAINDITUA (Nota: ${nota10} / 10). Birpasatu akatsak!`;
+    verdictEl.innerHTML = `<span class="badge-status error" style="font-size:1.1rem; padding:6px 14px;"><svg class="icon-svg-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> EZ GAINDITUA (Nota: ${nota10} / 10). Birpasatu akatsak!</span>`;
   }
 
   const btnReviewFailed = document.getElementById('btn-review-failed');
@@ -681,8 +681,8 @@ function erakutsiAzalpena(ariketaId) {
   // Galderak
   const galderakHtml = ariketa.galdetegia.map(q => `
     <div class="azalpen-galdera-card">
-      <div class="azalpen-galdera-title">❓ ${q.galdera}</div>
-      <div class="azalpen-galdera-body">💡 ${q.erantzuna}</div>
+      <div class="azalpen-galdera-title" style="display:flex; align-items:flex-start; gap:8px;"><span class="badge-status info">G</span> <span>${q.galdera}</span></div>
+      <div class="azalpen-galdera-body" style="display:flex; align-items:flex-start; gap:8px;"><span class="badge-status success">E</span> <span>${q.erantzuna}</span></div>
     </div>
   `).join('');
   document.getElementById('azalpen-galderak-list').innerHTML = galderakHtml;
@@ -770,7 +770,7 @@ function egiaztatuBeteKodea(index) {
   if (guztiakZuzen) {
     feedback.innerHTML = `
       <div style="background:rgba(34, 197, 94, 0.2); border:1px solid var(--accent-green); padding:14px; border-radius:8px; color:var(--accent-green); font-weight:700;">
-        🎉 Zorionak! Kodea guztiz zuzen bete duzu!
+        <span class="badge-status success" style="font-size:0.92rem; padding:4px 10px; margin-bottom:8px;"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> BIKAIN</span> Zorionak! Kodea guztiz zuzen bete duzu!
         <div style="font-weight:400; color:#e2e8f0; margin-top:6px;">${item.azalpena}</div>
       </div>
     `;
@@ -778,7 +778,7 @@ function egiaztatuBeteKodea(index) {
   } else {
     feedback.innerHTML = `
       <div style="background:rgba(239, 68, 68, 0.2); border:1px solid var(--accent-red); padding:14px; border-radius:8px; color:#fca5a5;">
-        ❌ Saiatu berriro! Egiaztatu maiuskulak eta sintaxia (adib: synchronized, volatile, join, isAlive...).
+        <span class="badge-status error" style="font-size:0.92rem; padding:4px 10px; margin-bottom:8px;"><svg class="icon-svg-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> SAIATU BERRIRO</span> Egiaztatu maiuskulak eta sintaxia (adib: synchronized, volatile, join, isAlive...).
       </div>
     `;
   }
@@ -836,11 +836,11 @@ function zuzenduBug(bugIdx, aukeraIdx) {
     <div style="background:${zuzenaDa ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)'}; 
          border:1px solid ${zuzenaDa ? 'var(--accent-green)' : 'var(--accent-red)'}; 
          border-radius:10px; padding:18px; margin-top:16px;">
-      <h4 style="color:${zuzenaDa ? 'var(--accent-green)' : 'var(--accent-red)'}; margin-bottom:8px;">
-        ${zuzenaDa ? '🎉 Bikain! Akatsa ondo identifikatu duzu.' : '❌ Okerra. Begiratu konponbide zuzena:'}
+      <h4 style="color:${zuzenaDa ? 'var(--accent-green)' : 'var(--accent-red)'}; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+        ${zuzenaDa ? '<span class="badge-status success"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> BIKAIN</span> Akatsa ondo identifikatu duzu.' : '<span class="badge-status error"><svg class="icon-svg-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> OKERRA</span> Begiratu konponbide zuzena:'}
       </h4>
       <p style="margin-bottom:12px; color:#e2e8f0;">${erronka.azalpena}</p>
-      <div style="font-weight:700; color:var(--accent-cyan); margin-bottom:6px;">✨ Kode zuzendua:</div>
+      <div style="font-weight:700; color:var(--accent-cyan); margin-bottom:6px; display:flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Kode zuzendua:</div>
       <div class="code-container" style="background:#090d16; border-radius:6px; border:1px solid #334155;">
         <code>${highlightJava(erronka.zuzenekoKodea)}</code>
       </div>
@@ -886,7 +886,7 @@ function egiaztatuIdaztea(index) {
   if (missing.length === 0) {
     feedback.innerHTML = `
       <div style="background:rgba(34, 197, 94, 0.2); border:1px solid var(--accent-green); padding:16px; border-radius:8px; color:var(--accent-green);">
-        <h4 style="margin-bottom:6px;">🎉 Kodea baliozkoa dirudi! Funtsezko kontzeptu guztiak erabili dituzu.</h4>
+        <h4 style="margin-bottom:6px; display:flex; align-items:center; gap:8px;"><span class="badge-status success"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> BIKAIN</span> Kodea baliozkoa dirudi! Funtsezko kontzeptu guztiak erabili dituzu.</h4>
         <p style="color:#e2e8f0; font-size:0.9rem;">${item.azalpena}</p>
       </div>
     `;
@@ -894,7 +894,7 @@ function egiaztatuIdaztea(index) {
   } else {
     feedback.innerHTML = `
       <div style="background:rgba(239, 68, 68, 0.2); border:1px solid var(--accent-red); padding:16px; border-radius:8px; color:#fca5a5;">
-        <h4 style="margin-bottom:6px;">⚠️ Zure kodean elementu garrantzitsu batzuk falta dira:</h4>
+        <h4 style="margin-bottom:6px; display:flex; align-items:center; gap:8px;"><span class="badge-status error"><svg class="icon-svg-sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> OHARRA</span> Zure kodean elementu garrantzitsu batzuk falta dira:</h4>
         <p style="color:#fff; font-size:0.9rem;">Falta diren gakoak: <b>${missing.join(', ')}</b></p>
         <p style="margin-top:6px; font-size:0.85rem;">Eman 'Erakutsi Ereduzko Kodea' botoiari erantzun aproposa ikusteko.</p>
       </div>
@@ -909,7 +909,7 @@ function erakutsiIdazteSoluzioa(index) {
 
   feedback.innerHTML = `
     <div style="background:#090d16; border:1px solid var(--accent-blue); padding:18px; border-radius:8px; margin-top:12px;">
-      <h4 style="color:var(--accent-cyan); margin-bottom:8px;">💡 Ereduzko Soluzioa:</h4>
+      <h4 style="color:var(--accent-cyan); margin-bottom:8px; display:flex; align-items:center; gap:8px;"><span class="badge-status info">SOLUZIOA</span> Ereduzko Soluzioa:</h4>
       <div class="code-container" style="background:#000; border-radius:6px; border:1px solid #334155;">
         <code>${highlightJava(item.adibidea)}</code>
       </div>
@@ -1034,13 +1034,13 @@ function kalkulatuMailaEtaXP(stats) {
   let levelDesc = "Egin testak eta ariketak zure ezagutzak finkatzeko!";
 
   if (xp > 1200) {
-    levelTitle = "👑 ZPP Sinkronizazio Maisua (Azterketarako Prest!)";
+    levelTitle = "ZPP Sinkronizazio Maisua (Azterketarako Prest!)";
     levelDesc = "Maila bikaina! Gai eta ariketa guztiak menperatzen dituzu.";
   } else if (xp > 700) {
-    levelTitle = "⚡ Konkurrentzia Aditua (Multithread Senior)";
+    levelTitle = "Konkurrentzia Aditua (Multithread Senior)";
     levelDesc = "Ezagutza aurreratua. Puntu ahulak birpasatu 10/10 lortzeko!";
   } else if (xp > 300) {
-    levelTitle = "🛠️ Prozesu eta Hari Kudeatzailea";
+    levelTitle = "Prozesu eta Hari Kudeatzailea";
     levelDesc = "Oinarri sendoak. Jarraitu ariketa praktikoak ebazten!";
   }
 
@@ -1127,22 +1127,22 @@ function eguneratuEstatistikaPanela() {
         <div class="weak-alert-box">
           <div>
             <div style="font-weight:700; color:var(--accent-red); font-size:1.05rem; display:flex; align-items:center; gap:8px;">
-              <span>⚠️</span>
+              <span><svg class="icon-svg" style="color:var(--accent-red);" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
               <span>Puntu Ahula Hautemanda: ${ahulena.kategoria} (%${ahulena.ehun} arrakasta)</span>
             </div>
             <p style="color:#e2e8f0; font-size:0.88rem; margin-top:4px;">
               Gai honetan izan dituzu akats gehien. Entrenatu berariaz gai honetako galderak azterketa ziurtatzeko!
             </p>
           </div>
-          <button class="btn-primary" onclick="entrenatuPuntuAhula('${ahulena.kategoria}')" style="background:var(--accent-red); border-color:var(--accent-red);">
-            🎯 Entrenatu Puntu Ahula
+          <button class="btn-primary" onclick="entrenatuPuntuAhula('${ahulena.kategoria}')" style="background:var(--accent-red); border-color:var(--accent-red); display:inline-flex; align-items:center; gap:6px;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Entrenatu Puntu Ahula
           </button>
         </div>
       `;
     } else {
       weakContainer.innerHTML = `
         <div style="background:rgba(34, 197, 94, 0.1); border:1px solid rgba(34, 197, 94, 0.3); border-radius:var(--radius-md); padding:16px; margin-bottom:24px; color:var(--accent-green); display:flex; align-items:center; gap:12px;">
-          <span style="font-size:1.4rem;">🎯</span>
+          <span><svg class="icon-svg-lg" style="color:var(--accent-green);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span>
           <div>
             <b>Ez da puntu ahul larririk hauteman!</b> Egin test gehiago zure estatistika orokorrak aberasteko.
           </div>
@@ -1161,22 +1161,22 @@ function eguneratuEstatistikaPanela() {
 
     practicalContainer.innerHTML = `
       <div style="background:rgba(15,23,42,0.6); padding:14px; border-radius:8px; border:1px solid #334155;">
-        <div style="font-weight:600; color:var(--accent-cyan); margin-bottom:4px;">📖 Kodearen Azalpena</div>
+        <div style="font-weight:600; color:var(--accent-cyan); margin-bottom:4px; display:flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Kodearen Azalpena</div>
         <div style="font-size:1.3rem; font-weight:800; font-family:var(--font-mono); color:#fff;">${azalpenakKop} / ${PRAKTIKA_DATA.azalpenak.length}</div>
         <div style="font-size:0.78rem; color:var(--text-muted);">Klaseko atazak aztertuta</div>
       </div>
       <div style="background:rgba(15,23,42,0.6); padding:14px; border-radius:8px; border:1px solid #334155;">
-        <div style="font-weight:600; color:var(--accent-green); margin-bottom:4px;">🧩 Hutsuneak Bete</div>
+        <div style="font-weight:600; color:var(--accent-green); margin-bottom:4px; display:flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.439 7.85c0-1.571-1.275-2.85-2.85-2.85h-2.18A4.002 4.002 0 0 0 10.5 2a4.002 4.002 0 0 0-3.909 3H4.41c-1.575 0-2.85 1.279-2.85 2.85v2.18A4.002 4.002 0 0 0 4.5 13.94a4.002 4.002 0 0 0-2.94 3.909v2.18c0 1.571 1.275 2.85 2.85 2.85h2.18A4.002 4.002 0 0 0 10.5 20a4.002 4.002 0 0 0 3.909-3h2.18c1.575 0 2.85-1.279 2.85-2.85v-2.18A4.002 4.002 0 0 0 16.5 8.06a4.002 4.002 0 0 0 2.939-3.909V7.85z"></path></svg> Hutsuneak Bete</div>
         <div style="font-size:1.3rem; font-weight:800; font-family:var(--font-mono); color:#fff;">${betetzeakKop} / ${PRAKTIKA_DATA.betetzeak.length}</div>
         <div style="font-size:0.78rem; color:var(--text-muted);">Kode hutsuneak asmatuta</div>
       </div>
       <div style="background:rgba(15,23,42,0.6); padding:14px; border-radius:8px; border:1px solid #334155;">
-        <div style="font-weight:600; color:var(--accent-yellow); margin-bottom:4px;">🐛 Akatsak Zuzendu</div>
+        <div style="font-weight:600; color:var(--accent-yellow); margin-bottom:4px; display:flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> Akatsak Zuzendu</div>
         <div style="font-size:1.3rem; font-weight:800; font-family:var(--font-mono); color:#fff;">${zuzenketakKop} / ${PRAKTIKA_DATA.zuzenketak.length}</div>
         <div style="font-size:0.78rem; color:var(--text-muted);">Bug Hunter erronkak</div>
       </div>
       <div style="background:rgba(15,23,42,0.6); padding:14px; border-radius:8px; border:1px solid #334155;">
-        <div style="font-weight:600; color:#c084fc; margin-bottom:4px;">✍️ Kode Zatia Idatzi</div>
+        <div style="font-weight:600; color:#c084fc; margin-bottom:4px; display:flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> Kode Zatia Idatzi</div>
         <div style="font-size:1.3rem; font-weight:800; font-family:var(--font-mono); color:#fff;">${idazteakKop} / ${PRAKTIKA_DATA.idazteak.length}</div>
         <div style="font-size:0.78rem; color:var(--text-muted);">Azterketa kodeak osatuta</div>
       </div>

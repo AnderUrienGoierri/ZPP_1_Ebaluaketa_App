@@ -38,7 +38,7 @@ function kargatuTeoriaOsoa() {
         </p>
         <div class="teoria-grid-2">
           <div class="teoria-box">
-            <h4 style="color:var(--accent-blue); margin-bottom:8px;">📁 Helbide-Espazioa (Address Space)</h4>
+            <h4 style="color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:8px;"><svg class="icon-svg" style="color:var(--accent-blue);" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> Helbide-Espazioa (Address Space)</h4>
             <ul class="teoria-ul">
               <li><strong>Kodearen zatia (Text):</strong> Prozesuak exekutatzen dituen makina-aginduak. Irakurtzeko soilik da.</li>
               <li><strong>Datuen zatia (Data):</strong> Aldagai globalak eta estatikoak (hasieratuak eta hasieratu gabeak).</li>
@@ -47,7 +47,7 @@ function kargatuTeoriaOsoa() {
             </ul>
           </div>
           <div class="teoria-box">
-            <h4 style="color:var(--accent-cyan); margin-bottom:8px;">📋 PCB (Process Control Block)</h4>
+            <h4 style="color:var(--accent-cyan); margin-bottom:8px; display:flex; align-items:center; gap:8px;"><svg class="icon-svg" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> PCB (Process Control Block)</h4>
             <p style="font-size:0.88rem; margin-bottom:6px;">Sistema Eragileak prozesu bakoitzeko mantentzen duen fitxa teknikoa da:</p>
             <ul class="teoria-ul">
               <li><strong>PID (Process Identifier):</strong> Zenbaki bakarra sisteman.</li>
@@ -64,18 +64,18 @@ function kargatuTeoriaOsoa() {
       <div class="question-card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
-            <span class="q-badge" style="background:var(--accent-orange);">🎬 ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
+            <span class="q-badge" style="background:var(--accent-orange); display:inline-flex; align-items:center; gap:5px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
             <h3 class="teoria-title" style="margin-top:6px;">Prozesuen 7 Egoeren Zikloa Denbora Errealean</h3>
           </div>
           <div class="sim-controls">
-            <button class="btn-primary" id="sim1-btn-toggle" onclick="sim1TogglePlay()">▶️ Hasi Animazioa</button>
-            <button class="btn-secondary" onclick="sim1Step()">⏭️ Pauso Bat</button>
-            <button class="btn-secondary" onclick="sim1Reset()">🔄 Berrezarri</button>
+            <button class="btn-primary" id="sim1-btn-toggle" onclick="sim1TogglePlay()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Hasi Animazioa</button>
+            <button class="btn-secondary" onclick="sim1Step()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg> Pauso Bat</button>
+            <button class="btn-secondary" onclick="sim1Reset()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg> Berrezarri</button>
           </div>
         </div>
 
         <p class="teoria-p" style="margin-bottom:14px;">
-          Sakatu <strong>▶️ Hasi Animazioa</strong> edo erabili beheko ekintza-botoiak prozesua (PID: 4082) egoera batetik bestera eskuz mugitzeko:
+          Sakatu <strong>Hasi Animazioa</strong> edo erabili beheko ekintza-botoiak prozesua (PID: 4082) egoera batetik bestera eskuz mugitzeko:
         </p>
 
         <!-- Simulagailuaren eremua -->
@@ -129,7 +129,7 @@ function kargatuTeoriaOsoa() {
         </div>
 
         <div id="sim1-log" class="sim-log-box">
-          ℹ️ Prozesua hasierako egoeran dago. Sakatu botoietan egoeraren trantsizioak ikusteko.
+          <span class="badge-status info">INFO</span> Prozesua hasierako egoeran dago. Sakatu botoietan egoeraren trantsizioak ikusteko.
         </div>
       </div>
 
@@ -139,7 +139,7 @@ function kargatuTeoriaOsoa() {
         <p class="teoria-p">
           Planifikatzaileak (Scheduler) erabakitzen du PREST egoeran dauden prozesuen artean zeini emango dion CPUa:
         </p>
-        <div class="table-scroll-hint">↔️ Korritu horizontalki taula osoa ikusteko</div>
+        <div class="table-scroll-hint"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="17 8 21 12 17 16"></polyline><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 16 3 12 7 8"></polyline></svg> Korritu horizontalki taula osoa ikusteko</div>
         <div class="table-responsive">
           <table class="teoria-table" style="min-width:780px;">
             <thead>
@@ -235,7 +235,7 @@ if (p.isAlive()) {
       <!-- 2.1 Prozesua vs Haria -->
       <div class="question-card">
         <h3 class="teoria-title">2.1 Prozesua vs Haria (Thread): Desberdintasun Nagusiak</h3>
-        <div class="table-scroll-hint">↔️ Korritu horizontalki taula osoa ikusteko</div>
+        <div class="table-scroll-hint"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="17 8 21 12 17 16"></polyline><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 16 3 12 7 8"></polyline></svg> Korritu horizontalki taula osoa ikusteko</div>
         <div class="table-responsive">
           <table class="teoria-table" style="min-width:780px;">
             <thead>
@@ -288,7 +288,7 @@ if (p.isAlive()) {
 new NireHaria().start();`)}</code>
             </div>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">
-              ⚠️ Desabantaila: Javan herentzia anitzik ez dagoenez, klase honek ezin du beste ezer hedatu.
+              <span class="badge-status warn"><svg class="icon-svg-sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Desabantaila:</span> Javan herentzia anitzik ez dagoenez, klase honek ezin du beste ezer hedatu.
             </p>
           </div>
           <div class="teoria-box">
@@ -305,7 +305,7 @@ Thread t = new Thread(new NireAtaza());
 t.start();`)}</code>
             </div>
             <p style="font-size:0.85rem; color:var(--accent-green); margin-top:8px;">
-              ✅ Abantaila: Lana (Runnable) eta Exekutorea (Thread) banatzen ditu. Beste klase bat hedatu daiteke.
+              <span class="badge-status success"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Abantaila:</span> Lana (Runnable) eta Exekutorea (Thread) banatzen ditu. Beste klase bat hedatu daiteke.
             </p>
           </div>
         </div>
@@ -315,12 +315,12 @@ t.start();`)}</code>
       <div class="question-card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
-            <span class="q-badge" style="background:var(--accent-orange);">🎬 ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
+            <span class="q-badge" style="background:var(--accent-orange); display:inline-flex; align-items:center; gap:5px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
             <h3 class="teoria-title" style="margin-top:6px;">Hariaren Bizi-Zikloa eta 3 Hari Paralelo</h3>
           </div>
           <div class="sim-controls">
-            <button class="btn-primary" onclick="sim2HasiParaleloa()">▶️ Abiarazi 3 Hariak</button>
-            <button class="btn-secondary" onclick="sim2Berrezarri()">🔄 Berrezarri</button>
+            <button class="btn-primary" onclick="sim2HasiParaleloa()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Abiarazi 3 Hariak</button>
+            <button class="btn-secondary" onclick="sim2Berrezarri()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg> Berrezarri</button>
           </div>
         </div>
 
@@ -357,7 +357,7 @@ t.start();`)}</code>
           </div>
         </div>
         <div id="sim2-log" class="sim-log-box" style="margin-top:12px;">
-          ℹ️ Egin klik 'Abiarazi 3 Hariak' botoian hariek aldi berean nola aurrera egiten duten ikusteko.
+          <span class="badge-status info">INFO</span> Egin klik 'Abiarazi 3 Hariak' botoian hariek aldi berean nola aurrera egiten duten ikusteko.
         </div>
       </div>
     </div>
@@ -376,13 +376,13 @@ t.start();`)}</code>
       <div class="question-card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
-            <span class="q-badge" style="background:var(--accent-orange);">🎬 ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
+            <span class="q-badge" style="background:var(--accent-orange); display:inline-flex; align-items:center; gap:5px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
             <h3 class="teoria-title" style="margin-top:6px;">Race Condition vs Synchronized Babesa</h3>
           </div>
           <div class="sim-controls">
-            <button class="btn-danger" onclick="sim3Exekutatu(false)">❌ Babesik Gabe (Race Condition)</button>
-            <button class="btn-success" onclick="sim3Exekutatu(true)">🔒 Synchronized-ekin (Babestua)</button>
-            <button class="btn-secondary" onclick="sim3Berrezarri()">🔄</button>
+            <button class="btn-danger" onclick="sim3Exekutatu(false)" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> Babesik Gabe (Race Condition)</button>
+            <button class="btn-success" onclick="sim3Exekutatu(true)" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Synchronized-ekin (Babestua)</button>
+            <button class="btn-secondary" onclick="sim3Berrezarri()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></button>
           </div>
         </div>
 
@@ -402,12 +402,12 @@ t.start();`)}</code>
             </div>
             <div class="counter-box">
               <span style="font-size:0.85rem; color:var(--text-muted); display:block;">GILTZAREN EGOERA</span>
-              <span id="sim3-lock-status" style="font-size:1.8rem;">🔓 Irekita</span>
+              <span id="sim3-lock-status" style="font-size:1.1rem; display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg> Irekita</span>
             </div>
           </div>
         </div>
         <div id="sim3-log" class="sim-log-box" style="margin-top:12px;">
-          ℹ️ Aukeratu nola exekutatu diferentzia begi-bistaz ikusteko.
+          <span class="badge-status info">INFO</span> Aukeratu nola exekutatu diferentzia begi-bistaz ikusteko.
         </div>
       </div>
 
@@ -415,13 +415,13 @@ t.start();`)}</code>
       <div class="question-card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
-            <span class="q-badge" style="background:var(--accent-orange);">🎬 ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
+            <span class="q-badge" style="background:var(--accent-orange); display:inline-flex; align-items:center; gap:5px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
             <h3 class="teoria-title" style="margin-top:6px;">Deadlock (Blokeo Elkarrekikoa) eta Coffman-en Zirkulua</h3>
           </div>
           <div class="sim-controls">
-            <button class="btn-danger" onclick="sim4ProbatuDeadlock(true)">⚠️ Simulatu Deadlock-a</button>
-            <button class="btn-success" onclick="sim4ProbatuDeadlock(false)">🛡️ Konpondu (Ordena Hierarkikoa)</button>
-            <button class="btn-secondary" onclick="sim4Berrezarri()">🔄</button>
+            <button class="btn-danger" onclick="sim4ProbatuDeadlock(true)" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Simulatu Deadlock-a</button>
+            <button class="btn-success" onclick="sim4ProbatuDeadlock(false)" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Konpondu (Ordena Hierarkikoa)</button>
+            <button class="btn-secondary" onclick="sim4Berrezarri()" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></button>
           </div>
         </div>
 
@@ -436,7 +436,7 @@ t.start();`)}</code>
             <div id="dl-t1-waits" style="font-size:0.85rem; color:var(--accent-orange);">Zain: -</div>
           </div>
 
-          <div style="font-size:2rem; font-weight:800;" id="dl-center-icon">🔄</div>
+          <div style="font-size:1.6rem; font-weight:800; display:flex; align-items:center; justify-content:center;" id="dl-center-icon"><svg class="icon-svg-lg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></div>
 
           <div class="deadlock-box" id="dl-thread-2">
             <div style="font-weight:700; color:#a855f7;">HARI 2</div>
@@ -445,7 +445,7 @@ t.start();`)}</code>
           </div>
         </div>
         <div id="sim4-log" class="sim-log-box" style="margin-top:12px;">
-          ℹ️ Sakatu 'Simulatu Deadlock-a' blokeo zirkularra ikusteko, edo 'Konpondu' ordena hierarkikoarekin nola saihesten den ikusteko.
+          <span class="badge-status info">INFO</span> Sakatu 'Simulatu Deadlock-a' blokeo zirkularra ikusteko, edo 'Konpondu' ordena hierarkikoarekin nola saihesten den ikusteko.
         </div>
       </div>
     </div>
@@ -463,12 +463,12 @@ t.start();`)}</code>
       <div class="question-card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
-            <span class="q-badge" style="background:var(--accent-orange);">🎬 ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
+            <span class="q-badge" style="background:var(--accent-orange); display:inline-flex; align-items:center; gap:5px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> ANIMAZIO & SIMULAGAILU INTERAKTIBOA</span>
             <h3 class="teoria-title" style="margin-top:6px;">EDT Izoztua vs SwingWorker Fluidoa</h3>
           </div>
           <div class="sim-controls">
-            <button class="btn-danger" onclick="sim5ProbatuEDT(false)">❄️ Kalkulatu EDT-n (Izoztu UI)</button>
-            <button class="btn-success" onclick="sim5ProbatuEDT(true)">🚀 SwingWorker-ekin (Atzean)</button>
+            <button class="btn-danger" onclick="sim5ProbatuEDT(false)" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Kalkulatu EDT-n (Izoztu UI)</button>
+            <button class="btn-success" onclick="sim5ProbatuEDT(true)" style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 9V4s3.03.55 4 2c1.08 1.62 0 5 0 5"></path></svg> SwingWorker-ekin (Atzean)</button>
           </div>
         </div>
 
@@ -480,12 +480,12 @@ t.start();`)}</code>
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:16px;">
             <div>
               <span style="font-weight:700; color:#fff;">UI Proba Botoia (Egin klik azkar!):</span>
-              <button class="btn-secondary" id="sim5-test-btn" onclick="sim5ClickTest()" style="margin-left:10px;">
-                🖱️ Klikatu niri! (<span id="sim5-click-count">0</span>)
+              <button class="btn-secondary" id="sim5-test-btn" onclick="sim5ClickTest()" style="margin-left:10px; display:inline-flex; align-items:center; gap:6px;">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg> Egin Klik! (<span id="sim5-click-count">0</span>)
               </button>
             </div>
             <div id="sim5-spinner" class="sim-spinner-box">
-              <span class="sim-spinner">⏳</span>
+              <span class="sim-spinner"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg></span>
               <span id="sim5-ui-status" style="font-weight:700; color:var(--accent-green);">UI Bizkorra (60 FPS)</span>
             </div>
           </div>
@@ -496,7 +496,7 @@ t.start();`)}</code>
           </div>
         </div>
         <div id="sim5-log" class="sim-log-box" style="margin-top:12px;">
-          ℹ️ EDT-n lan luzeak egiteak interfazea erabat blokeatzen du. SwingWorker-ek atzeko harian kalkulatzen du UI aske utziz!
+          <span class="badge-status info">INFO</span> EDT-n lan luzeak egiteak interfazea erabat blokeatzen du. SwingWorker-ek atzeko harian kalkulatzen du UI aske utziz!
         </div>
       </div>
     </div>
@@ -514,7 +514,7 @@ t.start();`)}</code>
       <!-- 5.1 Konparaketa Orokorraren Taula -->
       <div class="question-card">
         <h3 class="teoria-title">5.1 Tresna Aurreratuen Fitxa Teknikoa eta Konparaketa</h3>
-        <div class="table-scroll-hint">↔️ Korritu horizontalki taula osoa ikusteko</div>
+        <div class="table-scroll-hint"><svg class="icon-svg-sm" viewBox="0 0 24 24"><polyline points="17 8 21 12 17 16"></polyline><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 16 3 12 7 8"></polyline></svg> Korritu horizontalki taula osoa ikusteko</div>
         <div class="table-responsive">
           <table class="teoria-table" style="min-width:780px;">
             <thead>
@@ -640,16 +640,16 @@ function sim1Mugitu(egoera) {
 
   const mezuak = {
     BERRIA:
-      "🌱 BERRIA: Prozesua sortu da; SEak PCB eta memoria esleitu behar dizkio.",
+      '<span class="badge-status info">BERRIA</span> Prozesua sortu da; SEak PCB eta memoria esleitu behar dizkio.',
     PREST:
-      "⏳ PREST: RAM memorian dago kargatuta, CPU planifikatzailearen txandaren zain.",
-    EXE: "⚡ EXEKUZIOAN: CPUa erabiltzen ari da aginduak prozesatzeko.",
-    BLOK: "🛑 BLOKEATUA: I/O eragiketa baten zain (adib. diskoa edo sarea irakurtzen).",
+      '<span class="badge-status info">PREST</span> RAM memorian dago kargatuta, CPU planifikatzailearen txandaren zain.',
+    EXE: '<span class="badge-status success">EXEKUZIOAN</span> CPUa erabiltzen ari da aginduak prozesatzeko.',
+    BLOK: '<span class="badge-status error">BLOKEATUA</span> I/O eragiketa baten zain (adib. diskoa edo sarea irakurtzen).',
     ESEKIBLOK:
-      "📦 ESEKIA-BLOKEATUA: Prozesua I/O zain zegoela, SEak RAMetik Swap diskora bidali du memoria askatzeko.",
+      '<span class="badge-status warn">ESEKIA-BLOKEATUA</span> Prozesua I/O zain zegoela, SEak RAMetik Swap diskora bidali du memoria askatzeko.',
     ESEKIPREST:
-      "💾 ESEKIA-PREST: Swap diskoan zegoela bere I/O gertaera amaitu da; prest dago RAMera itzultzeko.",
-    AMAITUA: "🏁 AMAITUA: Exekuzioa bukatu da; SEak baliabideak askatuko ditu.",
+      '<span class="badge-status info">ESEKIA-PREST</span> Swap diskoan zegoela bere I/O gertaera amaitu da; prest dago RAMera itzultzeko.',
+    AMAITUA: '<span class="badge-status success">AMAITUA</span> Exekuzioa bukatu da; SEak baliabideak askatuko ditu.',
   };
 
   if (log) log.innerHTML = mezuak[egoera] || egoera;
@@ -665,9 +665,9 @@ function sim1TogglePlay() {
   if (sim1Interval) {
     clearInterval(sim1Interval);
     sim1Interval = null;
-    if (btn) btn.textContent = "▶️ Hasi Animazioa";
+    if (btn) btn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Hasi Animazioa';
   } else {
-    if (btn) btn.textContent = "⏸️ Pausatu";
+    if (btn) btn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg> Pausatu';
     sim1Interval = setInterval(() => {
       sim1Step();
     }, 1500);
@@ -680,7 +680,7 @@ function sim1Reset() {
     sim1Interval = null;
   }
   const btn = document.getElementById("sim1-btn-toggle");
-  if (btn) btn.textContent = "▶️ Hasi Animazioa";
+  if (btn) btn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Hasi Animazioa';
   sim1SeqIndex = 0;
   setTimeout(() => sim1Mugitu("BERRIA"), 50);
 }
@@ -708,7 +708,7 @@ function sim2HasiParaleloa() {
   });
   if (log)
     log.innerHTML =
-      "⚡ 3 hariak aldi berean hasi dira (RUNNABLE) paraleloki kalkulatzen!";
+      '<span class="badge-status info">RUNNABLE</span> 3 hariak aldi berean hasi dira paraleloki kalkulatzen!';
 
   let p1 = 0,
     p2 = 0,
@@ -748,7 +748,7 @@ function sim2HasiParaleloa() {
       sim2Running = false;
       if (log)
         log.innerHTML =
-          "🏁 Hari guztiak arrakastaz amaitu dira (TERMINATED). join() deiak aurrera jarrai dezake!";
+          '<span class="badge-status success">TERMINATED</span> Hari guztiak arrakastaz amaitu dira. join() deiak aurrera jarrai dezake!';
     }
   }, 100);
 }
@@ -765,7 +765,7 @@ function sim2Berrezarri() {
     }
   });
   const log = document.getElementById("sim2-log");
-  if (log) log.innerHTML = 'ℹ️ Egin klik "Abiarazi 3 Hariak" botoian.';
+  if (log) log.innerHTML = '<span class="badge-status info">INFO</span> Egin klik "Abiarazi 3 Hariak" botoian.';
 }
 
 // =========================================================================
@@ -785,15 +785,15 @@ function sim3Exekutatu(synchronizedEzagutu) {
   if (valEl) valEl.textContent = "0";
 
   if (synchronizedEzagutu) {
-    if (lockEl) lockEl.innerHTML = "🔒 Giltzatuta (Synchronized)";
+    if (lockEl) lockEl.innerHTML = '<span style="color:var(--accent-green); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Giltzatuta</span>';
     if (log)
       log.innerHTML =
-        "🛡️ SYNCHRONIZED: Hari bakoitzak giltza eskuratu behar du idatzi aurretik. Ezin da talkarik egon.";
+        '<span class="badge-status success">SYNCHRONIZED</span> Hari bakoitzak giltza eskuratu behar du idatzi aurretik. Ezin da talkarik egon.';
   } else {
-    if (lockEl) lockEl.innerHTML = "🔓 Babesik Gabe (Talka!)";
+    if (lockEl) lockEl.innerHTML = '<span style="color:var(--accent-red); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg> Babesik Gabe</span>';
     if (log)
       log.innerHTML =
-        "⚠️ BABESIK GABE: Bi hariek balio zaharra gainidazten dute aldi berean (Race condition). Balioak galduko dira!";
+        '<span class="badge-status error">BABESIK GABE</span> Bi hariek balio zaharra gainidazten dute aldi berean (Race condition). Balioak galduko dira!';
   }
 
   let i = 0;
@@ -816,12 +816,12 @@ function sim3Exekutatu(synchronizedEzagutu) {
       clearInterval(interval);
       sim3Running = false;
       if (synchronizedEzagutu) {
-        if (lockEl) lockEl.innerHTML = "🔓 Askatuta (Zuzena)";
+        if (lockEl) lockEl.innerHTML = '<span style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg> Askatuta</span>';
         if (log)
-          log.innerHTML = `✅ EMAITZA BIKAIN: Kontagailua ${balioa}/100 da! Datuen osotasuna %100 bermatu da.`;
+          log.innerHTML = `<span class="badge-status success">ZUZENA</span> Kontagailua ${balioa}/100 da! Datuen osotasuna %100 bermatu da.`;
       } else {
         if (log)
-          log.innerHTML = `❌ LASTERKETA-BALDINTZA: Kontagailua ${balioa}/100ean geratu da! ${100 - balioa} eguneraketa galdu dira!`;
+          log.innerHTML = `<span class="badge-status error">LASTERKETA</span> Kontagailua ${balioa}/100ean geratu da! ${100 - balioa} eguneraketa galdu dira!`;
       }
     }
   }, 40);
@@ -833,10 +833,10 @@ function sim3Berrezarri() {
   const lockEl = document.getElementById("sim3-lock-status");
   const log = document.getElementById("sim3-log");
   if (valEl) valEl.textContent = "0";
-  if (lockEl) lockEl.innerHTML = "🔓 Irekita";
+  if (lockEl) lockEl.innerHTML = '<span style="display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg> Irekita</span>';
   if (log)
     log.innerHTML =
-      "ℹ️ Aukeratu nola exekutatu diferentzia begi-bistaz ikusteko.";
+      '<span class="badge-status info">INFO</span> Aukeratu nola exekutatu diferentzia begi-bistaz ikusteko.';
 }
 
 // =========================================================================
@@ -857,44 +857,42 @@ function sim4ProbatuDeadlock(gertatu) {
   if (gertatu) {
     // Deadlock kasua
     setTimeout(() => {
-      t1Holds.textContent = "Dauka: 🗝️ Giltza A";
+      t1Holds.textContent = "Dauka: [Giltza A]";
       t1Holds.style.color = "#22c55e";
-      t2Holds.textContent = "Dauka: 🗝️ Giltza B";
+      t2Holds.textContent = "Dauka: [Giltza B]";
       t2Holds.style.color = "#22c55e";
     }, 400);
 
     setTimeout(() => {
-      t1Waits.textContent = "Zain: 🔒 Giltza B (Hari 2-k dauka)";
-      t2Waits.textContent = "Zain: 🔒 Giltza A (Hari 1-ek dauka)";
+      t1Waits.textContent = "Zain: [Giltza B] (Hari 2-k dauka)";
+      t2Waits.textContent = "Zain: [Giltza A] (Hari 1-ek dauka)";
       t1.classList.add("deadlocked");
       t2.classList.add("deadlocked");
-      center.textContent = "💥 BLOKEOA!";
-      center.style.color = "var(--accent-red)";
+      center.innerHTML = '<span class="badge-status error" style="font-size:0.9rem; padding:6px 10px;">BLOKEOA</span>';
       if (log)
         log.innerHTML =
-          "💥 DEADLOCK (Coffman-en 4. baldintza: Itxaronaldi Zirkularra): Hari batek ere ezin du aurrera egin!";
+          '<span class="badge-status error">DEADLOCK</span> Coffman-en 4. baldintza (Itxaronaldi Zirkularra): Hari batek ere ezin du aurrera egin!';
     }, 1200);
   } else {
     // Konpondutako kasua (Hierarkia)
     if (log)
       log.innerHTML =
-        "🛡️ HIERARKIA BIDEZKO ORDENEAN: Biek lehenik Giltza A eskatzen dute, eta gero Giltza B.";
+        '<span class="badge-status success">ORDENA HIERARKIKOA</span> Biek lehenik Giltza A eskatzen dute, eta gero Giltza B.';
     setTimeout(() => {
-      t1Holds.textContent = "Dauka: 🗝️ Giltza A";
-      t2Waits.textContent = "Zain: 🔒 Giltza A (Hari 1-en zain)";
+      t1Holds.textContent = "Dauka: [Giltza A]";
+      t2Waits.textContent = "Zain: [Giltza A] (Hari 1-en zain)";
     }, 400);
     setTimeout(() => {
-      t1Holds.textContent = "Dauka: 🗝️ Giltza A eta B (Amaituta)";
+      t1Holds.textContent = "Dauka: [Giltza A eta B] (Amaituta)";
       t1.style.borderColor = "#22c55e";
     }, 1000);
     setTimeout(() => {
-      t2Holds.textContent = "Dauka: 🗝️ Giltza A eta B (Amaituta)";
+      t2Holds.textContent = "Dauka: [Giltza A eta B] (Amaituta)";
       t2.style.borderColor = "#22c55e";
-      center.textContent = "✅ LIBRATUTA";
-      center.style.color = "var(--accent-green)";
+      center.innerHTML = '<span class="badge-status success" style="font-size:0.9rem; padding:6px 10px;">LIBRATUTA</span>';
       if (log)
         log.innerHTML =
-          "✅ ZIKLO GABE: Hari 1-ek amaitu du eta giltzak askatu ditu; ondoren Hari 2-k segidan arrakastaz amaitu du!";
+          '<span class="badge-status success">ZIKLO GABE</span> Hari 1-ek amaitu du eta giltzak askatu ditu; ondoren Hari 2-k segidan arrakastaz amaitu du!';
     }, 1800);
   }
 }
@@ -927,7 +925,7 @@ function sim4Berrezarri() {
   }
   if (t2Waits) t2Waits.textContent = "Zain: -";
   if (center) {
-    center.textContent = "🔄";
+    center.innerHTML = '<svg class="icon-svg-lg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>';
     center.style.color = "";
   }
 }
@@ -952,12 +950,12 @@ function sim5ProbatuEDT(erabiliWorker) {
 
   if (!erabiliWorker) {
     // EDT blokeo simulazioa
-    statusEl.textContent = "❄️ IZOZTUTA (Not Responding)";
+    statusEl.innerHTML = '<span class="badge-status error">IZOZTUTA</span> Not Responding';
     statusEl.style.color = "var(--accent-red)";
     spinner.classList.add("frozen");
     if (log)
       log.innerHTML =
-        '❄️ EDT IZOZTUTA: Saiatu orain "Klikatu niri!" sakatzen... Ezin da!';
+        '<span class="badge-status error">EDT IZOZTUTA</span> Saiatu orain "Egin Klik!" sakatzen... Interfazea blokeatuta dago!';
 
     // UI blokeatu 2 segundoz benetan
     const start = Date.now();
@@ -966,21 +964,21 @@ function sim5ProbatuEDT(erabiliWorker) {
         // CPU loop intentsiboa EDT blokeatzeko
       }
       if (bar) bar.style.width = "100%";
-      statusEl.textContent = "UI Berreskuratuta";
+      statusEl.innerHTML = '<span class="badge-status success">BERRESKURATUTA</span>';
       statusEl.style.color = "var(--accent-green)";
       spinner.classList.remove("frozen");
       if (log)
         log.innerHTML =
-          "⚠️ Kalkulua amaitu da baina bitartean erabiltzaileak aplikazioa hautsita zegoela uste izan du!";
+          '<span class="badge-status warn">OHARRA</span> Kalkulua amaitu da baina bitartean erabiltzaileak aplikazioa hautsita zegoela uste izan du!';
     }, 50);
   } else {
     // SwingWorker simulazio fluidoa
-    statusEl.textContent = "🚀 Fluidoa (60 FPS)";
+    statusEl.innerHTML = '<span class="badge-status success">FLUIDOA</span> 60 FPS';
     statusEl.style.color = "var(--accent-green)";
     spinner.classList.remove("frozen");
     if (log)
       log.innerHTML =
-        '🚀 SWINGWORKER: doInBackground()-ek atzean kalkulatzen du. Egin klik lasai "Klikatu niri!" botoian, arin dabil!';
+        '<span class="badge-status success">SWINGWORKER</span> doInBackground()-ek atzean kalkulatzen du. Interfazea %100 aske dago!';
 
     let p = 0;
     const interval = setInterval(() => {
@@ -990,7 +988,7 @@ function sim5ProbatuEDT(erabiliWorker) {
         clearInterval(interval);
         if (log)
           log.innerHTML =
-            "✅ SwingWorker: process() eta done() metodoek UI-a perfektu eguneratu dute izoztu gabe!";
+            '<span class="badge-status success">AMAITUTA</span> process() eta done() metodoek UI-a perfektu eguneratu dute!';
       }
     }, 80);
   }
