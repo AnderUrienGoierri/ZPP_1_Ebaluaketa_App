@@ -70,12 +70,16 @@ function aplikatuTheme(modua) {
   if (modua === 'light') {
     document.body.classList.add('theme-light');
     localStorage.setItem('zpp_theme', 'light');
-    if (icon) icon.textContent = '☀️';
+    if (icon) {
+      icon.innerHTML = `<svg class="theme-icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    }
     if (label) label.textContent = 'Argia';
   } else {
     document.body.classList.remove('theme-light');
     localStorage.setItem('zpp_theme', 'dark');
-    if (icon) icon.textContent = '🌙';
+    if (icon) {
+      icon.innerHTML = `<svg class="theme-icon-svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+    }
     if (label) label.textContent = 'Iluna';
   }
 }
@@ -395,7 +399,7 @@ function renderizatuGalderaBakarka(qIdx, emaitzakIkusi = false) {
       <!-- NABIGAZIO KONTROLAK (AURREKOA, HURRENGOA, BUKATU) -->
       <div class="test-nav-controls">
         <button class="btn-secondary" onclick="joanAurrekoGalderara()" ${isFirst ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''}>
-          ⬅️ Aurrekoa
+          <svg class="nav-icon-svg" viewBox="0 0 24 24" style="width:14px; height:14px;"><polyline points="15 18 9 12 15 6"></polyline></svg> Aurrekoa
         </button>
 
         <span id="test-answered-counter" class="test-counter-text">
@@ -405,7 +409,7 @@ function renderizatuGalderaBakarka(qIdx, emaitzakIkusi = false) {
         <div style="display:flex; gap:8px;">
           ${!isLast ? `
             <button class="btn-primary" onclick="joanHurrengoGalderara()">
-              Hurrengoa ➡️
+              Hurrengoa <svg class="nav-icon-svg" viewBox="0 0 24 24" style="width:14px; height:14px;"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           ` : ''}
 
@@ -625,13 +629,37 @@ function erakutsiAzalpena(ariketaId) {
   const ariketa = PRAKTIKA_DATA.azalpenak.find(a => a.id === ariketaId);
   if (!ariketa) return;
 
-  const selectorHtml = PRAKTIKA_DATA.azalpenak.map(a => `
-    <button class="nav-btn ${a.id === ariketaId ? 'active' : ''}" 
-      onclick="erakutsiAzalpena('${a.id}')" style="font-size:0.85rem;">
-      ${a.izenburua.split(':')[0]}
-    </button>
-  `).join('');
-  document.getElementById('azalpen-ariketak-list').innerHTML = selectorHtml;
+  const select = document.getElementById('azalpen-ariketa-select');
+  if (select) {
+    if (select.options.length === 0) {
+      select.innerHTML = PRAKTIKA_DATA.azalpenak.map((a, i) => {
+        const tit = a.izenburua.replace(/^\d+[\.\:\s]+/, '').replace(/^2\.\s*Ataza:\s*/, '').trim();
+        return `<option value="${a.id}">${i + 1}. ${tit}</option>`;
+      }).join('');
+    }
+    select.value = ariketaId;
+  }
+
+  const currentIndex = PRAKTIKA_DATA.azalpenak.findIndex(a => a.id === ariketaId);
+  const total = PRAKTIKA_DATA.azalpenak.length;
+
+  const counterBadge = document.getElementById('ariketa-uneko-zenbakia');
+  if (counterBadge && currentIndex !== -1) {
+    counterBadge.textContent = `${currentIndex + 1} / ${total}`;
+  }
+
+  const prevBtn = document.getElementById('btn-prev-azalpen');
+  const nextBtn = document.getElementById('btn-next-azalpen');
+  if (prevBtn) {
+    prevBtn.disabled = (currentIndex <= 0);
+    prevBtn.style.opacity = (currentIndex <= 0) ? '0.4' : '1';
+    prevBtn.style.cursor = (currentIndex <= 0) ? 'not-allowed' : 'pointer';
+  }
+  if (nextBtn) {
+    nextBtn.disabled = (currentIndex >= total - 1);
+    nextBtn.style.opacity = (currentIndex >= total - 1) ? '0.4' : '1';
+    nextBtn.style.cursor = (currentIndex >= total - 1) ? 'not-allowed' : 'pointer';
+  }
 
   document.getElementById('ide-filename-display').textContent = ariketa.fitxategia;
   document.getElementById('azalpen-titulua').textContent = ariketa.izenburua;
@@ -652,15 +680,29 @@ function erakutsiAzalpena(ariketaId) {
 
   // Galderak
   const galderakHtml = ariketa.galdetegia.map(q => `
-    <div style="background:rgba(15, 23, 42, 0.6); border-radius:8px; padding:14px; margin-bottom:10px; border-left:3px solid var(--accent-cyan);">
-      <div style="font-weight:700; color:#fff; margin-bottom:6px;">❓ ${q.galdera}</div>
-      <div style="color:var(--text-muted); font-size:0.9rem;">💡 ${q.erantzuna}</div>
+    <div class="azalpen-galdera-card">
+      <div class="azalpen-galdera-title">❓ ${q.galdera}</div>
+      <div class="azalpen-galdera-body">💡 ${q.erantzuna}</div>
     </div>
   `).join('');
   document.getElementById('azalpen-galderak-list').innerHTML = galderakHtml;
 
   // Markatu praktika ikusita
   markatuPraktikaEginda('azalpenak', ariketaId);
+}
+
+function aurrekoAzalpenAriketa() {
+  const currentIndex = PRAKTIKA_DATA.azalpenak.findIndex(a => a.id === EGOERA.praktikaAzalpenId);
+  if (currentIndex > 0) {
+    erakutsiAzalpena(PRAKTIKA_DATA.azalpenak[currentIndex - 1].id);
+  }
+}
+
+function hurrengoAzalpenAriketa() {
+  const currentIndex = PRAKTIKA_DATA.azalpenak.findIndex(a => a.id === EGOERA.praktikaAzalpenId);
+  if (currentIndex >= 0 && currentIndex < PRAKTIKA_DATA.azalpenak.length - 1) {
+    erakutsiAzalpena(PRAKTIKA_DATA.azalpenak[currentIndex + 1].id);
+  }
 }
 
 // 2. KODEAN HUTSUNEAK BETE (TOKENIZER NABARMENDUA INPUT PESETA BIDEZ)

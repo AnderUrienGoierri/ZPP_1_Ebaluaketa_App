@@ -629,11 +629,13 @@ function sim1Mugitu(egoera) {
       .getBoundingClientRect();
     const nodeRect = targetNode.getBoundingClientRect();
 
-    const leftPos = nodeRect.left - stageRect.left + nodeRect.width / 2 - 40;
-    const topPos = nodeRect.top - stageRect.top + nodeRect.height / 2 - 16;
+    // Position token centered horizontally, but floating at top border of the node (-12px)
+    // so it acts like a badge/pin and never covers the node's title or subtitle text!
+    const leftPos = nodeRect.left - stageRect.left + (nodeRect.width / 2) - 34;
+    const topPos = nodeRect.top - stageRect.top - 12;
 
-    token.style.left = `${Math.max(10, leftPos)}px`;
-    token.style.top = `${Math.max(10, topPos)}px`;
+    token.style.left = `${Math.max(4, leftPos)}px`;
+    token.style.top = `${Math.max(4, topPos)}px`;
   }
 
   const mezuak = {
