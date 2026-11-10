@@ -16,7 +16,7 @@ const PRAKTIKA_DATA = {
   "azalpenak": [
     {
       "id": "prozesuak",
-      "izenburua": "2. Ataza: ProzesuExekutatzailea (ProcessBuilder eta ProcessHandle)",
+      "izenburua": "1. Prozesuak: ProcessBuilder eta ProcessHandle (2. Ataza)",
       "deskribapena": "Komando-lerrotik programa bat abiarazi, PID zenbakia lortu, SEaren hasiera-ordua eskuratu eta prozesuaren amaierari itxaron.",
       "fitxategia": "ProzesuExekutatzailea.java",
       "kodea": "// 1. Komandoa eta parametroak banatu espazioen arabera\nString[] zatiak = komandoa.split(\"\\\\s+\");\n\n// 2. ProcessBuilder instantziatu parametro zerrendarekin\nProcessBuilder pb = new ProcessBuilder(zatiak);\n\n// 3. Prozesua abiarazi sistema eragilearen kernelean\nProcess prozesua = pb.start();\n\n// 4. PID zenbakia eskuratu modu eramangarrian (Java 9+)\nlong pid = prozesua.pid();\nSystem.out.println(\"Prozesuaren PIDa: \" + pid);\n\n// 5. Sistema Eragilearen hasiera-une zehatza eskuratu ProcessHandle bidez\nProcessHandle.Info info = prozesua.info();\nif (info.startInstant().isPresent()) {\n    Instant instant = info.startInstant().get();\n    LocalDateTime hasiera = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());\n    System.out.println(\"Hasiera-ordua: \" + hasiera.format(FORMATZAILEA));\n}\n\n// 6. Prozesua amaitu arte itxaron eta bere irteera-kodea (exit code) jaso\nint irteeraKodea = prozesua.waitFor();\nSystem.out.println(\"Prozesua amaitu da kode honekin: \" + irteeraKodea);",
