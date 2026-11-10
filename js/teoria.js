@@ -7,7 +7,7 @@
 // TEORIA EDUKIA ETA SIMULAGAILUAK KARGATU
 // =========================================================================
 function kargatuTeoriaOsoa() {
-  const container = document.getElementById('teoria-edukia-container');
+  const container = document.getElementById("teoria-edukia-container");
   if (!container) return;
 
   container.innerHTML = `
@@ -105,7 +105,7 @@ function kargatuTeoriaOsoa() {
               <span class="sim-node-title">ESEKIA-PREST</span>
               <span class="sim-node-sub">Swap diskoan, prest</span>
             </div>
-            <div class="sim-node" id="sim1-node-ESEKIAPRE">
+            <div class="sim-node" id="sim1-node-ESEKIBLOK">
               <span class="sim-node-title">ESEKIA-BLOKEATUA</span>
               <span class="sim-node-sub">Swap diskoan, I/O zain</span>
             </div>
@@ -118,12 +118,14 @@ function kargatuTeoriaOsoa() {
         <!-- Ekintza botoi interaktiboak -->
         <div class="sim-actions-bar">
           <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Eskuzko Trantsizioak:</span>
-          <button class="btn-sim-action" onclick="sim1Mugitu('BERRIA')">1. Sortu</button>
-          <button class="btn-sim-action" onclick="sim1Mugitu('PREST')">2. Onartu RAMera</button>
-          <button class="btn-sim-action" onclick="sim1Mugitu('EXE')">3. CPUra (Dispatcher)</button>
-          <button class="btn-sim-action" onclick="sim1Mugitu('BLOK')">4. I/O Blokeatu</button>
-          <button class="btn-sim-action" onclick="sim1Mugitu('ESEKIPREST')">5. Swap-era Eseki</button>
-          <button class="btn-sim-action" onclick="sim1Mugitu('AMAITUA')">6. Amaitu</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('BERRIA')">1. Sortu (BERRIA)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('PREST')">2. RAMera Onartu (PREST)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('EXE')">3. CPUra (EXEKUZIOAN)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('BLOK')">4. I/O Blokeatu (BLOKEATUA)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('ESEKIBLOK')">5. Swap-era Eseki (ESEKIA-BLOKEATUA)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('ESEKIPREST')">6. I/O Amaitu (ESEKIA-PREST)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('PREST')">7. RAMera Berrezarri (PREST)</button>
+          <button class="btn-sim-action" onclick="sim1Mugitu('AMAITUA')">8. Amaitu (AMAITUA)</button>
         </div>
 
         <div id="sim1-log" class="sim-log-box">
@@ -581,53 +583,71 @@ t.start();`)}</code>
 
 // Gaien fitxak aldatu
 function aldatuTeoriaGaia(gaiZenb) {
-  document.querySelectorAll('.teoria-nav-btn').forEach((btn, idx) => {
-    btn.classList.toggle('active', idx === (gaiZenb - 1));
+  document.querySelectorAll(".teoria-nav-btn").forEach((btn, idx) => {
+    btn.classList.toggle("active", idx === gaiZenb - 1);
   });
 
-  document.querySelectorAll('.teoria-gaia-blokea').forEach((bloke, idx) => {
-    bloke.classList.toggle('active', idx === (gaiZenb - 1));
+  document.querySelectorAll(".teoria-gaia-blokea").forEach((bloke, idx) => {
+    bloke.classList.toggle("active", idx === gaiZenb - 1);
   });
 
-  window.scrollTo({ top: 120, behavior: 'smooth' });
+  window.scrollTo({ top: 120, behavior: "smooth" });
 }
 
 // =========================================================================
 // SIMULAGAILUA 1: 7 EGOERAK
 // =========================================================================
 let sim1Interval = null;
-let sim1State = 'BERRIA';
-const sim1Sequence = ['BERRIA', 'PREST', 'EXE', 'BLOK', 'ESEKIPREST', 'PREST', 'EXE', 'AMAITUA'];
+let sim1State = "BERRIA";
+const sim1Sequence = [
+  "BERRIA",
+  "PREST",
+  "EXE",
+  "BLOK",
+  "ESEKIBLOK",
+  "ESEKIPREST",
+  "PREST",
+  "EXE",
+  "AMAITUA",
+];
 let sim1SeqIndex = 0;
 
 function sim1Mugitu(egoera) {
   sim1State = egoera;
-  const token = document.getElementById('sim1-token');
+  const token = document.getElementById("sim1-token");
   const targetNode = document.getElementById(`sim1-node-${egoera}`);
-  const log = document.getElementById('sim1-log');
+  const log = document.getElementById("sim1-log");
 
-  document.querySelectorAll('.sim-node').forEach(n => n.classList.remove('active'));
+  document
+    .querySelectorAll(".sim-node")
+    .forEach((n) => n.classList.remove("active"));
 
   if (targetNode && token) {
-    targetNode.classList.add('active');
-    const stageRect = document.getElementById('sim1-stage').getBoundingClientRect();
+    targetNode.classList.add("active");
+    const stageRect = document
+      .getElementById("sim1-stage")
+      .getBoundingClientRect();
     const nodeRect = targetNode.getBoundingClientRect();
 
-    const leftPos = (nodeRect.left - stageRect.left) + (nodeRect.width / 2) - 40;
-    const topPos = (nodeRect.top - stageRect.top) + (nodeRect.height / 2) - 16;
+    const leftPos = nodeRect.left - stageRect.left + nodeRect.width / 2 - 40;
+    const topPos = nodeRect.top - stageRect.top + nodeRect.height / 2 - 16;
 
     token.style.left = `${Math.max(10, leftPos)}px`;
     token.style.top = `${Math.max(10, topPos)}px`;
   }
 
   const mezuak = {
-    'BERRIA': '🌱 BERRIA: Prozesua sortu da; SEak PCB eta memoria esleitu behar dizkio.',
-    'PREST': '⏳ PREST: RAM memorian dago kargatuta, CPU planifikatzailearen txandaren zain.',
-    'EXE': '⚡ EXEKUZIOAN: CPUa erabiltzen ari da aginduak prozesatzeko.',
-    'BLOK': '🛑 BLOKEATUA: I/O eragiketa baten zain (adib. diskoa edo sarea irakurtzen).',
-    'AMAITUA': '🏁 AMAITUA: Exekuzioa bukatu da; SEak baliabideak askatuko ditu.',
-    'ESEKIPREST': '💾 ESEKIA-PREST: RAM faltagatik Swap diskoan gorde da; prest dago berriro kargatzeko.',
-    'ESEKIAPRE': '💤 ESEKIA-BLOKEATUA: Swap diskoan dago eta I/O gertaera baten zain dago aldi berean.'
+    BERRIA:
+      "🌱 BERRIA: Prozesua sortu da; SEak PCB eta memoria esleitu behar dizkio.",
+    PREST:
+      "⏳ PREST: RAM memorian dago kargatuta, CPU planifikatzailearen txandaren zain.",
+    EXE: "⚡ EXEKUZIOAN: CPUa erabiltzen ari da aginduak prozesatzeko.",
+    BLOK: "🛑 BLOKEATUA: I/O eragiketa baten zain (adib. diskoa edo sarea irakurtzen).",
+    ESEKIBLOK:
+      "📦 ESEKIA-BLOKEATUA: Prozesua I/O zain zegoela, SEak RAMetik Swap diskora bidali du memoria askatzeko.",
+    ESEKIPREST:
+      "💾 ESEKIA-PREST: Swap diskoan zegoela bere I/O gertaera amaitu da; prest dago RAMera itzultzeko.",
+    AMAITUA: "🏁 AMAITUA: Exekuzioa bukatu da; SEak baliabideak askatuko ditu.",
   };
 
   if (log) log.innerHTML = mezuak[egoera] || egoera;
@@ -639,13 +659,13 @@ function sim1Step() {
 }
 
 function sim1TogglePlay() {
-  const btn = document.getElementById('sim1-btn-toggle');
+  const btn = document.getElementById("sim1-btn-toggle");
   if (sim1Interval) {
     clearInterval(sim1Interval);
     sim1Interval = null;
-    if (btn) btn.textContent = '▶️ Hasi Animazioa';
+    if (btn) btn.textContent = "▶️ Hasi Animazioa";
   } else {
-    if (btn) btn.textContent = '⏸️ Pausatu';
+    if (btn) btn.textContent = "⏸️ Pausatu";
     sim1Interval = setInterval(() => {
       sim1Step();
     }, 1500);
@@ -657,10 +677,10 @@ function sim1Reset() {
     clearInterval(sim1Interval);
     sim1Interval = null;
   }
-  const btn = document.getElementById('sim1-btn-toggle');
-  if (btn) btn.textContent = '▶️ Hasi Animazioa';
+  const btn = document.getElementById("sim1-btn-toggle");
+  if (btn) btn.textContent = "▶️ Hasi Animazioa";
   sim1SeqIndex = 0;
-  setTimeout(() => sim1Mugitu('BERRIA'), 50);
+  setTimeout(() => sim1Mugitu("BERRIA"), 50);
 }
 
 // =========================================================================
@@ -672,56 +692,77 @@ function sim2HasiParaleloa() {
   if (sim2Running) return;
   sim2Running = true;
 
-  const bar1 = document.getElementById('sim2-bar-1');
-  const bar2 = document.getElementById('sim2-bar-2');
-  const bar3 = document.getElementById('sim2-bar-3');
-  const s1 = document.getElementById('sim2-status-1');
-  const s2 = document.getElementById('sim2-status-2');
-  const s3 = document.getElementById('sim2-status-3');
-  const log = document.getElementById('sim2-log');
+  const bar1 = document.getElementById("sim2-bar-1");
+  const bar2 = document.getElementById("sim2-bar-2");
+  const bar3 = document.getElementById("sim2-bar-3");
+  const s1 = document.getElementById("sim2-status-1");
+  const s2 = document.getElementById("sim2-status-2");
+  const s3 = document.getElementById("sim2-status-3");
+  const log = document.getElementById("sim2-log");
 
-  [s1, s2, s3].forEach(s => { s.textContent = 'RUNNABLE'; s.style.color = '#38bdf8'; });
-  if (log) log.innerHTML = '⚡ 3 hariak aldi berean hasi dira (RUNNABLE) paraleloki kalkulatzen!';
+  [s1, s2, s3].forEach((s) => {
+    s.textContent = "RUNNABLE";
+    s.style.color = "#38bdf8";
+  });
+  if (log)
+    log.innerHTML =
+      "⚡ 3 hariak aldi berean hasi dira (RUNNABLE) paraleloki kalkulatzen!";
 
-  let p1 = 0, p2 = 0, p3 = 0;
+  let p1 = 0,
+    p2 = 0,
+    p3 = 0;
   const interval = setInterval(() => {
     p1 = Math.min(100, p1 + Math.random() * 8 + 4);
     p2 = Math.min(100, p2 + Math.random() * 6 + 2);
     p3 = Math.min(100, p3 + Math.random() * 10 + 5);
 
-    if (bar1) bar1.style.width = p1 + '%';
-    if (bar2) bar2.style.width = p2 + '%';
-    if (bar3) bar3.style.width = p3 + '%';
+    if (bar1) bar1.style.width = p1 + "%";
+    if (bar2) bar2.style.width = p2 + "%";
+    if (bar3) bar3.style.width = p3 + "%";
 
     if (p2 > 40 && p2 < 70) {
-      s2.textContent = 'SLEEP (100ms)';
-      s2.style.color = '#eab308';
+      s2.textContent = "SLEEP (100ms)";
+      s2.style.color = "#eab308";
     } else if (p2 >= 70 && p2 < 100) {
-      s2.textContent = 'RUNNABLE';
-      s2.style.color = '#38bdf8';
+      s2.textContent = "RUNNABLE";
+      s2.style.color = "#38bdf8";
     }
 
-    if (p1 >= 100) { s1.textContent = 'TERMINATED'; s1.style.color = '#22c55e'; }
-    if (p2 >= 100) { s2.textContent = 'TERMINATED'; s2.style.color = '#22c55e'; }
-    if (p3 >= 100) { s3.textContent = 'TERMINATED'; s3.style.color = '#22c55e'; }
+    if (p1 >= 100) {
+      s1.textContent = "TERMINATED";
+      s1.style.color = "#22c55e";
+    }
+    if (p2 >= 100) {
+      s2.textContent = "TERMINATED";
+      s2.style.color = "#22c55e";
+    }
+    if (p3 >= 100) {
+      s3.textContent = "TERMINATED";
+      s3.style.color = "#22c55e";
+    }
 
     if (p1 >= 100 && p2 >= 100 && p3 >= 100) {
       clearInterval(interval);
       sim2Running = false;
-      if (log) log.innerHTML = '🏁 Hari guztiak arrakastaz amaitu dira (TERMINATED). join() deiak aurrera jarrai dezake!';
+      if (log)
+        log.innerHTML =
+          "🏁 Hari guztiak arrakastaz amaitu dira (TERMINATED). join() deiak aurrera jarrai dezake!";
     }
   }, 100);
 }
 
 function sim2Berrezarri() {
   sim2Running = false;
-  ['1', '2', '3'].forEach(id => {
+  ["1", "2", "3"].forEach((id) => {
     const bar = document.getElementById(`sim2-bar-${id}`);
     const s = document.getElementById(`sim2-status-${id}`);
-    if (bar) bar.style.width = '0%';
-    if (s) { s.textContent = 'NEW'; s.style.color = 'var(--text-muted)'; }
+    if (bar) bar.style.width = "0%";
+    if (s) {
+      s.textContent = "NEW";
+      s.style.color = "var(--text-muted)";
+    }
   });
-  const log = document.getElementById('sim2-log');
+  const log = document.getElementById("sim2-log");
   if (log) log.innerHTML = 'ℹ️ Egin klik "Abiarazi 3 Hariak" botoian.';
 }
 
@@ -734,19 +775,23 @@ function sim3Exekutatu(synchronizedEzagutu) {
   if (sim3Running) return;
   sim3Running = true;
 
-  const valEl = document.getElementById('sim3-counter-val');
-  const lockEl = document.getElementById('sim3-lock-status');
-  const log = document.getElementById('sim3-log');
+  const valEl = document.getElementById("sim3-counter-val");
+  const lockEl = document.getElementById("sim3-lock-status");
+  const log = document.getElementById("sim3-log");
 
   let balioa = 0;
-  if (valEl) valEl.textContent = '0';
+  if (valEl) valEl.textContent = "0";
 
   if (synchronizedEzagutu) {
-    if (lockEl) lockEl.innerHTML = '🔒 Giltzatuta (Synchronized)';
-    if (log) log.innerHTML = '🛡️ SYNCHRONIZED: Hari bakoitzak giltza eskuratu behar du idatzi aurretik. Ezin da talkarik egon.';
+    if (lockEl) lockEl.innerHTML = "🔒 Giltzatuta (Synchronized)";
+    if (log)
+      log.innerHTML =
+        "🛡️ SYNCHRONIZED: Hari bakoitzak giltza eskuratu behar du idatzi aurretik. Ezin da talkarik egon.";
   } else {
-    if (lockEl) lockEl.innerHTML = '🔓 Babesik Gabe (Talka!)';
-    if (log) log.innerHTML = '⚠️ BABESIK GABE: Bi hariek balio zaharra gainidazten dute aldi berean (Race condition). Balioak galduko dira!';
+    if (lockEl) lockEl.innerHTML = "🔓 Babesik Gabe (Talka!)";
+    if (log)
+      log.innerHTML =
+        "⚠️ BABESIK GABE: Bi hariek balio zaharra gainidazten dute aldi berean (Race condition). Balioak galduko dira!";
   }
 
   let i = 0;
@@ -769,10 +814,12 @@ function sim3Exekutatu(synchronizedEzagutu) {
       clearInterval(interval);
       sim3Running = false;
       if (synchronizedEzagutu) {
-        if (lockEl) lockEl.innerHTML = '🔓 Askatuta (Zuzena)';
-        if (log) log.innerHTML = `✅ EMAITZA BIKAIN: Kontagailua ${balioa}/100 da! Datuen osotasuna %100 bermatu da.`;
+        if (lockEl) lockEl.innerHTML = "🔓 Askatuta (Zuzena)";
+        if (log)
+          log.innerHTML = `✅ EMAITZA BIKAIN: Kontagailua ${balioa}/100 da! Datuen osotasuna %100 bermatu da.`;
       } else {
-        if (log) log.innerHTML = `❌ LASTERKETA-BALDINTZA: Kontagailua ${balioa}/100ean geratu da! ${100 - balioa} eguneraketa galdu dira!`;
+        if (log)
+          log.innerHTML = `❌ LASTERKETA-BALDINTZA: Kontagailua ${balioa}/100ean geratu da! ${100 - balioa} eguneraketa galdu dira!`;
       }
     }
   }, 40);
@@ -780,84 +827,107 @@ function sim3Exekutatu(synchronizedEzagutu) {
 
 function sim3Berrezarri() {
   sim3Running = false;
-  const valEl = document.getElementById('sim3-counter-val');
-  const lockEl = document.getElementById('sim3-lock-status');
-  const log = document.getElementById('sim3-log');
-  if (valEl) valEl.textContent = '0';
-  if (lockEl) lockEl.innerHTML = '🔓 Irekita';
-  if (log) log.innerHTML = 'ℹ️ Aukeratu nola exekutatu diferentzia begi-bistaz ikusteko.';
+  const valEl = document.getElementById("sim3-counter-val");
+  const lockEl = document.getElementById("sim3-lock-status");
+  const log = document.getElementById("sim3-log");
+  if (valEl) valEl.textContent = "0";
+  if (lockEl) lockEl.innerHTML = "🔓 Irekita";
+  if (log)
+    log.innerHTML =
+      "ℹ️ Aukeratu nola exekutatu diferentzia begi-bistaz ikusteko.";
 }
 
 // =========================================================================
 // SIMULAGAILUA 4: DEADLOCK ETA COFFMAN BALDINTZAK
 // =========================================================================
 function sim4ProbatuDeadlock(gertatu) {
-  const t1 = document.getElementById('dl-thread-1');
-  const t2 = document.getElementById('dl-thread-2');
-  const t1Holds = document.getElementById('dl-t1-holds');
-  const t1Waits = document.getElementById('dl-t1-waits');
-  const t2Holds = document.getElementById('dl-t2-holds');
-  const t2Waits = document.getElementById('dl-t2-waits');
-  const center = document.getElementById('dl-center-icon');
-  const log = document.getElementById('sim4-log');
+  const t1 = document.getElementById("dl-thread-1");
+  const t2 = document.getElementById("dl-thread-2");
+  const t1Holds = document.getElementById("dl-t1-holds");
+  const t1Waits = document.getElementById("dl-t1-waits");
+  const t2Holds = document.getElementById("dl-t2-holds");
+  const t2Waits = document.getElementById("dl-t2-waits");
+  const center = document.getElementById("dl-center-icon");
+  const log = document.getElementById("sim4-log");
 
   sim4Berrezarri();
 
   if (gertatu) {
     // Deadlock kasua
     setTimeout(() => {
-      t1Holds.textContent = 'Dauka: 🗝️ Giltza A';
-      t1Holds.style.color = '#22c55e';
-      t2Holds.textContent = 'Dauka: 🗝️ Giltza B';
-      t2Holds.style.color = '#22c55e';
+      t1Holds.textContent = "Dauka: 🗝️ Giltza A";
+      t1Holds.style.color = "#22c55e";
+      t2Holds.textContent = "Dauka: 🗝️ Giltza B";
+      t2Holds.style.color = "#22c55e";
     }, 400);
 
     setTimeout(() => {
-      t1Waits.textContent = 'Zain: 🔒 Giltza B (Hari 2-k dauka)';
-      t2Waits.textContent = 'Zain: 🔒 Giltza A (Hari 1-ek dauka)';
-      t1.classList.add('deadlocked');
-      t2.classList.add('deadlocked');
-      center.textContent = '💥 BLOKEOA!';
-      center.style.color = 'var(--accent-red)';
-      if (log) log.innerHTML = '💥 DEADLOCK (Coffman-en 4. baldintza: Itxaronaldi Zirkularra): Hari batek ere ezin du aurrera egin!';
+      t1Waits.textContent = "Zain: 🔒 Giltza B (Hari 2-k dauka)";
+      t2Waits.textContent = "Zain: 🔒 Giltza A (Hari 1-ek dauka)";
+      t1.classList.add("deadlocked");
+      t2.classList.add("deadlocked");
+      center.textContent = "💥 BLOKEOA!";
+      center.style.color = "var(--accent-red)";
+      if (log)
+        log.innerHTML =
+          "💥 DEADLOCK (Coffman-en 4. baldintza: Itxaronaldi Zirkularra): Hari batek ere ezin du aurrera egin!";
     }, 1200);
   } else {
     // Konpondutako kasua (Hierarkia)
-    if (log) log.innerHTML = '🛡️ HIERARKIA BIDEZKO ORDENEAN: Biek lehenik Giltza A eskatzen dute, eta gero Giltza B.';
+    if (log)
+      log.innerHTML =
+        "🛡️ HIERARKIA BIDEZKO ORDENEAN: Biek lehenik Giltza A eskatzen dute, eta gero Giltza B.";
     setTimeout(() => {
-      t1Holds.textContent = 'Dauka: 🗝️ Giltza A';
-      t2Waits.textContent = 'Zain: 🔒 Giltza A (Hari 1-en zain)';
+      t1Holds.textContent = "Dauka: 🗝️ Giltza A";
+      t2Waits.textContent = "Zain: 🔒 Giltza A (Hari 1-en zain)";
     }, 400);
     setTimeout(() => {
-      t1Holds.textContent = 'Dauka: 🗝️ Giltza A eta B (Amaituta)';
-      t1.style.borderColor = '#22c55e';
+      t1Holds.textContent = "Dauka: 🗝️ Giltza A eta B (Amaituta)";
+      t1.style.borderColor = "#22c55e";
     }, 1000);
     setTimeout(() => {
-      t2Holds.textContent = 'Dauka: 🗝️ Giltza A eta B (Amaituta)';
-      t2.style.borderColor = '#22c55e';
-      center.textContent = '✅ LIBRATUTA';
-      center.style.color = 'var(--accent-green)';
-      if (log) log.innerHTML = '✅ ZIKLO GABE: Hari 1-ek amaitu du eta giltzak askatu ditu; ondoren Hari 2-k segidan arrakastaz amaitu du!';
+      t2Holds.textContent = "Dauka: 🗝️ Giltza A eta B (Amaituta)";
+      t2.style.borderColor = "#22c55e";
+      center.textContent = "✅ LIBRATUTA";
+      center.style.color = "var(--accent-green)";
+      if (log)
+        log.innerHTML =
+          "✅ ZIKLO GABE: Hari 1-ek amaitu du eta giltzak askatu ditu; ondoren Hari 2-k segidan arrakastaz amaitu du!";
     }, 1800);
   }
 }
 
 function sim4Berrezarri() {
-  const t1 = document.getElementById('dl-thread-1');
-  const t2 = document.getElementById('dl-thread-2');
-  const t1Holds = document.getElementById('dl-t1-holds');
-  const t1Waits = document.getElementById('dl-t1-waits');
-  const t2Holds = document.getElementById('dl-t2-holds');
-  const t2Waits = document.getElementById('dl-t2-waits');
-  const center = document.getElementById('dl-center-icon');
+  const t1 = document.getElementById("dl-thread-1");
+  const t2 = document.getElementById("dl-thread-2");
+  const t1Holds = document.getElementById("dl-t1-holds");
+  const t1Waits = document.getElementById("dl-t1-waits");
+  const t2Holds = document.getElementById("dl-t2-holds");
+  const t2Waits = document.getElementById("dl-t2-waits");
+  const center = document.getElementById("dl-center-icon");
 
-  if (t1) { t1.classList.remove('deadlocked'); t1.style.borderColor = ''; }
-  if (t2) { t2.classList.remove('deadlocked'); t2.style.borderColor = ''; }
-  if (t1Holds) { t1Holds.textContent = 'Dauka: -'; t1Holds.style.color = ''; }
-  if (t1Waits) t1Waits.textContent = 'Zain: -';
-  if (t2Holds) { t2Holds.textContent = 'Dauka: -'; t2Holds.style.color = ''; }
-  if (t2Waits) t2Waits.textContent = 'Zain: -';
-  if (center) { center.textContent = '🔄'; center.style.color = ''; }
+  if (t1) {
+    t1.classList.remove("deadlocked");
+    t1.style.borderColor = "";
+  }
+  if (t2) {
+    t2.classList.remove("deadlocked");
+    t2.style.borderColor = "";
+  }
+  if (t1Holds) {
+    t1Holds.textContent = "Dauka: -";
+    t1Holds.style.color = "";
+  }
+  if (t1Waits) t1Waits.textContent = "Zain: -";
+  if (t2Holds) {
+    t2Holds.textContent = "Dauka: -";
+    t2Holds.style.color = "";
+  }
+  if (t2Waits) t2Waits.textContent = "Zain: -";
+  if (center) {
+    center.textContent = "🔄";
+    center.style.color = "";
+  }
 }
 
 // =========================================================================
@@ -866,24 +936,26 @@ function sim4Berrezarri() {
 let sim5ClickCount = 0;
 function sim5ClickTest() {
   sim5ClickCount++;
-  const el = document.getElementById('sim5-click-count');
+  const el = document.getElementById("sim5-click-count");
   if (el) el.textContent = sim5ClickCount;
 }
 
 function sim5ProbatuEDT(erabiliWorker) {
-  const bar = document.getElementById('sim5-progress-bar');
-  const statusEl = document.getElementById('sim5-ui-status');
-  const spinner = document.getElementById('sim5-spinner');
-  const log = document.getElementById('sim5-log');
+  const bar = document.getElementById("sim5-progress-bar");
+  const statusEl = document.getElementById("sim5-ui-status");
+  const spinner = document.getElementById("sim5-spinner");
+  const log = document.getElementById("sim5-log");
 
-  if (bar) bar.style.width = '0%';
+  if (bar) bar.style.width = "0%";
 
   if (!erabiliWorker) {
     // EDT blokeo simulazioa
-    statusEl.textContent = '❄️ IZOZTUTA (Not Responding)';
-    statusEl.style.color = 'var(--accent-red)';
-    spinner.classList.add('frozen');
-    if (log) log.innerHTML = '❄️ EDT IZOZTUTA: Saiatu orain "Klikatu niri!" sakatzen... Ezin da!';
+    statusEl.textContent = "❄️ IZOZTUTA (Not Responding)";
+    statusEl.style.color = "var(--accent-red)";
+    spinner.classList.add("frozen");
+    if (log)
+      log.innerHTML =
+        '❄️ EDT IZOZTUTA: Saiatu orain "Klikatu niri!" sakatzen... Ezin da!';
 
     // UI blokeatu 2 segundoz benetan
     const start = Date.now();
@@ -891,26 +963,32 @@ function sim5ProbatuEDT(erabiliWorker) {
       while (Date.now() - start < 2000) {
         // CPU loop intentsiboa EDT blokeatzeko
       }
-      if (bar) bar.style.width = '100%';
-      statusEl.textContent = 'UI Berreskuratuta';
-      statusEl.style.color = 'var(--accent-green)';
-      spinner.classList.remove('frozen');
-      if (log) log.innerHTML = '⚠️ Kalkulua amaitu da baina bitartean erabiltzaileak aplikazioa hautsita zegoela uste izan du!';
+      if (bar) bar.style.width = "100%";
+      statusEl.textContent = "UI Berreskuratuta";
+      statusEl.style.color = "var(--accent-green)";
+      spinner.classList.remove("frozen");
+      if (log)
+        log.innerHTML =
+          "⚠️ Kalkulua amaitu da baina bitartean erabiltzaileak aplikazioa hautsita zegoela uste izan du!";
     }, 50);
   } else {
     // SwingWorker simulazio fluidoa
-    statusEl.textContent = '🚀 Fluidoa (60 FPS)';
-    statusEl.style.color = 'var(--accent-green)';
-    spinner.classList.remove('frozen');
-    if (log) log.innerHTML = '🚀 SWINGWORKER: doInBackground()-ek atzean kalkulatzen du. Egin klik lasai "Klikatu niri!" botoian, arin dabil!';
+    statusEl.textContent = "🚀 Fluidoa (60 FPS)";
+    statusEl.style.color = "var(--accent-green)";
+    spinner.classList.remove("frozen");
+    if (log)
+      log.innerHTML =
+        '🚀 SWINGWORKER: doInBackground()-ek atzean kalkulatzen du. Egin klik lasai "Klikatu niri!" botoian, arin dabil!';
 
     let p = 0;
     const interval = setInterval(() => {
       p += 5;
-      if (bar) bar.style.width = p + '%';
+      if (bar) bar.style.width = p + "%";
       if (p >= 100) {
         clearInterval(interval);
-        if (log) log.innerHTML = '✅ SwingWorker: process() eta done() metodoek UI-a perfektu eguneratu dute izoztu gabe!';
+        if (log)
+          log.innerHTML =
+            "✅ SwingWorker: process() eta done() metodoek UI-a perfektu eguneratu dute izoztu gabe!";
       }
     }, 80);
   }

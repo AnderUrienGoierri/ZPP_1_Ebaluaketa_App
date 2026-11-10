@@ -33,13 +33,14 @@
   padding: 0;
 }
 
-html, body {
+html {
   overflow-x: hidden;
   width: 100%;
-  max-width: 100vw;
 }
 
 body {
+  overflow-x: hidden;
+  width: 100%;
   font-family: var(--font-sans);
   background: radial-gradient(circle at 10% 20%, #1e1b4b 0%, #0f172a 90%);
   color: var(--text-main);
