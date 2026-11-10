@@ -22,21 +22,32 @@
         </div>
       </div>
 
+      <div class="header-right-tools">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Aldatu Modu Argia / Iluna" aria-label="Modu Argia / Iluna">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text" class="theme-label">Iluna</span>
+        </button>
+      </div>
+
       <nav id="main-nav">
         <button class="nav-btn active" data-target="teoria">
+          <span class="nav-icon">📖</span>
+          <span class="nav-label">Teoria</span>
+        </button>
+        <button class="nav-btn" data-target="testa">
           <span class="nav-icon">📝</span>
-          <span class="nav-label">Teoria Testa</span>
+          <span class="nav-label">Testa</span>
         </button>
         <button class="nav-btn" data-target="praktika">
           <span class="nav-icon">💻</span>
-          <span class="nav-label">Zati Praktikoa</span>
+          <span class="nav-label">Praktika</span>
         </button>
         <button class="nav-btn" data-target="estatistikak">
           <span class="nav-icon">📊</span>
           <span class="nav-label">Estatistikak</span>
         </button>
         <button class="nav-btn" data-target="laburpena">
-          <span class="nav-icon">📚</span>
+          <span class="nav-icon">⚡</span>
           <span class="nav-label">Gida Bizkorra</span>
         </button>
       </nav>
@@ -48,8 +59,13 @@
        ========================================================================= -->
   <main>
 
-    <!-- TAB 1: TEORIA TESTA -->
+    <!-- TAB 1: TEORIA OSOA (5 GAIAK, AZALPENAK, DIAGRAMAK, TAULAK ETA ANIMAZIOAK) -->
     <section id="tab-teoria" class="tab-content active">
+      <div id="teoria-edukia-container"></div>
+    </section>
+
+    <!-- TAB 2: TEORIA TESTA (BANAKA: AURREKOA / HURRENGOA / NABIGAZIO PILOTAK) -->
+    <section id="tab-testa" class="tab-content">
       <!-- GOIKO KONTROL BARRA: TENPORIZADOREA ETA AURRERAPENA -->
       <div class="test-top-bar">
         <div class="timer-box">
@@ -63,6 +79,7 @@
           <div class="progress-track">
             <div id="progress-bar-fill" class="progress-fill"></div>
           </div>
+          <span id="progress-text-fraction" style="font-size:0.82rem; font-family:var(--font-mono); color:var(--accent-cyan); font-weight:700;">0/20</span>
         </div>
 
         <div style="display:flex; gap:8px;">
@@ -70,6 +87,12 @@
             🔀 Galdera Berriak Nahastu
           </button>
         </div>
+      </div>
+
+      <!-- GALDEREN PILOTA NABIGATZAILEA (20 GALDERA JAUZI EGITEKO) -->
+      <div class="question-nav-container">
+        <div class="nav-pills-label">Galderen Aurkibidea (Klikatu edonora joateko):</div>
+        <div id="test-question-pills" class="question-nav-pills"></div>
       </div>
 
       <!-- EMAITZEN TXARTELA (TESTA AMAITZEAN BISTARATZEN DA) -->
@@ -80,7 +103,7 @@
         </div>
         <div id="verdict-text" class="results-verdict pass">GAINDITUA!</div>
         <p style="color:var(--text-muted); max-width:600px; margin:0 auto;">
-          Aztertu azpian galdera bakoitzaren emaitza xehea eta azalpen teorikoa. Akatsik baduzu, sakatu botoi gorria soilik huts egindakoak birpasatzeko!
+          Aztertu galdera bakoitzaren emaitza xehea eta azalpen teorikoa. Akatsik baduzu, sakatu botoi gorria soilik huts egindakoak birpasatzeko!
         </p>
 
         <div class="results-stats-row">
@@ -97,13 +120,28 @@
             <div class="stat-label">Guztira</div>
           </div>
         </div>
+
+        <div style="margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn-primary" onclick="hasiTeoriaTesta()">
+            🔄 Test Berri Bat Egin (20 Galdera)
+          </button>
+          <button id="btn-review-failed" class="btn-secondary" onclick="birpasatuOkerrak()" style="border-color:var(--accent-red); color:var(--accent-red); display:none;">
+            🎯 Birpasatu Huts Egindakoak Soilik (<span id="failed-count-btn">0</span>)
+          </button>
+          <button class="btn-secondary" onclick="toggleTestAllReviewView()" id="btn-toggle-all-review">
+            📋 Ikusi Zerrenda Osoa (Guztiak Batera)
+          </button>
+          <button class="btn-secondary" onclick="aldatuTab('estatistikak')">
+            📊 Ikusi Estatistika Panela
+          </button>
+        </div>
       </div>
 
-      <!-- GALDEREN ZERRENDA -->
-      <div id="test-questions-container"></div>
+      <!-- GALDERA BAKARRAREN EREMUA (AURREKOA / HURRENGOA) -->
+      <div id="test-single-card-container"></div>
 
-      <!-- BEHEKO EKINTZA BARRA -->
-      <div id="test-actions-bar" class="test-actions"></div>
+      <!-- ZERRENDA OSOKO EREMUA (EMAITZEN BERRIKUSPEN BEREZIAN) -->
+      <div id="test-all-review-container" style="display:none;"></div>
     </section>
 
     <!-- TAB 2: ZATI PRAKTIKOA (4 AZTERKETA MODUAK) -->
@@ -360,6 +398,7 @@
   <script src="js/galderak.js"></script>
   <script src="js/ariketak.js"></script>
   <script src="js/syntax.js"></script>
+  <script src="js/teoria.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

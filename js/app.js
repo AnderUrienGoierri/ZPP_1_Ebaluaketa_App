@@ -10,6 +10,7 @@
 // Aplikazioaren egoera orokorra
 const EGOERA = {
   unekoTab: 'teoria',
+  unekoGalderaIndizea: 0,
   testMartxan: false,
   galderak: [],           // Uneko testeko 20 galderak
   erabiltzaileAukerak: {}, // { galderaId: aukeraIndex }
@@ -28,14 +29,56 @@ const EGOERA = {
 // HASIERAKETA
 // =========================================================================
 document.addEventListener('DOMContentLoaded', () => {
+  setupTheme();
   setupNavigation();
   setupModal();
   setupZoomControl();
+  if (typeof kargatuTeoriaOsoa === 'function') {
+    kargatuTeoriaOsoa();
+  }
   hasiTeoriaTesta();
   setupPraktika();
   kargatuLaburpena();
   eguneratuEstatistikaPanela();
 });
+
+// =========================================================================
+// GAI ARGIA / ILUNA (LIGHT & DARK THEME)
+// =========================================================================
+function setupTheme() {
+  const toggleBtn = document.getElementById('theme-toggle-btn');
+  const gordeModua = localStorage.getItem('zpp_theme');
+
+  if (gordeModua === 'light') {
+    aplikatuTheme('light');
+  } else {
+    aplikatuTheme('dark');
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.contains('theme-light');
+      aplikatuTheme(isLight ? 'dark' : 'light');
+    });
+  }
+}
+
+function aplikatuTheme(modua) {
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-text');
+
+  if (modua === 'light') {
+    document.body.classList.add('theme-light');
+    localStorage.setItem('zpp_theme', 'light');
+    if (icon) icon.textContent = '☀️';
+    if (label) label.textContent = 'Argia';
+  } else {
+    document.body.classList.remove('theme-light');
+    localStorage.setItem('zpp_theme', 'dark');
+    if (icon) icon.textContent = '🌙';
+    if (label) label.textContent = 'Iluna';
+  }
+}
 
 // =========================================================================
 // NABIGAZIOA ETA MODALA (EZ USTEKABEAN TESTA ITXI)
@@ -51,7 +94,7 @@ function setupNavigation() {
 }
 
 function eskaeraAldatuTab(targetTab) {
-  if (EGOERA.testMartxan && EGOERA.unekoTab === 'teoria' && targetTab !== 'teoria') {
+  if (EGOERA.testMartxan && EGOERA.unekoTab === 'testa' && targetTab !== 'testa') {
     const erantzunakKop = Object.keys(EGOERA.erabiltzaileAukerak).length;
     if (erantzunakKop > 0) {
       irekiModala(
@@ -168,9 +211,20 @@ function hasiTeoriaTesta(aukeratutakoPool = null) {
   EGOERA.erabiltzaileAukerak = {};
   EGOERA.okerrak = [];
   EGOERA.testMartxan = true;
+  EGOERA.unekoGalderaIndizea = 0;
   EGOERA.geratzenDenbora = 20 * 60;
 
-  document.getElementById('test-results-card').style.display = 'none';
+  const resultsCard = document.getElementById('test-results-card');
+  if (resultsCard) resultsCard.style.display = 'none';
+
+  const singleCard = document.getElementById('test-single-card-container');
+  if (singleCard) singleCard.style.display = 'block';
+
+  const allReview = document.getElementById('test-all-review-container');
+  if (allReview) allReview.style.display = 'none';
+
+  const btnReviewFailed = document.getElementById('btn-review-failed');
+  if (btnReviewFailed) btnReviewFailed.style.display = 'none';
 
   hasieratuTenporizadorea();
   eguneratuAurrerapena();
@@ -214,7 +268,10 @@ function geldituTesta() {
 function eguneratuAurrerapena() {
   const erantzunakKop = Object.keys(EGOERA.erabiltzaileAukerak).length;
   const ehunekoa = (erantzunakKop / EGOERA.galderak.length) * 100;
-  document.getElementById('progress-bar-fill').style.width = `${ehunekoa}%`;
+  const fill = document.getElementById('progress-bar-fill');
+  if (fill) fill.style.width = `${ehunekoa}%`;
+  const textFraction = document.getElementById('progress-text-fraction');
+  if (textFraction) textFraction.textContent = `${erantzunakKop}/${EGOERA.galderak.length}`;
 }
 
 function aukeratuErantzuna(galderaId, aukeraIndizea) {
@@ -223,94 +280,242 @@ function aukeratuErantzuna(galderaId, aukeraIndizea) {
   EGOERA.erabiltzaileAukerak[galderaId] = aukeraIndizea;
   eguneratuAurrerapena();
 
+  // Eguneratu botoiak uneko txartelean
   const aukeraBotoiak = document.querySelectorAll(`[data-qid="${galderaId}"] .option-btn`);
   aukeraBotoiak.forEach((btn, idx) => {
     btn.classList.toggle('selected', idx === aukeraIndizea);
   });
+
+  // Eguneratu pilota nabigatzailea
+  renderizatuGalderaPilotak(!EGOERA.testMartxan);
+  
+  // Eguneratu beheko kontroleko erantzun-kopurua
+  const counterText = document.getElementById('test-answered-counter');
+  if (counterText) {
+    const erantzunakKop = Object.keys(EGOERA.erabiltzaileAukerak).length;
+    counterText.textContent = `${erantzunakKop} / ${EGOERA.galderak.length} erantzunda`;
+  }
 }
 
 function renderizatuTesta(emaitzakIkusi = false) {
-  const container = document.getElementById('test-questions-container');
+  renderizatuGalderaPilotak(emaitzakIkusi);
+  renderizatuGalderaBakarka(EGOERA.unekoGalderaIndizea, emaitzakIkusi);
+}
+
+function renderizatuGalderaPilotak(emaitzakIkusi = false) {
+  const pillsContainer = document.getElementById('test-question-pills');
+  if (!pillsContainer) return;
+
+  const pillsHtml = EGOERA.galderak.map((g, idx) => {
+    const hautatutakoAukera = EGOERA.erabiltzaileAukerak[g.id];
+    const erantzunda = (hautatutakoAukera !== undefined);
+    const unekoaDa = (idx === EGOERA.unekoGalderaIndizea);
+
+    let klaseak = 'q-pill';
+    if (unekoaDa) klaseak += ' active';
+    if (erantzunda) klaseak += ' answered';
+
+    if (emaitzakIkusi) {
+      if (hautatutakoAukera === g.zuzena) {
+        klaseak += ' correct';
+      } else {
+        klaseak += ' wrong';
+      }
+    }
+
+    return `
+      <button class="${klaseak}" onclick="joanGalderara(${idx})" title="Joan ${idx + 1}. galderara">
+        ${idx + 1}
+      </button>
+    `;
+  }).join('');
+
+  pillsContainer.innerHTML = pillsHtml;
+}
+
+function renderizatuGalderaBakarka(qIdx, emaitzakIkusi = false) {
+  const container = document.getElementById('test-single-card-container');
+  if (!container || !EGOERA.galderak[qIdx]) return;
+
+  const g = EGOERA.galderak[qIdx];
+  const letrak = ['A', 'B', 'C', 'D'];
+  const hautatutakoAukera = EGOERA.erabiltzaileAukerak[g.id];
+  const erantzunda = (hautatutakoAukera !== undefined);
+  const zuzenaDa = erantzunda && (hautatutakoAukera === g.zuzena);
+
+  const aukerakHtml = g.aukerak.map((aukeraTestua, aIdx) => {
+    let klaseak = 'option-btn';
+    if (hautatutakoAukera === aIdx) klaseak += ' selected';
+
+    if (emaitzakIkusi) {
+      if (aIdx === g.zuzena) {
+        klaseak += ' correct';
+      } else if (hautatutakoAukera === aIdx && !zuzenaDa) {
+        klaseak += ' wrong';
+      }
+    }
+
+    return `
+      <button class="${klaseak}" onclick="aukeratuErantzuna(${g.id}, ${aIdx})" ${emaitzakIkusi ? 'disabled' : ''}>
+        <span class="option-letter">${letrak[aIdx]}</span>
+        <span>${aukeraTestua}</span>
+      </button>
+    `;
+  }).join('');
+
+  let azalpenKutxa = '';
+  if (emaitzakIkusi) {
+    azalpenKutxa = `
+      <div class="explanation-box ${zuzenaDa ? 'correct' : 'wrong'}" style="margin-top:16px;">
+        <div style="font-weight:700; margin-bottom:4px;">
+          ${zuzenaDa ? '✅ ERANTZUN ZUZENA!' : `❌ ERANTZUN OKERRA! (Erantzun zuzena: ${letrak[g.zuzena]})`}
+        </div>
+        <div>${g.azalpena}</div>
+      </div>
+    `;
+  }
+
+  const erantzunakKop = Object.keys(EGOERA.erabiltzaileAukerak).length;
+  const isFirst = (qIdx === 0);
+  const isLast = (qIdx === EGOERA.galderak.length - 1);
+
+  container.innerHTML = `
+    <div class="question-card" data-qid="${g.id}">
+      <div class="q-header">
+        <span class="q-badge">${g.gaia}</span>
+        <span style="font-size:0.85rem; color:var(--accent-cyan); font-family:var(--font-mono); font-weight:700;">
+          ${qIdx + 1} / ${EGOERA.galderak.length}
+        </span>
+      </div>
+
+      <div class="question-title">${qIdx + 1}. ${g.enuntziatua}</div>
+      <div class="options-grid">${aukerakHtml}</div>
+      ${azalpenKutxa}
+
+      <!-- NABIGAZIO KONTROLAK (AURREKOA, HURRENGOA, BUKATU) -->
+      <div class="test-nav-controls">
+        <button class="btn-secondary" onclick="joanAurrekoGalderara()" ${isFirst ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''}>
+          ⬅️ Aurrekoa
+        </button>
+
+        <span id="test-answered-counter" class="test-counter-text">
+          ${erantzunakKop} / ${EGOERA.galderak.length} erantzunda
+        </span>
+
+        <div style="display:flex; gap:8px;">
+          ${!isLast ? `
+            <button class="btn-primary" onclick="joanHurrengoGalderara()">
+              Hurrengoa ➡️
+            </button>
+          ` : ''}
+
+          ${(!emaitzakIkusi) ? `
+            <button class="btn-success" onclick="eskatuAmaituTesta()" style="${isLast ? '' : 'font-size:0.85rem; padding:8px 16px;'}">
+              🏁 Testa Bukatu (${erantzunakKop}/${EGOERA.galderak.length})
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderizatuGalderaPilotak(emaitzakIkusi);
+}
+
+function joanGalderara(indizea) {
+  if (indizea < 0 || indizea >= EGOERA.galderak.length) return;
+  EGOERA.unekoGalderaIndizea = indizea;
+  const resultsCard = document.getElementById('test-results-card');
+  const emaitzakIkusi = !EGOERA.testMartxan && resultsCard && resultsCard.style.display !== 'none';
+  renderizatuGalderaBakarka(indizea, emaitzakIkusi);
+}
+
+function joanHurrengoGalderara() {
+  if (EGOERA.unekoGalderaIndizea < EGOERA.galderak.length - 1) {
+    joanGalderara(EGOERA.unekoGalderaIndizea + 1);
+  }
+}
+
+function joanAurrekoGalderara() {
+  if (EGOERA.unekoGalderaIndizea > 0) {
+    joanGalderara(EGOERA.unekoGalderaIndizea - 1);
+  }
+}
+
+function eskatuAmaituTesta() {
+  const erantzunakKop = Object.keys(EGOERA.erabiltzaileAukerak).length;
+  const geratzenDira = EGOERA.galderak.length - erantzunakKop;
+  if (geratzenDira > 0) {
+    irekiModala(
+      "Testa bukatu nahi duzu?",
+      `Oraindik ${geratzenDira} galdera erantzuteke dituzu (${erantzunakKop} / ${EGOERA.galderak.length} erantzunda). Ziur zaude oraintxe bertan zuzendu nahi duzula?`,
+      () => amaituTesta()
+    );
+  } else {
+    amaituTesta();
+  }
+}
+
+function toggleTestAllReviewView() {
+  const allContainer = document.getElementById('test-all-review-container');
+  const singleContainer = document.getElementById('test-single-card-container');
+  const btn = document.getElementById('btn-toggle-all-review');
+
+  if (allContainer.style.display === 'none') {
+    singleContainer.style.display = 'none';
+    allContainer.style.display = 'block';
+    if (btn) btn.textContent = '🔍 Ikuspegi Banakakoa (Galderaz Galdera)';
+    renderizatuGalderaGuztiakReview();
+  } else {
+    allContainer.style.display = 'none';
+    singleContainer.style.display = 'block';
+    if (btn) btn.textContent = '📋 Ikusi Zerrenda Osoa (Guztiak Batera)';
+  }
+}
+
+function renderizatuGalderaGuztiakReview() {
+  const allContainer = document.getElementById('test-all-review-container');
+  if (!allContainer) return;
   const letrak = ['A', 'B', 'C', 'D'];
 
-  const galderakHtml = EGOERA.galderak.map((g, qIdx) => {
+  const html = EGOERA.galderak.map((g, qIdx) => {
     const hautatutakoAukera = EGOERA.erabiltzaileAukerak[g.id];
     const erantzunda = (hautatutakoAukera !== undefined);
     const zuzenaDa = erantzunda && (hautatutakoAukera === g.zuzena);
 
-    let kategoriaBadge = `<span class="q-badge">${g.gaia}</span>`;
-
     const aukerakHtml = g.aukerak.map((aukeraTestua, aIdx) => {
       let klaseak = 'option-btn';
       if (hautatutakoAukera === aIdx) klaseak += ' selected';
-
-      if (emaitzakIkusi) {
-        if (aIdx === g.zuzena) {
-          klaseak += ' correct';
-        } else if (hautatutakoAukera === aIdx && !zuzenaDa) {
-          klaseak += ' wrong';
-        }
-      }
+      if (aIdx === g.zuzena) klaseak += ' correct';
+      else if (hautatutakoAukera === aIdx && !zuzenaDa) klaseak += ' wrong';
 
       return `
-        <button class="${klaseak}" onclick="aukeratuErantzuna(${g.id}, ${aIdx})" ${emaitzakIkusi ? 'disabled' : ''}>
+        <button class="${klaseak}" disabled>
           <span class="option-letter">${letrak[aIdx]}</span>
           <span>${aukeraTestua}</span>
         </button>
       `;
     }).join('');
 
-    let azalpenKutxa = '';
-    if (emaitzakIkusi) {
-      azalpenKutxa = `
-        <div class="explanation-box ${zuzenaDa ? 'correct' : 'wrong'}">
+    return `
+      <div class="question-card" style="margin-bottom:20px;">
+        <div class="q-header">
+          <span class="q-badge">${g.gaia}</span>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-mono);">${qIdx + 1} / ${EGOERA.galderak.length}</span>
+        </div>
+        <div class="question-title">${qIdx + 1}. ${g.enuntziatua}</div>
+        <div class="options-grid">${aukerakHtml}</div>
+        <div class="explanation-box ${zuzenaDa ? 'correct' : 'wrong'}" style="margin-top:14px;">
           <div style="font-weight:700; margin-bottom:4px;">
             ${zuzenaDa ? '✅ ERANTZUN ZUZENA!' : `❌ ERANTZUN OKERRA! (Erantzun zuzena: ${letrak[g.zuzena]})`}
           </div>
           <div>${g.azalpena}</div>
         </div>
-      `;
-    }
-
-    return `
-      <div class="question-card" data-qid="${g.id}">
-        <div class="q-header">
-          ${kategoriaBadge}
-          <span style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-mono);">${qIdx + 1} / ${EGOERA.galderak.length}</span>
-        </div>
-        <div class="question-title">${qIdx + 1}. ${g.enuntziatua}</div>
-        <div class="options-grid">${aukerakHtml}</div>
-        ${azalpenKutxa}
       </div>
     `;
   }).join('');
 
-  container.innerHTML = galderakHtml;
-
-  const actionsBar = document.getElementById('test-actions-bar');
-  if (!emaitzakIkusi) {
-    actionsBar.innerHTML = `
-      <button class="btn-primary" onclick="amaituTesta()" style="font-size:1.05rem; padding:14px 28px;">
-        🏁 Testa Bukatu eta Zuzendu
-      </button>
-    `;
-  } else {
-    actionsBar.innerHTML = `
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-        <button class="btn-primary" onclick="hasiTeoriaTesta()">
-          🔄 Test Berri Bat Egin (20 Galdera)
-        </button>
-        ${EGOERA.okerrak.length > 0 ? `
-          <button class="btn-secondary" onclick="birpasatuOkerrak()" style="border-color:var(--accent-red); color:var(--accent-red);">
-            🎯 Birpasatu Huts Egindakoak Soilik (${EGOERA.okerrak.length})
-          </button>
-        ` : ''}
-        <button class="btn-secondary" onclick="aldatuTab('estatistikak')">
-          📊 Ikusi Estatistika Panela
-        </button>
-      </div>
-    `;
-  }
+  allContainer.innerHTML = html;
 }
 
 function amaituTesta() {
@@ -357,6 +562,17 @@ function amaituTesta() {
   } else {
     verdictEl.className = 'results-verdict fail';
     verdictEl.textContent = `❌ EZ GAINDITUA (Nota: ${nota10} / 10). Birpasatu akatsak!`;
+  }
+
+  const btnReviewFailed = document.getElementById('btn-review-failed');
+  const failedCountSpan = document.getElementById('failed-count-btn');
+  if (btnReviewFailed && failedCountSpan) {
+    if (EGOERA.okerrak.length > 0) {
+      btnReviewFailed.style.display = 'inline-flex';
+      failedCountSpan.textContent = EGOERA.okerrak.length;
+    } else {
+      btnReviewFailed.style.display = 'none';
+    }
   }
 
   document.getElementById('test-results-card').style.display = 'block';
