@@ -18,7 +18,6 @@ public class APP{
         //a1.start;
         h3.start();
 
-
         System.out.println("Ni naiz hari nagusia!");
         Thread.sleep(2000);
         h1.gelditu();

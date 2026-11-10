@@ -9,7 +9,7 @@ public class Haria extends Thread{
     }
 
     public void gelditu(){
-        this.martxan=false;
+        this.martxan = false;
     }
 
     public void run() {
@@ -17,8 +17,8 @@ public class Haria extends Thread{
             System.out.println("Hari bat naiz eta nire izena " + this.getName());
             try {
                 Thread.sleep(500);
-            }catch (InterruptedException e){
-                throw  new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

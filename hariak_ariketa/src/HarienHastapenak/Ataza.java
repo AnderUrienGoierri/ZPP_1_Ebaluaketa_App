@@ -6,7 +6,6 @@ public class Ataza implements Runnable {
         this.izena = izena;
     }
 
-
     @Override
     public void run() {
         for (int i = 1; i <= 10; i++) {
